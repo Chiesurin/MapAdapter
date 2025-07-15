@@ -176,14 +176,14 @@ public interface HCollection {
      *
      * The general contract for the {@code Object.equals} method states that
      * equals must be symmetric (in other words, {@code a.equals(b)} if and
-     * only if {@code b.equals(a)}). The contracts for {@code HList.equals}
+     * only if {@code b.equals(a)}). The contracts for {@code List.equals}
      * and {@code HSet.equals} state that lists are only equal to other lists,
      * and sets to other sets. Thus, a custom {@code equals} method for a
-     * collection class that implements neither the {@code HList} nor
+     * collection class that implements neither the {@code List} nor
      * {@code HSet} interface must return {@code false} when this collection
      * is compared to any list or set. (By the same logic, it is not possible
      * to write a class that correctly implements both the {@code HSet} and
-     * {@code HList} interfaces.)
+     * {@code List} interfaces.)
      *
      * @param o Object to be compared for equality with this collection.
      * @return {@code true} if the specified object is equal to this

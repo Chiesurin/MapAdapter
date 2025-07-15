@@ -5,14 +5,13 @@ package myTest;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
-import org.junit.runners.AllTests;
 
 public class TestRunner {
     public static void main(String[] args){
         System.out.println("\n-------------------- TESTS --------------------");
         System.out.println("\nStarting the test runner...");
         
-        Result result = JUnitCore.runClasses(AllTests.class);
+        Result result = JUnitCore.runClasses(TestsSuite.class);
 
         System.out.println("\n------------------------------------------------");
         System.out.println("Total runtime: " + result.getRunTime() + " ms");
@@ -27,9 +26,10 @@ public class TestRunner {
         } else {
             System.out.println("\nSome tests failed: ");
             for (Failure failure : result.getFailures()) {
-                System.out.println("Test: " + failure.getDescription().getMethodName());
+                //write test case name and failure message
+                System.out.println("Test class: " + failure.getDescription().getClassName());
+                System.out.println("Test name: " + failure.getDescription().getMethodName());
                 System.out.println("Message: " + failure.getMessage());
-                System.out.println("Stack Trace: " + failure.getTrace());
                 System.out.println("------------------------------------------------");
             }
         }

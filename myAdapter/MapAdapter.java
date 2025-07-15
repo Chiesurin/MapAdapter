@@ -23,7 +23,7 @@ import myExceptions.UnsupportedOperationException;
  * <p>
  * <strong>Important:</strong> this implementation of {@code HMap} can contain itself as a key.
  * Undefined behaviors are expected if this happens. 
- * Though it is reccomended to not insert mutable objects as keys.
+ * It is highly suggested to not use mutable objects as keys.
  * <p>
  * <strong>Important:</strong> Due to limitations of the CLDC 1.1 {@code Hashtable} implementation,
  * both keys and values <em>must not</em> be {@code null}. Any attempt to insert a {@code null} key 
@@ -422,6 +422,8 @@ public class MapAdapter implements HMap {
 		 *
 		 * @param c the collection to check for containment
 		 * @return {@code true} if all elements of {@code c} are contained in this collection
+		 * @throws ClassCastException 	if the types of one or more elements
+     	 * 								in the specified collection are incompatible with this collection
 		 * @throws NullPointerException if {@code c} is {@code null}
 		 */
 		public boolean containsAll(HCollection c) {
@@ -434,26 +436,6 @@ public class MapAdapter implements HMap {
 					return false;
 			}
 			return true;
-		}
-
-		/**
-		 * Compares the specified object with this collection for equality.
-		 * <p>
-		 * Two collections are equal if they are of the same size and contain the same elements.
-		 *
-		 * @param o the object to be compared for equality with this collection
-		 * @return {@code true} if the specified object is equal to this collection
-		 */
-		public boolean equals(Object o) {
-			if (!(o instanceof HCollection) || o == null)
-				return false;
-
-			if(o == this)
-				return true;
-
-			HCollection c = (HCollection)o;
-			
-			return this.size() == c.size() && this.containsAll(c);
 		}
 
 		/**
@@ -486,6 +468,8 @@ public class MapAdapter implements HMap {
 		 *
 		 * @param c the collection containing elements to be removed
 		 * @return {@code true} if this collection was modified
+		 * @throws ClassCastException 	if the types of one or more elements
+		 * 								in the specified collection are incompatible with this collection
 		 * @throws NullPointerException if {@code c} is {@code null}
 		 */
 		public boolean removeAll(HCollection c) {
@@ -506,6 +490,8 @@ public class MapAdapter implements HMap {
 		 *
 		 * @param c the collection containing elements to retain
 		 * @return {@code true} if this collection was modified
+		 * @throws ClassCastException 	if the types of one or more elements
+		 * 								in the specified collection are incompatible with this collection
 		 * @throws NullPointerException if {@code c} is {@code null}
 		 */
 		public boolean retainAll(HCollection c) {
@@ -590,14 +576,14 @@ public class MapAdapter implements HMap {
 		 */
 		public String toString() {
 			StringBuffer sb = new StringBuffer();
-			sb.append("{");
+			sb.append("[");
 			HIterator iterator = this.iterator();
 			while(iterator.hasNext()){
 				sb.append(iterator.next().toString());
 				if(iterator.hasNext())
 					sb.append(", ");
 			}
-			sb.append("}");
+			sb.append("]");
 			return sb.toString();
 		}
 	}
@@ -629,6 +615,32 @@ public class MapAdapter implements HMap {
 		 */
 		protected EntrySet(){
 			//intentionally left blank
+		}
+
+		/**
+		 * Compares the specified object with this set for equality.
+		 * <p>
+		 * The comparison is based on the entries contained in the set. Two sets are considered
+		 * equal if they contain the same entries, regardless of their order.
+		 *
+		 * @param o the object to compare with this set
+		 * @return {@code true} if the specified object is equal to this set
+		 */
+		public boolean equals(Object o) {
+			if (!(o instanceof HSet) || o == null) {
+				return false;
+			}
+
+			if(o == this)
+				return true;
+
+			HSet s = (HSet)o;
+
+			try{
+				return s.size() == this.size() && this.containsAll(s);
+			} catch (ClassCastException | NullPointerException e) {
+				return false;
+			}
 		}
 
 		/**
@@ -665,6 +677,9 @@ public class MapAdapter implements HMap {
 		 * @throws ClassCastException if the argument is not of type {@code HEntry}
 		 */
 		public boolean remove(Object o) {
+			if(o == null)
+				throw new NullPointerException("contained entry must not be null.");
+
 			if(this.contains(o))
 				return hashTable.remove(((HEntry)o).getKey()) != null;
 			return false;
@@ -711,6 +726,32 @@ public class MapAdapter implements HMap {
 		 */
 		protected KeySet(){
 			//intentionally left blank
+		}
+
+		/**
+		 * Compares the specified object with this set for equality.
+		 * <p>
+		 * The comparison is based on the keys contained in the set. Two sets are considered
+		 * equal if they contain the same keys, regardless of their order.
+		 *
+		 * @param o the object to compare with this set
+		 * @return {@code true} if the specified object is equal to this set
+		 */
+		public boolean equals(Object o) {
+			if (!(o instanceof HSet) || o == null) {
+				return false;
+			}
+
+			if(o == this)
+				return true;
+
+			HSet s = (HSet)o;
+
+			try{
+				return s.size() == this.size() && this.containsAll(s);
+			}catch (NullPointerException e) {
+				return false;
+			}
 		}
 
 		/**
@@ -783,6 +824,33 @@ public class MapAdapter implements HMap {
 		 */
 		protected ValueCollection(){
 			//intentionally left blank
+		}
+
+		/**
+		 * Compares the specified object with this collection for equality.
+		 * <p>
+		 * The comparison is based on the values contained in the collection. Two collections
+		 * are considered equal if they contain the same values, regardless of their order.
+		 * If the specified object is an instance of {@code HSet}, it will return {@code false}
+		 * according to the contract of {@code HCollection.equals()}.
+		 *
+		 * @param o the object to compare with this collection
+		 * @return {@code true} if the specified object is equal to this collection
+		 */
+		public boolean equals(Object o) {
+			if (o instanceof HSet || !(o instanceof HCollection) || o == null) {
+				return false;
+			}
+
+			if(o == this)
+				return true;
+
+			HCollection c = (HCollection)o;
+			try{
+				return c.size() == this.size() && this.containsAll(c);
+			} catch (NullPointerException e) {
+				return false;
+			}
 		}
 
 		/**
@@ -958,6 +1026,9 @@ public class MapAdapter implements HMap {
 	 * @throws NullPointerException if the value is {@code null}
 	 */
 	public boolean containsValue(Object value) {
+		if(value == null)
+			throw new NullPointerException("contained value must not be null.");
+
 		return this.hashTable.contains(value);
 	}
 
@@ -991,7 +1062,7 @@ public class MapAdapter implements HMap {
 
 		HMap m = (HMap)o;
 		
-		return this.size() == m.size() && this.entrySet().equals(m.entrySet());
+		return this.entrySet().equals(m.entrySet());
 	}
 
 	/**
@@ -1057,10 +1128,11 @@ public class MapAdapter implements HMap {
 	 * @param key the key with which the specified value is to be associated
 	 * @param value the value to be associated with the key
 	 * @return the previous value associated with the key, or {@code null} if there was none
-	 * @throws IllegalArgumentException if the key is this map or if the key is the key set of this map
 	 * @throws NullPointerException if the key or value is {@code null}
 	 */
 	public Object put(Object key, Object value) {
+		if(key == null || value == null)
+			throw new NullPointerException("neither keys nor values can be null.");
 		return this.hashTable.put(key, value);
 	}
 
@@ -1073,7 +1145,6 @@ public class MapAdapter implements HMap {
 	 * In accordance with the restrictions of CLDC 1.1, neither keys nor values can be {@code null}.
 	 *
 	 * @param t the map whose entries are to be copied into this map
-	 * @throws IllegalArgumentException if some key or value in the specified map is {@code null}
 	 * @throws NullPointerException if the specified map is {@code null} or contains {@code null} keys or values
 	 */
 	public void putAll(HMap t) {
@@ -1100,6 +1171,7 @@ public class MapAdapter implements HMap {
 	public Object remove(Object key) {
 		if(key == null)
 			throw new NullPointerException("contained key must not be null.");
+
 		return this.hashTable.remove(key);
 	}
 
@@ -1130,7 +1202,7 @@ public class MapAdapter implements HMap {
 	 * @return a string representation of the map
 	 */
 	public String toString() {
-		return this.entrySet().toString();
+		return hashTable.toString();
 	}
 
 	/*-------------------------------------------------------------------------------------------*/

@@ -8,11 +8,11 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     TestEmptyMapAdapter.class,
-
+    TestEntrySet.class
 })
-public class AllTests {
+public class TestsSuite {
     
-    public AllTests() {
+    public TestsSuite() {
         // intentionally left blank
     }
 }

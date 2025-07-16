@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     TestEmptyMapAdapter.class,
-    TestEmptyAbstractCollections.class
+    TestEmptyAbstractCollections.class,
+    TestPopulatedMapAdapter.class
 })
 public class TestsSuite {
     

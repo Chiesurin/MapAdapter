@@ -21,7 +21,6 @@ import myExceptions.UnsupportedOperationException;
  * the behavior and contract of the {@code Map} interface from J2SE 1.4.2. All optional operations
  * are supported, and view-based backing behavior is preserved where applicable.
  * <p>
- * <strong>Important:</strong> this implementation of {@code HMap} can contain itself as a key.
  * <strong>Important:</strong> this implementation of {@code HMap} can contain itself as a key, 
  * though it is highly reccomended against it. Generally it is not reccomended to use
  * a mutable object as a key. Even using this map as a value can cause errors.

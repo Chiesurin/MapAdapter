@@ -2,20 +2,17 @@
 
 package myTest;
 
-import myAdapter.MapAdapter;
+import myAdapter.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 import java.util.Map;
-
 import myExceptions.UnsupportedOperationException;
-
 import org.junit.After;
 
 public class TestEmptyMapAdapter {
 
-    private MapAdapter map;
+    private HMap map;
 
     public TestEmptyMapAdapter() {
         // intentionally left blank
@@ -26,11 +23,16 @@ public class TestEmptyMapAdapter {
         map = new MapAdapter();
     }
 
+    @After
+    public void tearDown() {
+        this.map = null;
+    }
+
     @Test
     public void testMapAdapterDefaultConstructor() {
         assertNotNull("MapAdapter should not be null", map);
-        assertTrue("MapAdapter should be empty", map.isEmpty());
-        assertEquals("Size of MapAdapter should be 0", 0, map.size());
+        assertTrue("MapAdapter should be empty", this.map.isEmpty());
+        assertEquals("Size of MapAdapter should be 0", 0, this.map.size());
     }
 
     @Test
@@ -39,15 +41,16 @@ public class TestEmptyMapAdapter {
         assertNotNull("MapAdapter with initial capacity should not be null", mapWithInitialCapacity);
         assertTrue("MapAdapter with initial capacity should be empty", mapWithInitialCapacity.isEmpty());
         assertEquals("Size of MapAdapter with initial capacity should be 0", 0, mapWithInitialCapacity.size());
-        assertTrue("MapAdapter with zero initial capacity should be equal to an empty map", mapWithInitialCapacity.equals(map));
+        assertTrue("MapAdapter with zero initial capacity should be equal to an empty MapAdapter", mapWithInitialCapacity.equals(map));
     }  
 
+    @Test
     public void testMapAdapterConstructorWithPositiveInitialCapacity() {
         MapAdapter mapWithInitialCapacity = new MapAdapter(1);
         assertNotNull("MapAdapter with initial capacity should not be null", mapWithInitialCapacity);
         assertTrue("MapAdapter with initial capacity should be empty", mapWithInitialCapacity.isEmpty());
         assertEquals("Size of MapAdapter with initial capacity should be 0", 0, mapWithInitialCapacity.size());
-        assertTrue("MapAdapter with positive initial capacity should be equal to an empty map", mapWithInitialCapacity.equals(map));
+        assertTrue("MapAdapter with positive initial capacity should be equal to an empty MapAdapter", mapWithInitialCapacity.equals(map));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -64,224 +67,254 @@ public class TestEmptyMapAdapter {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapAdapterCopyConstructorWithNullMap() {
+    public void testMapAdapterCopyConstructorWithNullHMap() {
         MapAdapter copy = new MapAdapter(null);
     }
 
     @Test
-    public void testMapAdapterClearOnEmptyMap() {
-        map.clear();
-        assertTrue("Clear on empty map should not change its state", map.isEmpty());
-        assertEquals("Size after clear on empty map should still be 0", 0, map.size());
+    public void testClearOnEmptyMapAdapter() {
+        this.map.clear();
+        assertTrue("Clear on empty MapAdapter should not change its state", this.map.isEmpty());
+        assertEquals("Size after clear on empty MapAdapter should still be 0", 0, this.map.size());
     }
 
     @Test
-    public void testContainsKeyOnEmptyMap() {
-        assertFalse("Empty map should not contain any key", map.containsKey("testKey"));
+    public void testContainsKeyOnEmptyMapAdapter() {
+        assertFalse("Empty MapAdapter should not contain any key", this.map.containsKey("testKey"));
     }
 
     @Test(expected = NullPointerException.class)
-    public void testContainsNullKeyOnEmptyMap() {
-        map.containsKey(null);
+    public void testContainsNullKeyOnEmptyMapAdapter() {
+        this.map.containsKey(null);
     }
 
     @Test
-    public void testContainsValueOnEmptyMap() {
-        assertFalse("Empty map should not contain any value", map.containsValue("testValue"));
+    public void testContainsValueOnEmptyMapAdapter() {
+        assertFalse("Empty MapAdapter should not contain any value", this.map.containsValue("testValue"));
     }
 
     @Test(expected = NullPointerException.class)
-    public void testContainsNullValueOnEmptyMap() {
-        map.containsValue(null);
+    public void testContainsNullValueOnEmptyMapAdapter() {
+        this.map.containsValue(null);
     }
 
     @Test
-    public void testEntrySetOnEmptyMap() {
-        assertNotNull("Entry set of an empty map should not be null", map.entrySet());
-        assertTrue("EntrySet of an empty map should be empty", map.entrySet().isEmpty());
+    public void testEntrySetOnEmptyMapAdapter() {
+        assertNotNull("Entry set of an empty MapAdapter should not be null", this.map.entrySet());
+        assertTrue("EntrySet of an empty MapAdapter should be empty", this.map.entrySet().isEmpty());
     }
 
     @Test
-    public void testEqualsOnEmptyMap() {
+    public void testEqualsOnEmptyMapAdapter() {
         MapAdapter anotherEmptyMap = new MapAdapter();
-        assertTrue("Two empty maps should be equal", map.equals(anotherEmptyMap));
+        assertTrue("Two empty MapAdapters should be equal", this.map.equals(anotherEmptyMap));
     }
 
     @Test
-    public void testEqualsOnEmptyMapWithNull() {
-        assertFalse("Empty map should not be equal to null", map.equals(null));
+    public void testEqualsOnEmptyMapAdapterWithNonEmptyMap() {
+        MapAdapter nonEmptyMap = new MapAdapter();
+        nonEmptyMap.put("testKey", "testValue");
+        assertFalse("Empty MapAdapter should not be equal to a non-empty MapAdapter", this.map.equals(nonEmptyMap));
     }
 
     @Test
-    public void testEqualsOnEmptyMapWithItself() {
-        assertTrue("Empty map should be equal to itself", map.equals(map));
+    public void testEqualsOnEmptyMapAdapterWithNull() {
+        assertFalse("Empty MapAdapter should not be equal to null", this.map.equals(null));
     }
 
     @Test
-    public void testEqualsOnEmptyMapWithEntrySet() {
-        assertFalse("Empty map should not be equal to its entry set", map.equals(map.entrySet()));
+    public void testEqualsOnEmptyMapAdapterWithItself() {
+        assertTrue("Empty MapAdapter should be equal to itself", this.map.equals(map));
     }
 
     @Test
-    public void testEqualsOnEmptyMapIsSymmetric() {
-        MapAdapter anotherEmptyMap = new MapAdapter();
-        assertTrue("Equals should be symmetric", anotherEmptyMap.equals(map) && map.equals(anotherEmptyMap));
+    public void testEqualsOnEmptyMapAdapterWithEntrySet() {
+        assertFalse("Empty MapAdapter should not be equal to its entry set", this.map.equals(this.map.entrySet()));
     }
 
     @Test
-    public void testEqualsWithNonHMapObject() {
-        assertFalse("Empty map should not be equal to a non-HMap object", map.equals("Not a map"));
+    public void testEqualsOnEmptyMapAdapterIsSymmetric() {
+        MapAdapter anotherEmptyMapAdapter = new MapAdapter();
+        assertTrue("Equals should be symmetric", anotherEmptyMapAdapter.equals(map) && this.map.equals(anotherEmptyMapAdapter));
     }
 
     @Test
-    public void testGetOnEmptyMap() {
-        assertNull("Get should return null for any key", map.get("testKey"));
+    public void testEqualsOnEmptyMapAdapterWithNonHMapObject() {
+        assertFalse("Empty MapAdapter should not be equal to a non-HMap object", this.map.equals("Not a map"));
+    }
+
+    @Test
+    public void testGetOnEmptyMapAdapter() {
+        assertNull("Get should return null for any key", this.map.get("testKey"));
     }
 
     @Test(expected = NullPointerException.class)
     public void testGetWithNullKeyOnEmptyMap() {
-        map.get(null);
+        this.map.get(null);
     }
 
     @Test
-    public void testHashCodeOnEmptyMap() {
-        assertEquals("Hash code of an empty map should be 0", 0, map.hashCode());
+    public void testHashCodeOnEmptyMapAdapter() {
+        assertEquals("Hash code of an empty MapAdapter should be 0", 0, this.map.hashCode());
     }
 
     @Test
-    public void testIsEmptyOnEmptyMap() {
-        assertTrue("Map should be empty", map.isEmpty());
+    public void testIsEmptyOnEmptyMapAdapter() {
+        assertTrue("MapAdapter should be empty", this.map.isEmpty());
     }
 
     @Test
-    public void testKeySetOnEmptyMap() {
-        assertNotNull("KeySet of an empty map should not be null", map.keySet());
-        assertTrue("KeySet of an empty map should be empty", map.keySet().isEmpty());
+    public void testKeySetOnEmptyMapAdapter() {
+        assertNotNull("KeySet of an empty MapAdapter should not be null", this.map.keySet());
+        assertTrue("KeySet of an emptyMapAdapter should be empty", this.map.keySet().isEmpty());
     }
 
     @Test
-    public void testPutOnEmptyMap() {
-        map.put("key", "value");
-        assertEquals("Size should be 1 after put", 1, map.size());
-        assertFalse("Map should not be empty after put", map.isEmpty());
-        assertTrue("Map should contain the key after put", map.containsKey("key"));
-        assertTrue("Map should contain the value after put", map.containsValue("value"));
-        assertEquals("Get should return the value after put", "value", map.get("key"));
+    public void testPutOnEmptyMapAdapter() {
+        this.map.put("testKey", "testValue");
+        assertEquals("Size should be 1 after put", 1, this.map.size());
+        assertFalse("MapAdapter should not be empty after put", this.map.isEmpty());
+        assertTrue("MapAdapter should contain the key after put", this.map.containsKey("testKey"));
+        assertTrue("MapAdapter should contain the value after put", this.map.containsValue("testValue"));
+        assertEquals("Get should return the value after put", "testValue", this.map.get("testKey"));
     }    
 
     @Test
-    public void testPutWithThisMapAsAKeyInsertsANewEntry () {
-        this.map.put(this.map, "value");
-        assertFalse("Map should not be empty after put with this map as a key", map.isEmpty());
-        assertEquals("Map after put with this map as a key should have size 1", 1, map.size());
+    public void testPutOnEmptyMapAdapterWithThisMapAsAKeyInsertsANewEntry () {
+        this.map.put(this.map, "testValue");
+        assertFalse("MapAdapter should not be empty after put with this map as a key", this.map.isEmpty());
+        assertEquals("MapAdapter after put with this map as a key should have size 1", 1, this.map.size());
+        //cannot invoke this.map.get(this.map), it would cause a stack overflow
     }
 
     @Test
-    public void testPutWithThisMapAsAValueInsertsANewEntry () {
-        this.map.put("key", this.map);
-        assertFalse("Map should not be empty after put with this map as a value", map.isEmpty());
-        assertEquals("Map after put with this map as a value should have size 1", 1, map.size());
+    public void testPutOnEmptyMapAdapterWithThisMapAsAValueInsertsANewEntry () {
+        this.map.put("testKey", this.map);
+        assertFalse("MapAdapter should not be empty after put with this map as a value", this.map.isEmpty());
+        assertEquals("MapAdapter after put with this map as a value should have size 1", 1, this.map.size());
+        assertEquals("Get should return the value after put", this.map, this.map.get("testKey"));
     }
 
     @Test
-    public void testPutWithThisMapAsAKeyAndThisMapAsAValueInsertsANewEntry () {
+    public void testPutOnEmptyMapAdapterWithThisMapAsAKeyAndThisMapAsAValueInsertsANewEntry () {
         this.map.put(this.map, this.map);
-        assertFalse("Map should not be empty after put with this map as a key and value", map.isEmpty());
-        assertEquals("Map after put with this map as a key and value should have size 1", 1, map.size());
+        assertFalse("MapAdapter should not be empty after put with this map as a key and value", this.map.isEmpty());
+        assertEquals("MapAdapter after put with this map as a key and value should have size 1", 1, this.map.size());
+        //cannot invoke this.map.get(this.map), it would cause a stack overflow
+        //and cannot check if this.map.equals(this.map.get(this.map)) for the same reason
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testPutWithNullKeyOnEmptyMapAdapter() {
+        this.map.put(null, "value");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testPutWithNullValueOnEmptyMapAdapter() {
+        this.map.put("key", null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testPutWithNullKeyAndNullValueOnEmptyMapAdapter() {
+        this.map.put(null, null);
     }
 
     @Test
-    public void testPutWithThisMapAsAValueWorks () {
-        this.map.put("key", this.map);
-        assertEquals("Get should return the value after put", this.map, map.get("key"));
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testPutWithNullKeyOnEmptyMap() {
-        map.put(null, "value");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testPutWithNullValueOnEmptyMap() {
-        map.put("key", null);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testPutWithNullKeyAndNullValueOnEmptyMap() {
-        map.put(null, null);
-    }
-
-    @Test
-    public void testPutAllOnEmptyMap() {
+    public void testPutAllOnEmptyMapAdapterWithAnotherEmptyMapMapAdapter() {
         MapAdapter anotherMap = new MapAdapter();
         this.map.putAll(anotherMap);
-        assertTrue("PutAll on empty map from empty map should not change its state", map.isEmpty());
-        assertEquals("Size after PutAll on empty map from empty map should still be 0", 0, map.size());
+        assertTrue("PutAll on empty MapAdapter from empty map should not change its state", this.map.isEmpty());
+        assertEquals("Size after PutAll on empty MapAdapter from empty map should still be 0", 0, this.map.size());
+        assertTrue("Both the maps should be equal", this.map.equals(anotherMap));
     }
 
     @Test
-    public void testPutAllWithThisMap() {
+    public void testPutAllWithThisMapAdapter() {
         this.map.putAll(this.map);
-        assertTrue("Map should be empty after putAll with empty map", map.isEmpty());
-        assertEquals("Map after putAll with this map should have size 0", 0, map.size());
+        assertTrue("MapAdapter should be empty after putAll with empty map", this.map.isEmpty());
+        assertEquals("MapAdapter after putAll with this map should have size 0", 0, this.map.size());
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testPutAllWithNullMapOnEmptyMap() {
-        map.putAll(null);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testPutAllWithNullKeyOnEmptyMap() {
+    @Test
+    public void testPutAllOnEmptyMapAdapterWithAnotherNonEmptyMapAdapter() {
         MapAdapter anotherMap = new MapAdapter();
+        anotherMap.put("key1", "value1");
+        anotherMap.put("key2", "value2");
+        anotherMap.put("key3", "value3");
+        anotherMap.put("key4", "value4");
+        anotherMap.put("key5", "value5");
+        this.map.putAll(anotherMap);
+        assertFalse("MapAdapter should not be empty after putAll with another non empty MapAdapter", this.map.isEmpty());
+        assertEquals("MapAdapter size after putAll with another MapAdapter of size 5 should be 5", 5, this.map.size());
+        assertTrue("MapAdapter should be equal to another non empty MapAdapter after putAll", this.map.equals(anotherMap));
+        assertTrue("MapAdapter should contain all keys from another non empty MapAdapter after putAll", this.map.containsKey("key1"));
+        assertTrue("MapAdapter should contain all keys from another non empty MapAdapter after putAll", this.map.containsKey("key2"));
+        assertTrue("MapAdapter should contain all keys from another non empty MapAdapter after putAll", this.map.containsKey("key3"));
+        assertTrue("MapAdapter should contain all keys from another non empty MapAdapter after putAll", this.map.containsKey("key4"));
+        assertTrue("MapAdapter should contain all keys from another non empty MapAdapter after putAll", this.map.containsKey("key5"));
+        assertTrue("MapAdapter should contain all values from another non empty MapAdapter after putAll", this.map.containsValue("value1"));
+        assertTrue("MapAdapter should contain all values from another non empty MapAdapter after putAll", this.map.containsValue("value2"));
+        assertTrue("MapAdapter should contain all values from another non empty MapAdapter after putAll", this.map.containsValue("value3"));
+        assertTrue("MapAdapter should contain all values from another non empty MapAdapter after putAll", this.map.containsValue("value4"));
+        assertTrue("MapAdapter should contain all values from another non empty MapAdapter after putAll", this.map.containsValue("value5"));
+        assertEquals("Get should return the correct value after putAll", "value1", this.map.get("key1"));
+        assertEquals("Get should return the correct value after putAll", "value2", this.map.get("key2"));
+        assertEquals("Get should return the correct value after putAll", "value3", this.map.get("key3"));
+        assertEquals("Get should return the correct value after putAll", "value4", this.map.get("key4"));
+        assertEquals("Get should return the correct value after putAll", "value5", this.map.get("key5"));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testPutAllWithNullMapOnEmptyMapAdapter() {
+        this.map.putAll(null);
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testPutAllWithNullKeyOnEmptyMapAdapter() {
+        DummyTestMap anotherMap = new DummyTestMap();
         anotherMap.put(null, "value");
-        map.putAll(anotherMap);
+        this.map.putAll(anotherMap);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testPutAllWithNullValueOnEmptyMap() {
-        MapAdapter anotherMap = new MapAdapter();
+    public void testPutAllWithNullValueOnEmptyMapAdapter() {
+        DummyTestMap anotherMap = new DummyTestMap();
         anotherMap.put("key", null);
-        map.putAll(anotherMap);
+        this.map.putAll(anotherMap);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testPutAllWithNullKeyAndNullValueOnEmptyMap() {
-        MapAdapter anotherMap = new MapAdapter();
+    public void testPutAllWithNullKeyAndNullValueOnEmptyMapAdapter() {
+        DummyTestMap anotherMap = new DummyTestMap();
         anotherMap.put(null, null);
-        map.putAll(anotherMap);
+        this.map.putAll(anotherMap);
     }
-
+    
     @Test 
-    public void testRemoveOnEmptyMap() {
-        assertNull("Remove should return null for any key", map.remove("testKey"));
-        assertTrue("Map should still be empty after remove on empty map", map.isEmpty());
-        assertEquals("Size should still be 0 after remove on empty map", 0, map.size());
+    public void testRemoveOnEmptyMapAdapter() {
+        assertNull("Remove should return null for any key", this.map.remove("testKey"));
+        assertTrue("MapAdapter should still be empty after remove on empty MapAdapter", this.map.isEmpty());
+        assertEquals("Size should still be 0 after remove on empty MapAdapter", 0, this.map.size());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testRemoveWithNullKeyOnEmptyMap() {
-        map.remove(null);
+    public void testRemoveWithNullKeyOnEmptyMapAdapter() {
+        this.map.remove(null);
     }
 
     @Test
-    public void testSizeOnEmptyMap() {
-        assertEquals("Size should be 0", 0, map.size());
+    public void testSizeOnEmptyMapAdapter() {
+        assertEquals("Size should be 0", 0, this.map.size());
     }
 
     @Test
-    public void testValuesOnEmptyMap() {
-        assertNotNull("Values collection of an empty map should not be null", map.values());
-        assertTrue("Values collection should be empty", map.values().isEmpty());
+    public void testValuesOnEmptyMapAdapter() {
+        assertNotNull("Values collection of an empty MapAdapter should not be null", this.map.values());
+        assertTrue("Values collection should be empty", this.map.values().isEmpty());
     }
 
     @Test
-    public void testToStringOnEmptyMap() {
-        assertEquals("String representation of an empty map should be \"{}\"", "{}", map.toString());
-    }
-
-    @After
-    public void tearDown() {
-        map = null;
+    public void testToStringOnEmptyMapAdapter() {
+        assertEquals("String representation of an empty MapAdapter should be \"{}\"", "{}", this.map.toString());
     }
 }

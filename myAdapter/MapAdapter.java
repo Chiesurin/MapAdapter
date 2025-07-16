@@ -22,8 +22,9 @@ import myExceptions.UnsupportedOperationException;
  * are supported, and view-based backing behavior is preserved where applicable.
  * <p>
  * <strong>Important:</strong> this implementation of {@code HMap} can contain itself as a key.
- * Undefined behaviors are expected if this happens. 
- * It is highly suggested to not use mutable objects as keys.
+ * <strong>Important:</strong> this implementation of {@code HMap} can contain itself as a key, 
+ * though it is highly reccomended against it. Generally it is not reccomended to use
+ * a mutable object as a key. Even using this map as a value can cause errors.
  * <p>
  * <strong>Important:</strong> Due to limitations of the CLDC 1.1 {@code Hashtable} implementation,
  * both keys and values <em>must not</em> be {@code null}. Any attempt to insert a {@code null} key 
@@ -381,7 +382,7 @@ public class MapAdapter implements HMap {
 	 * @see EntrySet
 	 * @see ValueCollection
 	 */
-	abstract protected class AbstractCollection implements HCollection {
+	protected abstract class AbstractCollection implements HCollection {
 
 		/**
 		 * Default constructor of {@code AbstractCollection}
@@ -424,7 +425,7 @@ public class MapAdapter implements HMap {
 		 * @return {@code true} if all elements of {@code c} are contained in this collection
 		 * @throws ClassCastException 	if the types of one or more elements
      	 * 								in the specified collection are incompatible with this collection
-		 * @throws NullPointerException if {@code c} is {@code null}
+		 * @throws NullPointerException if {@code c} is {@code null} or contains {@code null} elements
 		 */
 		public boolean containsAll(HCollection c) {
 			if(c == null)
@@ -470,7 +471,7 @@ public class MapAdapter implements HMap {
 		 * @return {@code true} if this collection was modified
 		 * @throws ClassCastException 	if the types of one or more elements
 		 * 								in the specified collection are incompatible with this collection
-		 * @throws NullPointerException if {@code c} is {@code null}
+		 * @throws NullPointerException if {@code c} is {@code null} or contains {@code null} elements
 		 */
 		public boolean removeAll(HCollection c) {
 			if(c == null)

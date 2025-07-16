@@ -9,12 +9,10 @@ import org.junit.runner.notification.Failure;
 public class TestRunner {
     public static void main(String[] args){
         System.out.println("\n-------------------- TESTS --------------------");
-        System.out.println("\nStarting the test runner...");
         
         Result result = JUnitCore.runClasses(TestsSuite.class);
 
-        System.out.println("\n------------------------------------------------");
-        System.out.println("Total runtime: " + result.getRunTime() + " ms");
+        System.out.println("\nTotal runtime: " + result.getRunTime() + " ms");
         System.out.println("Total tests run: " + result.getRunCount());
         System.out.println("Total successful tests: " + (result.getRunCount() - result.getFailureCount() - result.getIgnoreCount()));
         System.out.println("Total failures: " + result.getFailureCount());
@@ -23,6 +21,7 @@ public class TestRunner {
 
         if (result.wasSuccessful()) {
             System.out.println("\nAll tests passed successfully!");
+            System.out.println("\n------------------------------------------------");
         } else {
             System.out.println("\nSome tests failed: ");
             for (Failure failure : result.getFailures()) {
@@ -30,10 +29,9 @@ public class TestRunner {
                 System.out.println("Test class: " + failure.getDescription().getClassName());
                 System.out.println("Test name: " + failure.getDescription().getMethodName());
                 System.out.println("Message: " + failure.getMessage());
-                System.out.println("------------------------------------------------");
+                System.out.println("\n------------------------------------------------");
             }
         }
-        System.out.println("\n------------------------------------------------");
         System.out.println("\nExiting the test runner...\n");
     }
 }

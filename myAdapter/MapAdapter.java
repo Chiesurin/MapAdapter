@@ -24,10 +24,15 @@ import myExceptions.UnsupportedOperationException;
  * <strong>Important:</strong> this implementation of {@code HMap} can contain itself as a key, 
  * though it is highly reccomended against it. Generally it is not reccomended to use
  * a mutable object as a key. Even using this map as a value can cause errors.
+ * Certain operations, such as {@code get(this.map)} or {@code hashCode()}, will
+ * cause a {@code StackOverflowError} due to infinite recursive calls.
+ * This particular type of problem can be found in the views, and HEntry too, 
+ * using specific configurations.
  * <p>
  * <strong>Important:</strong> Due to limitations of the CLDC 1.1 {@code Hashtable} implementation,
  * both keys and values <em>must not</em> be {@code null}. Any attempt to insert a {@code null} key 
- * or value will result in a {@code NullPointerException}.
+ * or value will result in a {@code NullPointerException}. No limitations are imposed on the types of keys or values,
+ * including the ability to contain different types for keys and values.
  * <p>
  * This adapter is implemented in compliance with the Test Driven Development methodology.
  * Unit tests are provided separately in the {@code myTest} package.
@@ -71,6 +76,7 @@ public class MapAdapter implements HMap {
 		private Entry(Object key, Object value){
 			if(key == null || value == null)
 				throw new NullPointerException("key or value must not be null.");
+
 			this.key = key;
 			this.value = value;
 		}
@@ -144,9 +150,7 @@ public class MapAdapter implements HMap {
 		 *
 		 * @param value new value to be stored; must not be {@code null}
 		 * @return the old value associated with this entry
-		 * @throws NullPointerException if the specified value is {@code null}. This exception
- 		 * is thrown by the underlying {@code Hashtable.put()} method, as CLDC 1.1 does not
- 		 * allow null keys or values.
+		 * @throws NullPointerException if the specified value is {@code null}.
  		 */
 		public Object setValue(Object value){
 			Object oldValue = hashTable.put(this.key, value);
@@ -424,7 +428,8 @@ public class MapAdapter implements HMap {
 		 * @return {@code true} if all elements of {@code c} are contained in this collection
 		 * @throws ClassCastException 	if the types of one or more elements
      	 * 								in the specified collection are incompatible with this collection
-		 * @throws NullPointerException if {@code c} is {@code null} or contains {@code null} elements
+		 * @throws NullPointerException if {@code c} is {@code null}, contains one or more {@code null} entries
+		 * 								or if the entries contain {@code null} keys or values
 		 */
 		public boolean containsAll(HCollection c) {
 			if(c == null)
@@ -470,7 +475,7 @@ public class MapAdapter implements HMap {
 		 * @return {@code true} if this collection was modified
 		 * @throws ClassCastException 	if the types of one or more elements
 		 * 								in the specified collection are incompatible with this collection
-		 * @throws NullPointerException if {@code c} is {@code null} or contains {@code null} elements
+		 * @throws NullPointerException if {@code c} is {@code null}	
 		 */
 		public boolean removeAll(HCollection c) {
 			if(c == null)
@@ -478,9 +483,14 @@ public class MapAdapter implements HMap {
 
 			boolean modified = false;
 			HIterator iterator = c.iterator();
+			 
 			while(iterator.hasNext()){
-				if(this.remove(iterator.next()))
-					modified = true;
+				try{
+					if(this.remove(iterator.next()))
+						modified = true;
+				}catch(NullPointerException e){
+					//ignore
+				}
 			}
 			return modified;
 		}
@@ -651,7 +661,8 @@ public class MapAdapter implements HMap {
 		 *
 		 * @param o the object to check for presence in the set
 		 * @return {@code true} if this set contains the specified entry
-		 * @throws NullPointerException if the argument is {@code null}
+		 * @throws NullPointerException if the argument is {@code null} or if the entry
+		 * 								contains a {@code null} key or value
 		 * @throws ClassCastException if the argument is not of type {@code HEntry}
 		 */
 		public boolean contains(Object o) {
@@ -660,9 +671,12 @@ public class MapAdapter implements HMap {
 			
 			if(!(o instanceof HEntry))
 				throw new ClassCastException("contained entry must be of type HEntry.");
-			
-			return  hashTable.containsKey(((HEntry)o).getKey()) 
-					&& 
+
+			if(((HEntry)o).getValue() == null || ((HEntry)o).getKey() == null)
+				throw new NullPointerException("contained key or value must not be null.");
+				
+			return  hashTable.containsKey(((HEntry)o).getKey())
+					&&
 					hashTable.get(((HEntry)o).getKey()).equals(((HEntry)o).getValue());
 		}
 
@@ -671,7 +685,7 @@ public class MapAdapter implements HMap {
 		 * <p>
 		 * The entry is removed only if it exists in the map with the same key and value.
 		 *
-		 * @param o the object to be removed from the set
+		 * @param o the object to be removed from the set, if present
 		 * @return {@code true} if the entry was present and removed
 		 * @throws NullPointerException if the argument is {@code null}
 		 * @throws ClassCastException if the argument is not of type {@code HEntry}
@@ -1133,6 +1147,7 @@ public class MapAdapter implements HMap {
 	public Object put(Object key, Object value) {
 		if(key == null || value == null)
 			throw new NullPointerException("neither keys nor values can be null.");
+			
 		return this.hashTable.put(key, value);
 	}
 

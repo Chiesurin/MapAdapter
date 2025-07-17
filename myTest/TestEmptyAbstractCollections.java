@@ -15,7 +15,7 @@ public class TestEmptyAbstractCollections {
     private HMap map;
 
     public TestEmptyAbstractCollections() {
-        // intentionally left blank
+        //intentionally left blank
     }
 
     @Before
@@ -59,7 +59,7 @@ public class TestEmptyAbstractCollections {
 
     @Test(expected = ClassCastException.class)
     public void testContainsAllOnEmptyEntrySetWithANonEntrySet() {
-        MapAdapter anotherMap = new MapAdapter();
+        HMap anotherMap = new MapAdapter();
         anotherMap.put("testKey", "testValue");
         this.map.entrySet().containsAll(anotherMap.keySet());
     }
@@ -71,8 +71,15 @@ public class TestEmptyAbstractCollections {
 
     @Test(expected = NullPointerException.class)
     public void testContainsAllOnEmptyEntrySetWithAnotherEntrySetWithNullKeys() {
-        DummyTestMap anotherMap = new DummyTestMap();
+        HMap anotherMap = new DummyTestMap();
         anotherMap.put(null, "testValue");
+        this.map.entrySet().containsAll(anotherMap.entrySet());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testContainsAllOnEmptyEntrySetWithAnotherEntrySetWithNullValues() {
+        HMap anotherMap = new DummyTestMap();
+        anotherMap.put("testKey", null);
         this.map.entrySet().containsAll(anotherMap.entrySet());
     }
 
@@ -89,7 +96,7 @@ public class TestEmptyAbstractCollections {
     @Test
     public void testRemoveAllOnEmptyEntrySet() {
         HSet anotherEntrySet = new MapAdapter().entrySet();
-        assertFalse("RemoveAll on an empty EntrySet should return false", this.map.entrySet().removeAll(anotherEntrySet));
+        assertFalse("RemoveAll on an empty EntrySet with another empty EntrySet should return false", this.map.entrySet().removeAll(anotherEntrySet));
         assertTrue("EntrySet should still be empty after removeAll", this.map.entrySet().isEmpty());
         assertEquals("Size of EntrySet should still be 0 after removeAll", 0, this.map.entrySet().size());
     }
@@ -113,11 +120,22 @@ public class TestEmptyAbstractCollections {
         this.map.entrySet().removeAll(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRemoveAllOnEmptyEntrySetWithEntrySetWithNullKeys() {
         DummyTestMap anotherMap = new DummyTestMap();
         anotherMap.put(null, "testValue");
         this.map.entrySet().removeAll(anotherMap.entrySet());
+        assertTrue("EntrySet should still be empty after removeAll with an EntrySet with null keys", this.map.entrySet().isEmpty());
+        assertEquals("Size of EntrySet should still be 0 after removeAll with an EntrySet with null keys", 0, this.map.entrySet().size());
+    }
+
+    @Test
+    public void testRemoveAllOnEmptyEntrySetWithAnotherEntrySetWithNullValues() {
+        HMap anotherMap = new DummyTestMap();
+        anotherMap.put("testKey", null);
+        this.map.entrySet().removeAll(anotherMap.entrySet());
+        assertTrue("EntrySet should still be empty after removeAll with an EntrySet with null values", this.map.entrySet().isEmpty());
+        assertEquals("Size of EntrySet should still be 0 after removeAll with an EntrySet with null values", 0, this.map.entrySet().size());
     }
 
     @Test
@@ -347,11 +365,13 @@ public class TestEmptyAbstractCollections {
         this.map.keySet().removeAll(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRemoveAllOnEmptyKeySetWithKeySetWithNullKeys() {
         DummyTestMap anotherMap = new DummyTestMap();
         anotherMap.put(null, "testValue");
         this.map.keySet().removeAll(anotherMap.keySet());
+        assertTrue("KeySet should still be empty after removeAll with a KeySet with null keys", this.map.keySet().isEmpty());
+        assertEquals("Size of KeySet should still be 0 after removeAll with a KeySet with null keys", 0, this.map.keySet().size());
     }
 
     @Test
@@ -563,12 +583,14 @@ public class TestEmptyAbstractCollections {
         this.map.values().removeAll(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRemoveAllOnEmptyValueCollectionWithValueCollectionWithNullValues() {
         DummyTestMap anotherMap = new DummyTestMap();
         anotherMap.put("testKey", null);
         HCollection anotherValueCollection = anotherMap.values();
         this.map.values().removeAll(anotherValueCollection);
+        assertTrue("ValueCollection should still be empty after removeAll with a ValueCollection with null values", this.map.values().isEmpty());
+        assertEquals("Size of ValueCollection should still be 0 after removeAll with a ValueCollection with null values", 0, this.map.values().size());
     }
 
     @Test

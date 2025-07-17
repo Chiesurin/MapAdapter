@@ -1,3 +1,5 @@
+//Diego Chiesurin - 2111553
+
 package myTest;
 
 import myAdapter.*;
@@ -9,7 +11,7 @@ import java.util.Collection;
 import myExceptions.UnsupportedOperationException;
 
 /**
- * Dummy implementation of HMap that can contain null keys and null values using HashMap.
+ * Dummy implementation of {@code HMap} that can contain null keys and null values using HashMap.
  * This is used for testing purposes only.
  * Not all HMap operations are supported, and will throw UnsupportedOperationException.
  */

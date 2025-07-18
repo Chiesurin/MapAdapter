@@ -14,7 +14,8 @@ import junit.framework.Test;
     TestPopulatedMapAdapter.class,
     TestEntry.class,
     TestPopulatedAbstractCollections.class,
-    TestMapAdapterIterators.class
+    TestPopulatedAbstractCollectionIterators.class,
+    TestEmptyAbstractCollectionIterators.class
 })
 public class TestsSuite {
     

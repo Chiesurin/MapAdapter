@@ -12,7 +12,9 @@ import junit.framework.Test;
     TestEmptyMapAdapter.class,
     TestEmptyAbstractCollections.class,
     TestPopulatedMapAdapter.class,
-    TestEntry.class
+    TestEntry.class,
+    TestPopulatedAbstractCollections.class,
+    TestMapAdapterIterators.class
 })
 public class TestsSuite {
     

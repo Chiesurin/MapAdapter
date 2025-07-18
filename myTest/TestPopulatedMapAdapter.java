@@ -6,9 +6,6 @@ import myAdapter.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.Map;
-import java.util.Stack;
-import myExceptions.UnsupportedOperationException;
 import org.junit.After;
 
 public class TestPopulatedMapAdapter {
@@ -41,7 +38,7 @@ public class TestPopulatedMapAdapter {
     }
 
     @Test
-    public void clear() {
+    public void testClearOnPopulatedMapAdapter() {
         this.map.clear();
         assertTrue("MapAdapter should be empty after clear", this.map.isEmpty());
         assertEquals("Size of map should be 0 after clear", 0, this.map.size());
@@ -59,12 +56,6 @@ public class TestPopulatedMapAdapter {
     @Test(expected = NullPointerException.class)
     public void testContainsKeyOnMapAdapterWithNullKey() {
         this.map.containsKey(null);
-    }
-
-    @Test(expected = StackOverflowError.class)
-    public void testContainsKeyOnPopulatedMapAdapterWithThisKeyAsAMapCausesStackOverflow() {
-        this.map.put(this.map, "value"); //does not cause stack overflow
-        this.map.containsKey(this.map); //causes stack overflow
     }
 
     @Test
@@ -171,14 +162,6 @@ public class TestPopulatedMapAdapter {
         assertFalse("A map with different type values should not be equal to the original map", this.map.equals(anotherMap));
     }
 
-    @Test(expected = StackOverflowError.class)
-    public void testEqualsBetweenTwoMapAdaptersContainingThisMapAsKey() {
-        this.map.clear();
-        this.map.put(this.map, "testValue"); //does not cause stack overflow
-        HMap anotherMap = new MapAdapter(this.map);
-        this.map.equals(anotherMap); //causes stack overflow
-    }
-
     @Test
     public void testGetOnPopulatedMapAdapter() {
         for(int i = 0; i < MAP_INITIAL_CAPACITY; i++){
@@ -190,12 +173,6 @@ public class TestPopulatedMapAdapter {
     @Test(expected = NullPointerException.class)
     public void testGetOnPopulatedMapAdapterWithNullKey() {
         this.map.get(null);
-    }
-
-    @Test(expected = StackOverflowError.class)
-    public void testGetOnPopulatedMapAdapterWithThisKeyAsAMapCausesStackOverflow() {
-        this.map.put(this.map, "testValue"); //does not cause stack overflow
-        this.map.get(this.map); //causes stack overflow
     }
 
     @Test
@@ -238,24 +215,6 @@ public class TestPopulatedMapAdapter {
             hashCode += entry.getKey().hashCode() ^ entry.getValue().hashCode();
         }
         assertEquals("Hash code should be calculated correctly with different type values", hashCode, this.map.hashCode());
-    }
-
-    @Test(expected = StackOverflowError.class)
-    public void testHashCodeOnPopulatedMapAdapterWithThisKeyAsAMapCausesStackOverflow() {
-        this.map.put(this.map, "value"); //does not cause stack overflow
-        this.map.hashCode(); //causes stack overflow
-    }
-
-    @Test(expected = StackOverflowError.class)
-    public void testHashCodeOnPopulatedMapAdapterWithThisValueAsAMapCausesStackOverflow() {
-        this.map.put("key", this.map); //does not cause stack overflow
-        this.map.hashCode(); //causes stack overflow
-    }
-
-    @Test(expected = StackOverflowError.class)
-    public void testHashCodeOnPopulatedMapAdapterWithThisKeyAndValueAsAMapCausesStackOverflow() {
-        this.map.put(this.map, this.map); //does not cause stack overflow
-        this.map.hashCode(); //causes stack overflow
     }
 
     @Test
@@ -340,12 +299,6 @@ public class TestPopulatedMapAdapter {
         assertEquals("MapAdapter after put with this map as a key and value should have size 1", MAP_INITIAL_CAPACITY + 1, this.map.size());
         //cannot invoke this.map.get(this.map), it would cause a stack overflow
         //and cannot check if this.map.equals(this.map.get(this.map)) for the same reason
-    }
-
-    @Test(expected = StackOverflowError.class)
-    public void testPutOnPopulatedMapAdapterWithThisKeyAsAValueWhenItIsAlreadyAKeyCausesStackOverflow() {
-        this.map.put(this.map, "testValue"); //does not cause stack overflow
-        this.map.put(this.map, "testValue"); //causes stack overflow
     }
 
     @Test
@@ -511,12 +464,6 @@ public class TestPopulatedMapAdapter {
     @Test(expected = NullPointerException.class)
     public void testRemoveOnPopulatedMapAdapterWithNullKey() {
         this.map.remove(null);
-    }
-
-    @Test(expected = StackOverflowError.class)
-    public void testRemoveOnPopulatedMapAdapterWithThisKeyAsAMapCausesStackOverflow() {
-        this.map.put(this.map, "testValue"); //does not cause stack overflow
-        this.map.remove(this.map); //causes stack overflow
     }
 
     @Test

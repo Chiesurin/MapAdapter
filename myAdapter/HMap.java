@@ -315,8 +315,8 @@ public interface HMap {
 	 * @throws ClassCastException if the class of a key or value in the
 	 * specified map prevents it from being stored in this map.
 	 * @throws IllegalArgumentException if some aspect of a key or value in the
-	 *			  specified map prevents it from being stored in this map.
-	 * @throws NullPointerException the specified map is {@code null}, or if
+	 * specified map prevents it from being stored in this map.
+	 * @throws NullPointerException if the specified map is {@code null}, or if
 	 * this map does not permit {@code null} keys or values, and the
 	 * specified map contains {@code null} keys or values.
 	 */

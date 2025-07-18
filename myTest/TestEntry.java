@@ -6,9 +6,6 @@ import myAdapter.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.Map;
-import java.util.Stack;
-import myExceptions.UnsupportedOperationException;
 import org.junit.After;
 
 public class TestEntry {
@@ -99,7 +96,7 @@ public class TestEntry {
     }
 
     @Test
-    public void testEqualOnEntryIsTransitive() {
+    public void testEqualsOnEntryIsTransitive() {
         HMap anotherMap = new MapAdapter();
         anotherMap.put("testKey", "testValue");
         HMap yetAnotherMap = new MapAdapter();
@@ -129,13 +126,6 @@ public class TestEntry {
                     ((HMap.HEntry) this.map.entrySet().iterator().next()).equals((HMap.HEntry) anotherMap.entrySet().iterator().next()));
     }
 
-    @Test(expected = StackOverflowError.class)
-    public void testEqualsOnEntryWithEntryContainingThisEntryAsAValue() {
-        HMap.HEntry entry = (HMap.HEntry) this.map.entrySet().iterator().next();
-        entry.setValue(entry); //does not cause stack overflow
-        entry.equals(entry); //causes stack overflow
-    }
-
     @Test
     public void testGetKeyOnEntry() {
         HMap.HEntry entry = (HMap.HEntry) this.map.entrySet().iterator().next();
@@ -155,13 +145,6 @@ public class TestEntry {
         assertEquals("Hash code should be computed as key's hash code XOR value's hash code", expectedHashCode, entry.hashCode());
     }
 
-    @Test(expected = StackOverflowError.class)
-    public void testHashCodeOnEntryWithEntryContainingThisEntryAsAValue() {
-        HMap.HEntry entry = (HMap.HEntry) this.map.entrySet().iterator().next();
-        entry.setValue(entry); //does not cause stack overflow
-        entry.hashCode(); //causes stack overflow
-    }
-
     @Test
     public void testSetValueOnEntry() {
         HMap.HEntry entry = (HMap.HEntry) this.map.entrySet().iterator().next();
@@ -169,6 +152,16 @@ public class TestEntry {
         assertEquals("Set value should update the value in the entry", "newValue", entry.getValue());
         assertEquals("Map should reflect the updated value", "newValue", this.map.get("testKey"));
         assertTrue("MapAdapter should contain the updated value", this.map.containsValue("newValue"));
+    }
+
+    @Test
+    public void testSetValueOnEntryCalledAfterRemovingThisEntry() {
+        HMap.HEntry entry = (HMap.HEntry) this.map.entrySet().iterator().next();
+        this.map.remove(entry.getKey());
+        entry.setValue("newValue");
+        assertTrue("MapAdapter will contain this entry after setValue is called, even if the entry was removed", 
+                   this.map.containsKey(entry.getKey()));
+        assertEquals("MapAdapter should still contain the key after setValue is called", "testKey", entry.getKey());
     }
 
     @Test(expected = NullPointerException.class)

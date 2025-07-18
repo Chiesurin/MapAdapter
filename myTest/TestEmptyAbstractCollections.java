@@ -3,8 +3,6 @@
 package myTest;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.Map;
-
 import org.junit.After;
 import org.junit.Before;
 import myAdapter.*;
@@ -52,9 +50,12 @@ public class TestEmptyAbstractCollections {
 
     @Test
     public void testContainsAllOnEmptyEntrySet() {
-        HSet anotherEntrySet = new MapAdapter().entrySet();
+        HMap anotherMap = new MapAdapter();
+        HSet anotherEntrySet = anotherMap.entrySet();
         assertTrue("An empty EntrySet should contain all elements of another empty EntrySet", this.map.entrySet().containsAll(anotherEntrySet));
         assertTrue("An empty EntrySet should contain all elements of itself", this.map.entrySet().containsAll(this.map.entrySet()));
+        anotherMap.put("testKey", "testValue");
+        assertFalse("An empty EntrySet should not contain elements of a non-empty EntrySet", this.map.entrySet().containsAll(anotherMap.entrySet()));
     }
 
     @Test(expected = ClassCastException.class)
@@ -108,11 +109,11 @@ public class TestEmptyAbstractCollections {
         assertEquals("Size of EntrySet should still be 0 after removeAll with an empty non-EntrySet", 0, this.map.entrySet().size());
     }
 
-    @Test(expected = ClassCastException.class)
+    @Test
     public void testRemoveAllOnEmptyEntrySetWithANonEntrySet() {
         MapAdapter anotherMap = new MapAdapter();
         anotherMap.put("testKey", "testValue");
-        this.map.entrySet().removeAll(anotherMap.keySet());
+        assertFalse("RemoveAll on an empty EntrySet with a non-EntrySet should return false", this.map.entrySet().removeAll(anotherMap.keySet()));
     }
 
     @Test(expected = NullPointerException.class)
@@ -155,6 +156,31 @@ public class TestEmptyAbstractCollections {
         assertTrue("EntrySet should still be empty after retainAll with a non-EntrySet", this.map.entrySet().isEmpty());
     }
 
+    @Test
+    public void testRetainAllOnEmptyEntryWithAnEmptyEntrySet() {
+        HMap anotherMap = new MapAdapter();
+        assertFalse("RetainAll on an empty EntrySet with an empty EntrySet should return false", this.map.entrySet().retainAll(anotherMap.entrySet()));
+        assertTrue("EntrySet should still be empty after retainAll with an empty EntrySet", this.map.entrySet().isEmpty());
+    }
+
+    @Test
+    public void testRetainAllOnEmptyEntrySetWithEntrySetWithNullKeys() {
+        DummyTestMap anotherMap = new DummyTestMap();
+        anotherMap.put(null, "testValue");
+        this.map.entrySet().retainAll(anotherMap.entrySet());
+        assertTrue("EntrySet should still be empty after retainAll with an EntrySet with null keys", this.map.entrySet().isEmpty());
+        assertEquals("Size of EntrySet should still be 0 after retainAll with an EntrySet with null keys", 0, this.map.entrySet().size());
+    }
+
+    @Test
+    public void testRetainAllOnEmptyEntrySetWithAnotherEntrySetWithNullValues() {
+        HMap anotherMap = new DummyTestMap();
+        anotherMap.put("testKey", null);
+        this.map.entrySet().retainAll(anotherMap.entrySet());
+        assertTrue("EntrySet should still be empty after retainAll with an EntrySet with null values", this.map.entrySet().isEmpty());
+        assertEquals("Size of EntrySet should still be 0 after retainAll with an EntrySet with null values", 0, this.map.entrySet().size());
+    }
+
     @Test(expected = NullPointerException.class)
     public void testRetainAllOnEmptyEntrySetWithNull() {
         this.map.entrySet().retainAll(null);
@@ -173,10 +199,19 @@ public class TestEmptyAbstractCollections {
     }
 
     @Test
+    public void testToArrayOnEmptyEntrySetWithSameSize() {
+        Object[] array = new Object[0];
+        array = this.map.entrySet().toArray(array);
+        assertNotNull("ToArray on an empty EntrySet with a same size array should not return null", array);
+        assertEquals("ToArray on an empty EntrySet with a same size array should return an empty array", 0, array.length);
+    }
+
+    @Test
     public void testToArrayOnEmptyEntrySetWithGreaterArray() {
         Object[] array = this.map.entrySet().toArray(new Object[1]);
         assertNotNull("ToArray on an empty EntrySet with a greater array should not return null", array);
         assertEquals("ToArray on an empty EntrySet with a greater array should return an array with its original size", 1, array.length);
+        assertNull("First element of the array after the copied EntrySet should be null", array[0]);
     }
 
     @Test(expected = NullPointerException.class)
@@ -240,12 +275,34 @@ public class TestEmptyAbstractCollections {
     }
 
     @Test
+    public void testEqualsOnEmptyEntrySetIsTransitive() {
+        HSet entrySet = this.map.entrySet();
+        HSet anotherEmptyEntrySet = new MapAdapter().entrySet();
+        HSet anotherAnotherEmptyEntrySet = new MapAdapter().entrySet();
+        assertTrue("Equals should be transitive", entrySet.equals(anotherEmptyEntrySet) && anotherEmptyEntrySet.equals(anotherAnotherEmptyEntrySet) && entrySet.equals(anotherAnotherEmptyEntrySet));
+    }
+
+    @Test
     public void testContainsOnEmptyEntrySet() {
         HMap anotherMapAdapter = new MapAdapter();
         anotherMapAdapter.put("testKey", "testValue");
         HSet entrySet = anotherMapAdapter.entrySet();
         HIterator iterator = entrySet.iterator();
         assertFalse("Empty EntrySet should not contain any keys", this.map.entrySet().contains(iterator.next()));
+    }
+
+    @Test(expected = NullPointerException.class) 
+    public void testContainsOnEmptyEntrySetWithEntryWithNullKey() {
+        HMap anotherMap = new DummyTestMap();
+        anotherMap.put(null, "testValue");
+        this.map.entrySet().contains(anotherMap.entrySet().iterator().next());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testContainsOnEmptyEntrySetWithEntryWithNullValue() {
+        HMap anotherMap = new DummyTestMap();
+        anotherMap.put("testKey", null);
+        this.map.entrySet().contains(anotherMap.entrySet().iterator().next());
     }
 
     @Test(expected = NullPointerException.class)
@@ -272,6 +329,20 @@ public class TestEmptyAbstractCollections {
     @Test(expected = NullPointerException.class)
     public void testRemoveOnEmptyEntrySetWithNull() {
         this.map.entrySet().remove(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testRemoveOnEmptyEntrySetWithEntryWithNullKey() {
+        HMap anotherMap = new DummyTestMap();
+        anotherMap.put(null, "testValue");
+        this.map.entrySet().remove(anotherMap.entrySet().iterator().next());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testRemoveOnEmptyEntrySetWithEntryWithNullValue() {
+        HMap anotherMap = new DummyTestMap();
+        anotherMap.put("testKey", null);
+        this.map.entrySet().remove(anotherMap.entrySet().iterator().next());
     }
 
     @Test(expected = ClassCastException.class)
@@ -309,9 +380,12 @@ public class TestEmptyAbstractCollections {
 
     @Test
     public void testContainsAllOnEmptyKeySet() {
-        HSet anotherKeySet = new MapAdapter().keySet();
+        HMap anotherMap = new MapAdapter();
+        HSet anotherKeySet = anotherMap.keySet();
         assertTrue("An empty KeySet should contain all elements of another empty KeySet", this.map.keySet().containsAll(anotherKeySet));
         assertTrue("An empty KeySet should contain all elements of itself", this.map.keySet().containsAll(this.map.keySet()));
+        anotherMap.put("testKey", "testValue"); 
+        assertFalse("An empty KeySet should not contain elements of a non-empty KeySet", this.map.keySet().containsAll(anotherMap.keySet()));
     }
 
     @Test(expected = NullPointerException.class)
@@ -382,6 +456,13 @@ public class TestEmptyAbstractCollections {
         assertTrue("KeySet should still be empty after retainAll", this.map.keySet().isEmpty());
         assertEquals("Size of KeySet should still be 0 after retainAll", 0, this.map.keySet().size());
     }
+    
+    @Test
+    public void testRetainAllOnEmptyKeySetWithEmptyKeySet() {
+        HMap anotherMap = new MapAdapter();
+        assertFalse("RetainAll on an empty KeySet with an empty KeySet should return false", this.map.keySet().retainAll(anotherMap.keySet()));
+        assertTrue("KeySet should still be empty after retainAll with an empty KeySet", this.map.keySet().isEmpty());
+    }
 
     @Test 
     public void testRetainAllOnEmptyKeySetWithANonKeySet() {
@@ -409,10 +490,20 @@ public class TestEmptyAbstractCollections {
     }
 
     @Test
+    public void testToArrayOnEmptyKeySetWithSameSize() {
+        Object[] array = new Object[0];
+        array = this.map.keySet().toArray(array);
+        assertNotNull("ToArray on an empty KeySet with a same size array should not return null", array);
+        assertEquals("ToArray on an empty KeySet with a same size array should return an empty array", 0, array.length);
+    }
+
+    @Test
     public void testToArrayOnEmptyKeySetWithGreaterArray() {
-        Object[] array = this.map.keySet().toArray(new Object[1]);
+        Object[] array = new Object[1];
+        array = this.map.keySet().toArray(array);
         assertNotNull("ToArray on an empty KeySet with a greater array should not return null", array);
         assertEquals("ToArray on an empty KeySet with a greater array should return an array with its original size", 1, array.length);
+        assertNull("First element of the array after the copied KeySet should be null", array[0]);
     }
 
     @Test(expected = NullPointerException.class)
@@ -527,9 +618,12 @@ public class TestEmptyAbstractCollections {
 
     @Test
     public void testContainsAllOnEmptyValueCollection() {
-        HCollection anotherValueCollection = new MapAdapter().values();
+        HMap anotherMap = new MapAdapter();
+        HCollection anotherValueCollection = anotherMap.values();
         assertTrue("An empty ValueCollection should contain all elements of another empty ValueCollection", this.map.values().containsAll(anotherValueCollection));
         assertTrue("An empty ValueCollection should contain all elements of itself", this.map.values().containsAll(this.map.values()));
+        anotherMap.put("testKey", "testValue");
+        assertFalse("An empty ValueCollection should not contain elements of a non-empty ValueCollection", this.map.values().containsAll(anotherMap.values()));
     }
 
     @Test(expected = NullPointerException.class)
@@ -603,6 +697,13 @@ public class TestEmptyAbstractCollections {
     }
 
     @Test 
+    public void testRetainAllOnEmptyValueCollectionWithEmptyValueCollection() {
+        HMap anotherMap = new MapAdapter();
+        assertFalse("RetainAll on an empty ValueCollection with an empty ValueCollection should return false", this.map.values().retainAll(anotherMap.values()));
+        assertTrue("ValueCollection should still be empty after retainAll with an empty ValueCollection", this.map.values().isEmpty());
+    }
+
+    @Test 
     public void testRetainAllOnEmptyValueCollectionWithANonValueCollection() {
         MapAdapter anotherMap = new MapAdapter();
         anotherMap.put("testKey", "testValue");
@@ -628,10 +729,20 @@ public class TestEmptyAbstractCollections {
     }
 
     @Test
+    public void testToArrayOnEmptyValueCollectionWithSameSize() {
+        Object[] array = new Object[0];
+        array = this.map.values().toArray(array);
+        assertNotNull("ToArray on an empty ValueCollection with a same size array should not return null", array);
+        assertEquals("ToArray on an empty ValueCollection with a same size array should return an empty array", 0, array.length);
+    }
+
+    @Test
     public void testToArrayOnEmptyValueCollectionWithGreaterArray() {
-        Object[] array = this.map.values().toArray(new Object[1]);
+        Object[] array = new Object[1];
+        array = this.map.values().toArray(array);
         assertNotNull("ToArray on an empty ValueCollection with a greater array should not return null", array);
         assertEquals("ToArray on an empty ValueCollection with a greater array should return an array with its original size", 1, array.length);
+        assertNull("First element of the array after the copied ValueCollection should be null", array[0]);
     }
 
     @Test(expected = NullPointerException.class)
@@ -648,14 +759,14 @@ public class TestEmptyAbstractCollections {
     public void testEmptyValueCollectionIsBackedByMapAdapter() {
         HCollection valueCollection = this.map.values();
         assertTrue("ValueCollection should be empty if MapAdapter is empty", valueCollection.isEmpty());
-        map.put("testKey", "testValue");
-        assertFalse("MapAdapter should not be empty after adding an entry", map.isEmpty());
+        this.map.put("testKey", "testValue");
+        assertFalse("MapAdapter should not be empty after adding an entry", this.map.isEmpty());
         assertFalse("ValueCollection should not be empty after adding an entry to MapAdapter", valueCollection.isEmpty());
         assertEquals("ValueCollection size should match MapAdapter size after adding an entry", 1, valueCollection.size());
         assertEquals("ValueCollection toString should be \"[testValue]\"", "[testValue]", valueCollection.toString());
         valueCollection.clear();
         assertTrue("ValueCollection should be empty after clearing", valueCollection.isEmpty());
-        assertTrue("MapAdapter should be empty after clearing ValueCollection", map.isEmpty());
+        assertTrue("MapAdapter should be empty after clearing ValueCollection", this.map.isEmpty());
     }
 
     @Test

@@ -474,7 +474,8 @@ public class MapAdapter implements HMap {
 		 * @param c the collection containing elements to be removed
 		 * @return {@code true} if this collection was modified
 		 * @throws ClassCastException 	if the types of one or more elements
-		 * 								in the specified collection are incompatible with this collection
+     	 * 								in this collection are incompatible with the specified
+     	 * 								collection
 		 * @throws NullPointerException if {@code c} is {@code null}	
 		 */
 		public boolean removeAll(HCollection c) {
@@ -482,14 +483,12 @@ public class MapAdapter implements HMap {
 				throw new NullPointerException("collection must not be null.");
 
 			boolean modified = false;
-			HIterator iterator = c.iterator();
+			HIterator iterator = this.iterator();
 			 
 			while(iterator.hasNext()){
-				try{
-					if(this.remove(iterator.next()))
-						modified = true;
-				}catch(NullPointerException e){
-					//ignore
+				if(c.contains(iterator.next())){
+					iterator.remove();
+					modified = true;
 				}
 			}
 			return modified;
@@ -501,7 +500,8 @@ public class MapAdapter implements HMap {
 		 * @param c the collection containing elements to retain
 		 * @return {@code true} if this collection was modified
 		 * @throws ClassCastException 	if the types of one or more elements
-		 * 								in the specified collection are incompatible with this collection
+     	 *								in this collection are incompatible with the specified
+     	 * 								collection
 		 * @throws NullPointerException if {@code c} is {@code null}
 		 */
 		public boolean retainAll(HCollection c) {
@@ -510,6 +510,7 @@ public class MapAdapter implements HMap {
 
 			boolean modified = false;
 			HIterator iterator = this.iterator();
+
 			while(iterator.hasNext()){
 				Object next = iterator.next();
 				if(!c.contains(next)){
@@ -671,13 +672,15 @@ public class MapAdapter implements HMap {
 			
 			if(!(o instanceof HEntry))
 				throw new ClassCastException("contained entry must be of type HEntry.");
+			
+			HEntry e = (HEntry)o;
 
-			if(((HEntry)o).getValue() == null || ((HEntry)o).getKey() == null)
+			if(e.getValue() == null || e.getKey() == null)
 				throw new NullPointerException("contained key or value must not be null.");
-				
-			return  hashTable.containsKey(((HEntry)o).getKey())
+
+			return  hashTable.containsKey(e.getKey())
 					&&
-					hashTable.get(((HEntry)o).getKey()).equals(((HEntry)o).getValue());
+					hashTable.get(e.getKey()).equals(e.getValue());
 		}
 
 		/**
@@ -687,15 +690,21 @@ public class MapAdapter implements HMap {
 		 *
 		 * @param o the object to be removed from the set, if present
 		 * @return {@code true} if the entry was present and removed
-		 * @throws NullPointerException if the argument is {@code null}
+		 * @throws NullPointerException if the argument is {@code null} or if the
+		 * 								the entry contains a {@code null} key or value
 		 * @throws ClassCastException if the argument is not of type {@code HEntry}
 		 */
 		public boolean remove(Object o) {
 			if(o == null)
 				throw new NullPointerException("contained entry must not be null.");
 
+			if(!(o instanceof HEntry))
+				throw new ClassCastException("contained entry must be of type HEntry");
+
+			HEntry e = (HEntry)o;
+
 			if(this.contains(o))
-				return hashTable.remove(((HEntry)o).getKey()) != null;
+				return hashTable.remove(e.getKey()) != null;
 			return false;
 		}
 
@@ -1158,7 +1167,11 @@ public class MapAdapter implements HMap {
 	 * in the specified map. If a key already exists in this map, its value will be replaced.
 	 * <p>
 	 * In accordance with the restrictions of CLDC 1.1, neither keys nor values can be {@code null}.
-	 *
+	 * <p>
+	 * <strong>Important:</strong> if the specified map contains {@code null} keys or values,
+	 * a {@code NullPointerException} will be thrown. The entries put before the exception
+	 * is thrown will remain in the map.
+	 * 
 	 * @param t the map whose entries are to be copied into this map
 	 * @throws NullPointerException if the specified map is {@code null} or contains {@code null} keys or values
 	 */

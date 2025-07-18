@@ -6,8 +6,6 @@ import myAdapter.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.Collection;
 import myExceptions.UnsupportedOperationException;
 
 /**
@@ -29,17 +27,15 @@ public class DummyTestMap implements HMap {
      * Not all HMap.HEntry operations are supported, and will throw UnsupportedOperationException.
      */
     protected class DummyEntry implements HMap.HEntry {
-        private Object key;
-        private Object value;
+        Map.Entry<Object, Object> entry;
 
         /**
          * Constructor initializes the key and value of the entry.
          * @param key the key of the entry
          * @param value the value of the entry
          */
-        public DummyEntry(Object key, Object value) {
-            this.key = key;
-            this.value = value;
+        private DummyEntry(Object key, Object value) {
+            entry = new HashMap.SimpleEntry<Object, Object>(key, value);
         }
 
         /**
@@ -47,7 +43,7 @@ public class DummyTestMap implements HMap {
          * @return the key of the entry
          */
         public Object getKey() {
-            return this.key;
+            return this.entry.getKey();
         }
 
         /**
@@ -55,7 +51,7 @@ public class DummyTestMap implements HMap {
          * @return the value of the entry
          */
         public Object getValue() {
-            return this.value;
+            return this.entry.getValue();
         }
 
         /**
@@ -111,6 +107,17 @@ public class DummyTestMap implements HMap {
         }
 
         /**
+         * Returns true if this set contains the specified element.
+         * @param o the element to be checked for containment
+         * @return {@code true} if this set contains the specified element
+         * @throws ClassCastException if the type of the specified element is incompatible with this set
+         * @throws NullPointerException if the specified element is null and this set does not permit null elements
+         */
+        public boolean contains(Object o) {
+            return map.entrySet().contains(o);
+        }
+
+        /**
          * @throws UnsupportedOperationException
          */
         public boolean add(Object o) {
@@ -129,13 +136,6 @@ public class DummyTestMap implements HMap {
          */
         public void clear() {
             throw new UnsupportedOperationException("clear not supported for DummyEntrySet");
-        }
-
-        /**
-         * @throws UnsupportedOperationException
-         */
-        public boolean contains(Object o) {
-            throw new UnsupportedOperationException("contains not supported for DummyEntrySet");
         }
 
         /**
@@ -210,51 +210,6 @@ public class DummyTestMap implements HMap {
     }
 
     /**
-     * DummyEntrySetIterator is a simple implementation of HIterator that allows for
-     * iterating over the entry set of the map.
-     * Not all HIterator operations are supported, and will throw UnsupportedOperationException.
-     */
-    protected class DummyEntrySetIterator implements HIterator{
-
-        /**
-         * Using the HashMap iterator to iterate over the entry set.
-         */
-        private Iterator<Map.Entry<Object, Object>> iterator;
-
-        /**
-         * Constructor initializes the iterator to the entry set of the map.
-         */
-        public DummyEntrySetIterator() {
-            this.iterator = map.entrySet().iterator();
-        }
-
-        /**
-         * Returns true if the iteration has more elements.
-         * @return {@code true} if the iteration has more elements
-         */
-        public boolean hasNext() {
-            return this.iterator.hasNext();
-        }
-
-        /**
-         * Returns the next element in the iteration.
-         * @return the next DummyEntry in the iteration
-         */
-        public Object next() {
-            HashMap.Entry next = (HashMap.Entry) this.iterator.next();
-
-            return new DummyEntry(next.getKey(), next.getValue());
-        }
-
-        /**
-         * @throws UnsupportedOperationException
-         */
-        public void remove() {
-            throw new UnsupportedOperationException("remove not supported for DummyEntrySetIterator");
-        }
-    }
-
-    /**
      * DummyKeySet is a simple implementation of HSet that allows for testing
      * without the need for a full implementation of HSet.
      * Not all HSet operations are supported, and will throw UnsupportedOperationException.
@@ -262,16 +217,10 @@ public class DummyTestMap implements HMap {
     protected class DummyKeySet implements HSet {
 
         /**
-         * Using the HashMap keySet to iterate over the keys.
-         */
-        private Set<Object> keySet;
-
-        /**
          * Default constructor for DummyKeySet.
-         * Initializes the keySet to the keySet of the map.
          */
         protected DummyKeySet() {
-            this.keySet = map.keySet();
+            //intentionally left blank
         }
 
         /**
@@ -286,10 +235,12 @@ public class DummyTestMap implements HMap {
         /**
          * Returns true if this set contains the specified element.
          * @param o the element to be checked for containment
-         * @return true if this set contains the specified element, false otherwise
+         * @return {@code true} if this set contains the specified element
+         * @throws ClassCastException if the type of the specified element is incompatible with this set
+         * @throws NullPointerException if the specified element is null and this set does not permit null elements
          */
         public boolean contains(Object o) {
-            return this.keySet.contains(o);
+            return map.keySet().contains(o);
         }
 
         /**
@@ -383,17 +334,12 @@ public class DummyTestMap implements HMap {
      * Not all HCollection operations are supported, and will throw UnsupportedOperationException.
      */
     protected class DummyValueCollection implements HCollection {
-        /**
-         * Using the HashMap values to iterate over the values.
-         */
-        private Collection<Object> valueCollection;
 
         /**
          * Default constructor for DummyValueCollection.
-         * Initializes the valueCollection to the values of the map.
          */
         protected DummyValueCollection() {
-            this.valueCollection = map.values();
+            //intentionally left blank
         }
 
         /**
@@ -403,6 +349,17 @@ public class DummyTestMap implements HMap {
          */
         public HIterator iterator() {
             return new DummyValueCollectionIterator();
+        }
+
+        /**
+         * Returns true if this collection contains the specified element.
+         * @param o the element to be checked for containment
+         * @return {@code true} if this collection contains the specified element
+         * @throws ClassCastException if the type of the specified element is incompatible with this collection
+         * @throws NullPointerException if the specified element is null and this collection does not permit null elements
+         */
+        public boolean contains(Object o) {
+            return map.values().contains(o);
         }
 
         /**
@@ -417,13 +374,6 @@ public class DummyTestMap implements HMap {
          */
         public boolean isEmpty() {
             throw new UnsupportedOperationException("isEmpty not supported for DummyValueCollection");
-        }
-
-        /**
-         * @throws UnsupportedOperationException
-         */
-        public boolean contains(Object o) {
-            return this.valueCollection.contains(o);
         }
 
         /**
@@ -494,6 +444,51 @@ public class DummyTestMap implements HMap {
          */
         public boolean equals(Object o) {
             throw new UnsupportedOperationException("equals not supported for DummyValueCollection");
+        }
+    }
+
+    /**
+     * DummyEntrySetIterator is a simple implementation of HIterator that allows for
+     * iterating over the entry set of the map.
+     * Not all HIterator operations are supported, and will throw UnsupportedOperationException.
+     */
+    protected class DummyEntrySetIterator implements HIterator{
+
+        /**
+         * Using the HashMap iterator to iterate over the entry set.
+         */
+        private Iterator<Map.Entry<Object, Object>> iterator;
+
+        /**
+         * Constructor initializes the iterator to the entry set of the map.
+         */
+        public DummyEntrySetIterator() {
+            this.iterator = map.entrySet().iterator();
+        }
+
+        /**
+         * Returns true if the iteration has more elements.
+         * @return {@code true} if the iteration has more elements
+         */
+        public boolean hasNext() {
+            return this.iterator.hasNext();
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         * @return the next DummyEntry in the iteration
+         */
+        public Object next() {
+            HashMap.Entry next = (HashMap.Entry) this.iterator.next();
+
+            return new DummyEntry(next.getKey(), next.getValue());
+        }
+
+        /**
+         * @throws UnsupportedOperationException
+         */
+        public void remove() {
+            throw new UnsupportedOperationException("remove not supported for DummyEntrySetIterator");
         }
     }
 

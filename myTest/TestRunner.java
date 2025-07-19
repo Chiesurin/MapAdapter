@@ -6,6 +6,11 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
+/**
+ * {@code TestRunner} class to run all tests in the {@code TestsSuite}.
+ * It prints the results of the tests including total runtime, number of tests run,
+ * successful tests, failures, and ignored tests.
+ */
 public class TestRunner {
     public static void main(String[] args){
         System.out.println("\n-------------------- TESTS --------------------");

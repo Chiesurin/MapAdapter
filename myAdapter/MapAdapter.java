@@ -5,7 +5,6 @@ package myAdapter;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.NoSuchElementException;
-
 import myExceptions.IllegalStateException;
 import myExceptions.UnsupportedOperationException;
 
@@ -71,12 +70,8 @@ public class MapAdapter implements HMap {
 		 *
 		 * @param key   the key for this entry; must not be {@code null}
 		 * @param value the value for this entry; must not be {@code null}
-		 * @throws NullPointerException if either key or value is {@code null}
 		 */
 		private Entry(Object key, Object value){
-			if(key == null || value == null)
-				throw new NullPointerException("key or value must not be null.");
-
 			this.key = key;
 			this.value = value;
 		}
@@ -153,6 +148,9 @@ public class MapAdapter implements HMap {
 		 * @throws NullPointerException if the specified value is {@code null}.
  		 */
 		public Object setValue(Object value){
+			if(value == null)
+				throw new NullPointerException("value must not be null.");
+
 			Object oldValue = hashTable.put(this.key, value);
 			this.value = value;
 			return oldValue;
@@ -164,7 +162,7 @@ public class MapAdapter implements HMap {
 		 * @return a string representation of this entry
 		 */
 		public String toString() {
-			return "" + key + "=" + value;
+			return this.key.toString().concat("=").concat(value.toString());
 		}
 	}
 
@@ -279,7 +277,7 @@ public class MapAdapter implements HMap {
 	 * <p>
 	 * The iterator is backed by the underlying map, so modifications to the map
 	 * after the iterator is created (except through this iterator's own {@code remove()} method)
-	 * may result in inconsistent behavior.
+	 * may result in inconsistent behavior or runtime exceptions.
 	 * <p>
 	 * This implementation supports the optional {@code remove()} operation, which removes
 	 * from the map the last key returned by the iterator. The {@code remove()} method
@@ -322,7 +320,7 @@ public class MapAdapter implements HMap {
 	 * <p>
 	 * The iterator is backed by the underlying {@code Hashtable}, so structural modifications
 	 * to the map after this iterator is created (other than through {@code remove()})
-	 * may result in inconsistent behavior.
+	 * may result in inconsistent behavior or runtime exceptions.
 	 * <p>
 	 * This implementation supports the optional {@code remove()} operation, which removes
 	 * from the map the entry associated with the last returned value. This method may be
@@ -395,7 +393,8 @@ public class MapAdapter implements HMap {
 		}
 
 		/**
-		 * This collection does not support the {@code add} operation.
+		 * This collection does not support the {@code add} operation
+		 * according to the general contract of HMap.
 		 *
 		 * @param o the element to be added (ignored)
 		 * @throws UnsupportedOperationException always thrown, as this operation is not supported
@@ -405,7 +404,8 @@ public class MapAdapter implements HMap {
 		}
 
 		/**
-		 * This collection does not support the {@code addAll} operation.
+		 * This collection does not support the {@code addAll} operation
+		 * according to the general contract of HMap.
 		 *
 		 * @param c the collection containing elements to add (ignored)
 		 * @throws UnsupportedOperationException always thrown, as this operation is not supported
@@ -853,7 +853,7 @@ public class MapAdapter implements HMap {
 		 * Compares the specified object with this collection for equality.
 		 * <p>
 		 * The comparison is based on the values contained in the collection. Two collections
-		 * are considered equal if they contain the same values, regardless of their order.
+		 * are considered equal if they contain the same values counted with their frequency, regardless of their order.
 		 * If the specified object is an instance of {@code HSet}, it will return {@code false}
 		 * according to the contract of {@code HCollection.equals()}.
 		 *
@@ -869,11 +869,19 @@ public class MapAdapter implements HMap {
 				return true;
 
 			HCollection c = (HCollection)o;
-			try{
-				return c.size() == this.size() && this.containsAll(c);
-			} catch (NullPointerException e) {
+			HIterator iterator = c.iterator();
+			if(this.size() != c.size()){
 				return false;
-			}
+			}else{
+				HCollection buffer = new MapAdapter(MapAdapter.this).values();
+				while(iterator.hasNext()){
+					Object next = iterator.next();
+					if(next == null)
+						return false;
+					buffer.remove(next);
+				}
+				return buffer.isEmpty();
+			}	
 		}
 
 		/**

@@ -11,8 +11,34 @@ import myExceptions.IllegalStateException;
 import java.util.NoSuchElementException;
 
 
+
+/**
+ * This test suite verifies the correct behavior of the iterators returned by the collection views of a populated {@code MapAdapter}.
+ * It covers all methods and scenarios relevant to iterators of entry sets, key sets, and value collections, including iteration, removal, and exception handling.
+ * <p>
+ * <b>Test Suite Categories:</b>
+ * <ul>
+ *   <li>Iterator behavior (EntrySetIterator, KeySetIterator, ValueCollectionIterator)</li>
+ *   <li>Populated state iteration</li>
+ *   <li>Iterator is backed by MapAdapter</li>
+ *   <li>Mutation and removal operations</li>
+ *   <li>Exception handling (NoSuchElementException, IllegalStateException)</li>
+ * </ul>
+ *
+ * <b>Test Case Design:</b>
+ * <p>
+ * The design of this test suite is motivated by the need to ensure that all iterators returned by the collection views of a populated {@code MapAdapter} behave as specified under all supported operations. The tests are organized to:
+ * <ul>
+ *   <li>Verify that iterators correctly traverse all elements in entry sets, key sets, and value collections.</li>
+ *   <li>Check that the {@code hasNext} and {@code next} methods behave as expected, including at the end of iteration.</li>
+ *   <li>Ensure that the {@code remove} method removes the correct element and throws exceptions when called in invalid states.</li>
+ *   <li>Test exception handling for calling {@code next} when no elements remain and {@code remove} before {@code next} or after a removal.</li>
+ * </ul>
+ * The rationale is to provide comprehensive coverage of iterator behavior in a populated map, ensuring correctness, robustness, and compliance with the iterator contract.
+ */
 public class TestPopulatedAbstractCollectionIterators {
 
+    
     private HMap map;
     
     public TestPopulatedAbstractCollectionIterators() {

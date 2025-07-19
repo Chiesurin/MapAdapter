@@ -17,6 +17,10 @@ import junit.framework.Test;
     TestPopulatedAbstractCollectionIterators.class,
     TestEmptyAbstractCollectionIterators.class
 })
+/**
+ * {@code TestsSuite} class to group all test classes for execution.
+ * It uses JUnit's Suite runner to run all specified test classes together.
+ */
 public class TestsSuite {
     
     public TestsSuite() {

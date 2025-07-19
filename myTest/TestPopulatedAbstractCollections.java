@@ -10,14 +10,58 @@ import java.util.Map;
 import myExceptions.UnsupportedOperationException;
 import org.junit.After;
 
+
+/**
+ * <b>Summary:</b>
+ * <p>
+ * This test suite verifies the correct behavior of the collection views (EntrySet, KeySet, ValueCollection) of a populated {@code MapAdapter}.
+ * It covers all methods and scenarios relevant to populated collections, including query, mutation, equality, hash code, array conversion, and exception handling.
+ * <p>
+ * <b>Test Suite Categories:</b>
+ * <ul>
+ *   <li>Populated collection behavior (EntrySet, KeySet, ValueCollection)</li>
+ *   <li>Mutation and query operations</li>
+ *   <li>Exception handling (UnsupportedOperationException, NullPointerException, ClassCastException)</li>
+ *   <li>Equality and hash code</li>
+ *   <li>Array conversion and string representation</li>
+ *   <li>Backing behavior (collections reflect map changes)</li>
+ * </ul>
+ *
+ * <b>Test Case Design:</b>
+ * <p>
+ * The design of this test suite is motivated by the need to ensure that all collection views of a populated {@code MapAdapter} behave as specified under all supported operations. The tests are organized to:
+ * <ul>
+ *   <li>Verify that all query methods ({@code isEmpty}, {@code size}, {@code contains}, etc.) return results consistent with a populated collection.</li>
+ *   <li>Check that mutator methods ({@code add}, {@code addAll}, {@code clear}, {@code remove}, {@code removeAll}, {@code retainAll}) behave correctly and throw exceptions for invalid input or unsupported operations.</li>
+ *   <li>Test the behavior of equality, hash code, array conversion, and string representation for populated collections.</li>
+ *   <li>Ensure that the collections are backed by the map and reflect changes in the map.</li>
+ *   <li>Test exception handling for invalid input (e.g., nulls, wrong types).</li>
+ * </ul>
+ * The rationale is to provide comprehensive coverage of the populated state for all collection views, ensuring correctness, robustness, and compliance with the collection contract.
+ */
 public class TestPopulatedAbstractCollections {
+    /**
+     * Initial capacity for the MapAdapter used in tests.
+     * This is set to 100 to ensure a sufficiently populated map for testing.
+     */
     private static final int MAP_INITIAL_CAPACITY = 100;
+    /**
+     * The MapAdapter instance used for testing.
+     * It is populated with 100 entries before each test.
+     */
     private HMap map;
 
+    /**
+     * Default constructor for the test class.
+     */
     public TestPopulatedAbstractCollections() {
-        // intentionally left empty
+        //intentionally left empty
     }
 
+    /**
+     * Sets up the test environment by initializing the MapAdapter and populating it with 100 entries.
+     * This method is called before each test to ensure a consistent starting state.
+     */
     @Before
     public void setUp() {
         this.map = new MapAdapter();
@@ -26,6 +70,10 @@ public class TestPopulatedAbstractCollections {
         }
     }
 
+    /**
+     * Cleans up the test environment by setting the map to null.
+     * This method is called after each test to ensure no side effects between tests.
+     */
     @After
     public void tearDown() {
         this.map = null;
@@ -35,18 +83,94 @@ public class TestPopulatedAbstractCollections {
     /*----------------------- EntrySet TESTS -----------------------*/
     /*--------------------------------------------------------------*/
 
+    /**
+     * Summary:
+     *   Verifies that the add method on a populated EntrySet throws an UnsupportedOperationException.
+     *   Category: Method tests
+     *<p>
+     * Test Case Design:
+     *   This test ensures that the add method is not supported on a populated EntrySet.
+     *   The rationale is to confirm that the EntrySet does not allow addition of new elements.
+     *<p>
+     * Test Description:
+     * <ul>
+     *   <li>Call the add method on the populated EntrySet.</li>
+     * </ul>
+     *<p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is kept empty.
+     *<p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     *<p>
+     * Expected Results:
+     * <ul>
+     *   <li>Calling add on the EntrySet should throw an UnsupportedOperationException.</li>
+     * </ul>
+     */
     @Test(expected = UnsupportedOperationException.class)
     public void testAddOnPopulatedEntrySet() {
         HSet entrySet = this.map.entrySet();
         entrySet.add("anything");
     }
 
+    /**
+     * Summary:
+     * Verifies that the addAll method on a populated EntrySet throws an UnsupportedOperationException.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the addAll method is not supported on a populated EntrySet.
+     *   The rationale is to confirm that the EntrySet does not allow addition of new elements.
+     * <p>
+     * Test Description:
+     * <ul>
+     *    <li>Call the addAll method on the populated EntrySet.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>Calling addAll on the EntrySet should throw an UnsupportedOperationException.</li>
+     * </ul>
+     */
     @Test(expected = UnsupportedOperationException.class)
     public void testAddAllOnPopulatedEntrySet() {
         HSet entrySet = this.map.entrySet();
         entrySet.addAll(this.map.entrySet());
     }
 
+    /**
+     * Summary:
+     * Verifies that the clear method on a populated EntrySet clears the EntrySet and the underlying MapAdapter.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the clear method works as expected, removing all entries from the EntrySet and the MapAdapter.
+     *   The rationale is to confirm that clearing the EntrySet reflects in the underlying map.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Call the clear method on the populated EntrySet.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter should be empty after clearing the EntrySet.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>The EntrySet should be empty after calling clear.</li>
+     *   <li>The MapAdapter should also be empty after clearing the EntrySet.</li>
+     * </ul>
+     */
     @Test
     public void testClearOnPopulatedEntrySet() {
         HSet entrySet = this.map.entrySet();
@@ -55,6 +179,38 @@ public class TestPopulatedAbstractCollections {
         assertTrue("MapAdapter should be empty after clearing EntrySet", this.map.isEmpty());
     }
 
+    /**
+     * Summary:
+     * Verifies that the contains method on a populated EntrySet returns true for existing entries and false for non-existing entries.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the contains method works correctly, checking for the presence of entries in the EntrySet.
+     *   The rationale is to confirm that the EntrySet reflects the contents of the underlying MapAdapter.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Create another MapAdapter with the same entries as the original map.</li>
+     *   <li>Check that both the EntrySets of the two MapAdapters contain the same entries.</li>
+     *   <li>Remove half of the entries from the second MapAdapter and check that the EntrySet still contains the remaining entries.</li>
+     *   <li>Create an empty MapAdapter and check that the EntrySet contains all entries from it.</li>
+     *   <li>Create another MapAdapter with a different entry and check that the EntrySet does not contain it.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>The EntrySet should contain all entries from the first MapAdapter.</li>
+     *   <li>The EntrySet should still contain the remaining entries after partial removal from the second MapAdapter.</li>
+     *   <li>The EntrySet should contain all entries from an empty MapAdapter.</li>
+     *   <li>The EntrySet should not contain entries from a completely different MapAdapter.</li>
+     * </ul>
+     */
     @Test
     public void testContainsAllOnPopulatedEntrySet() {
         HMap anotherMap = new MapAdapter(this.map);
@@ -71,16 +227,92 @@ public class TestPopulatedAbstractCollections {
         assertFalse("EntrySet should not contain all entries from a completely different map", this.map.entrySet().containsAll(anotherPopulatedMap.entrySet()));
     }
 
+    /**
+     * Summary:
+     * Verifies that the containsAll method on a populated EntrySet throws a ClassCastException when passed a non-EntrySet collection.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the containsAll method correctly identifies when it is passed a non-EntrySet collection.
+     *   The rationale is to confirm that the EntrySet does not allow operations with incompatible types.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Call the containsAll method on the populated EntrySet with a non-EntrySet collection (e.g., keySet).</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>Calling containsAll with a non-EntrySet should throw a ClassCastException.</li>
+     * </ul>
+     */
     @Test(expected = ClassCastException.class)
     public void testContainsAllOnPopulatedEntrySetWithANonEntrySet() {
         this.map.entrySet().containsAll(this.map.keySet());
     }
 
+    /**
+     * Summary:
+     * Verifies that the containsAll method on a populated EntrySet throws a NullPointerException when passed null.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the containsAll method correctly handles null input.
+     *   The rationale is to confirm that the EntrySet does not allow null arguments.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Call the containsAll method on the populated EntrySet with null.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>Calling containsAll with null should throw a NullPointerException.</li>
+     * </ul>
+     */
     @Test(expected = NullPointerException.class)
     public void testContainsAllOnPopulatedEntrySetNull() {
         this.map.entrySet().containsAll(null);
     }
 
+    /**
+     * Summary:
+     * Verifies that the containsAll method on a populated EntrySet throws a NullPointerException when passed a collection with null keys.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the containsAll method correctly handles collections with null keys.
+     *   The rationale is to confirm that the EntrySet does not allow null keys.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Create a DummyTestMap containing a null key.</li>
+     *   <li>Call the containsAll method on the populated EntrySet with the DummyTestMap's EntrySet.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>Calling containsAll with a collection containing null keys should throw a NullPointerException.</li>
+     * </ul>
+     */
     @Test(expected = NullPointerException.class)
     public void testContainsAllOnPopulatedEntrySetWithNullKeys() {
         HMap anotherMap = new DummyTestMap();
@@ -88,6 +320,32 @@ public class TestPopulatedAbstractCollections {
         this.map.entrySet().containsAll(anotherMap.entrySet());
     }
 
+    /**
+     * Summary:
+     * Verifies that the containsAll method on a populated EntrySet throws a NullPointerException when passed a collection with null values.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the containsAll method correctly handles collections with null values.
+     *   The rationale is to confirm that the EntrySet does not allow null values.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Create a DummyTestMap containing a null value.</li>
+     *   <li>Call the containsAll method on the populated EntrySet with the DummyTestMap's EntrySet.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>Calling containsAll with a collection containing null values should throw a NullPointerException.</li>
+     * </ul>
+     */
     @Test(expected = NullPointerException.class)
     public void testContainsAllOnPopulatedEntrySetWithNullValues() {
         HMap anotherMap = new DummyTestMap();
@@ -95,6 +353,32 @@ public class TestPopulatedAbstractCollections {
         this.map.entrySet().containsAll(anotherMap.entrySet());
     }
 
+    /**
+     * Summary:
+     * Verifies that the containsAll method on a populated EntrySet throws a NullPointerException when passed a collection with null keys and values.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the containsAll method correctly handles collections with both null keys and values.
+     *   The rationale is to confirm that the EntrySet does not allow null keys or values.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Create a DummyTestMap containing both a null key and a null value.</li>
+     *   <li>Call the containsAll method on the populated EntrySet with the DummyTestMap's EntrySet.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>Calling containsAll with a collection containing null keys and values should throw a NullPointerException.</li>
+     * </ul>
+     */
     @Test(expected = NullPointerException.class)
     public void testContainsAllOnPopulatedEntrySetWithNullKeysAndValues() {
         HMap anotherMap = new DummyTestMap();
@@ -102,6 +386,32 @@ public class TestPopulatedAbstractCollections {
         this.map.entrySet().containsAll(anotherMap.entrySet());
     }
 
+    /**
+     * Summary:
+     * Verifies the behavior of the hashCode method on a populated EntrySet.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the hashCode method correctly computes the hash code
+     *   for the EntrySet based on its entries.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Iterate over the entries in the populated EntrySet and compute the expected hash code.</li>
+     *   <li>Compare the computed hash code with the hash code returned by the EntrySet.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>The hash code computed from the entries should match the hash code returned by the EntrySet.</li>
+     * </ul>
+     */
     @Test
     public void testHashCodeOnPopulatedEntrySet() {
         int expectedHashCode = 0;
@@ -113,11 +423,58 @@ public class TestPopulatedAbstractCollections {
         assertEquals("HashCode should match expected value", expectedHashCode, this.map.entrySet().hashCode());
     }
 
+    /**
+     * Summary: Verifies the behavior of the isEmpty method on a populated EntrySet.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     * This test ensures that the isEmpty method correctly identifies that the EntrySet is not empty when it contains entries.
+     * The rationale is to confirm that if the MapAdapter is not empty, the EntrySet is not empty.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Call the isEmpty method on the populated EntrySet.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>The isEmpty method should return false.</li>
+     * </ul>
+     */
     @Test
     public void testIsEmptyOnPopulatedEntrySet() {
         assertFalse("EntrySet should not be empty", this.map.entrySet().isEmpty());
     }
 
+    /**
+     * Summary: Verifies the behavior of the removeAll method on a populated EntrySet.
+     * Category: Method tests
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the removeAll method correctly removes specified entries from the EntrySet.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Call the removeAll method on the populated EntrySet with another EntrySet containing some keys.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>The removeAll method should return true if any entries were removed.</li>
+     * </ul>
+     */
     @Test
     public void testRemoveAllOnPopulatedEntrySet() {
         HMap anotherMap = new MapAdapter();
@@ -259,6 +616,78 @@ public class TestPopulatedAbstractCollections {
             assertEquals("Array element at index " + index + " should match the entry", entry, (HMap.HEntry) array[index]);
             index++;
         }
+    }
+
+    @Test
+    public void testToArrayOnPopulatedEntrySetIsFreeFromMap() {
+        Object[] array = this.map.entrySet().toArray();
+        this.map.put("differentKey", "differentValue");
+        assertEquals("array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("Array should not contain the new key", "differentKey", ((HMap.HEntry) array[i]).getKey());
+            assertNotEquals("Array should not contain the new value", "differentValue", ((HMap.HEntry) array[i]).getValue());
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.entrySet().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new entry", this.map.entrySet().contains(array[50]));
+    }
+
+    @Test
+    public void testToArrayOnPopulatedEntrySetWithArrayParameterOfRightDimensionIsFreeFromMap() {
+        Object[] array = new Object[MAP_INITIAL_CAPACITY];
+        array = this.map.entrySet().toArray(array);
+        this.map.put("differentKey", "differentValue");
+        assertEquals("array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("Array should not contain the new key", "differentKey", ((HMap.HEntry) array[i]).getKey());
+            assertNotEquals("Array should not contain the new value", "differentValue", ((HMap.HEntry) array[i]).getValue());
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.entrySet().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new entry", this.map.entrySet().contains(array[50]));
+    }
+
+    @Test
+    public void testToArrayOnPopulatedEntrySetWithUnderdimensionedArrayIsFreeFromMap() {
+        Object[] array = new Object[MAP_INITIAL_CAPACITY/2];
+        array = this.map.entrySet().toArray(array);
+        this.map.put("differentKey", "differentValue");
+        assertEquals("underdimensioned array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("underdimensioned array should not contain the new key", "differentKey", ((HMap.HEntry) array[i]).getKey());
+            assertNotEquals("underdimensioned array should not contain the new value", "differentValue", ((HMap.HEntry) array[i]).getValue());
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.entrySet().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new entry", this.map.entrySet().contains(array[50]));
+
+    }
+
+    @Test
+    public void testToArrayOnPopulatedEntrySetWithOverdimensionedArrayIsFreeFromMap() {
+        Object[] array = new Object[MAP_INITIAL_CAPACITY + 50];
+        array = this.map.entrySet().toArray(array);
+        this.map.put("differentKey", "differentValue");
+        assertEquals("overdimensioned array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY + 50, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("overdimensioned array should not contain the new key", "differentKey", ((HMap.HEntry) array[i]).getKey());
+            assertNotEquals("overdimensioned array should not contain the new value", "differentValue", ((HMap.HEntry) array[i]).getValue());
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.entrySet().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new entry", this.map.entrySet().contains(array[50]));
     }
 
     @Test
@@ -661,6 +1090,74 @@ public class TestPopulatedAbstractCollections {
     }
 
     @Test
+    public void testToArrayOnPopulatedKeySetIsFreeFromMap() {
+        Object[] array = this.map.keySet().toArray();
+        this.map.put("differentKey", "differentValue");
+        assertEquals("array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("array should not contain the new key", "differentKey", array[i]);
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.keySet().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new key", this.map.keySet().contains(array[50]));
+    }
+
+    @Test
+    public void testToArrayOnPopulatedKeySetWithArrayParameterOfRightDimensionIsFreeFromMap() {
+        Object[] array = new Object[MAP_INITIAL_CAPACITY];
+        array = this.map.keySet().toArray(array);
+        this.map.put("differentKey", "differentValue");
+        assertEquals("array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("Array should not contain the new key", "differentKey", array[i]);
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.keySet().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new key", this.map.keySet().contains(array[50]));
+    }
+
+    @Test
+    public void testToArrayOnPopulatedKeySetWithUnderdimensionedArrayIsFreeFromMap() {
+        Object[] array = new Object[MAP_INITIAL_CAPACITY/2];
+        array = this.map.keySet().toArray(array);
+        this.map.put("differentKey", "differentValue");
+        assertEquals("underdimensioned array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("underdimensioned array should not contain the new key", "differentKey", array[i]);
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.keySet().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new key", this.map.keySet().contains(array[50]));
+
+    }
+    
+    @Test
+    public void testToArrayOnPopulatedKeySetWithOverdimensionedArrayIsFreeFromMap() {
+        Object[] array = new Object[MAP_INITIAL_CAPACITY + 50];
+        array = this.map.keySet().toArray(array);
+        this.map.put("differentKey", "differentValue");
+        assertEquals("overdimensioned array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY + 50, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("overdimensioned array should not contain the new key", "differentKey", array[i]);
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.keySet().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new key", this.map.keySet().contains(array[50]));
+    }
+
+    @Test
     public void testToArrayOnPopulatedKeySetWithArrayParameterOfRightDimension() {
         Object[] array = new Object[100];
         array = this.map.keySet().toArray(array);
@@ -821,7 +1318,7 @@ public class TestPopulatedAbstractCollections {
     }
 
     /*--------------------------------------------------------------*/
-    /*--------------------- ValuesCollection TESTS -----------------*/
+    /*--------------------- ValueCollection TESTS ------------------*/
     /*--------------------------------------------------------------*/
 
     @Test(expected = UnsupportedOperationException.class)
@@ -917,6 +1414,16 @@ public class TestPopulatedAbstractCollections {
         this.map.values().removeAll(anotherMap.values());
         assertTrue("ValueCollection should be empty after removing all values", this.map.values().isEmpty());
         assertTrue("MapAdapter should be empty after removing all values", this.map.isEmpty());
+    }
+
+    @Test
+    public void testRemoveAllOnPopulatedValueCollectionWithRepeatedValues() {
+        this.map.put("testKey100", "testValue50");
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("testKey0", "testValue50");
+        this.map.values().removeAll(anotherMap.values());
+        assertFalse("remove all should remove all the repeated values in the ValueCollection",
+                    this.map.values().contains("testValue50"));
     }
 
     
@@ -1016,6 +1523,74 @@ public class TestPopulatedAbstractCollections {
     }
 
     @Test
+    public void testToArrayOnPopulatedValueCollectionIsFreeFromMap() {
+        Object[] array = this.map.values().toArray();
+        this.map.put("differentKey", "differentValue");
+        assertEquals("array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("array should not contain the new value", "differentValue", array[i]);
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.values().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new value", this.map.values().contains(array[50]));
+    }
+
+    @Test
+    public void testToArrayOnPopulatedValueCollectionWithArrayParameterOfRightDimensionIsFreeFromMap() {
+        Object[] array = new Object[MAP_INITIAL_CAPACITY];
+        array = this.map.values().toArray(array);
+        this.map.put("differentKey", "differentValue");
+        assertEquals("array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("Array should not contain the new value", "differentValue", array[i]);
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.values().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new value", this.map.values().contains(array[50]));
+    }
+
+    @Test
+    public void testToArrayOnPopulatedValueCollectionWithUnderdimensionedArrayIsFreeFromMap() {
+        Object[] array = new Object[MAP_INITIAL_CAPACITY/2];
+        array = this.map.values().toArray(array);
+        this.map.put("differentKey", "differentValue");
+        assertEquals("underdimensioned array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("underdimensioned array should not contain the new value", "differentValue", array[i]);
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.values().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new value", this.map.values().contains(array[50]));
+
+    }
+    
+    @Test
+    public void testToArrayOnPopulatedValueCollectionWithOverdimensionedArrayIsFreeFromMap() {
+        Object[] array = new Object[MAP_INITIAL_CAPACITY + 50];
+        array = this.map.values().toArray(array);
+        this.map.put("differentKey", "differentValue");
+        assertEquals("overdimensioned array should not be affected by changes in the map after toArray", MAP_INITIAL_CAPACITY + 50, array.length);
+        for(int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertNotEquals("overdimensioned array should not contain the new value", "differentValue", array[i]);
+        }
+
+        HMap anotherMap = new MapAdapter();
+        anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
+        array[50] = anotherMap.keySet().iterator().next();
+
+        assertFalse("MapAdapter should not contain the new key", this.map.keySet().contains(array[50]));
+    }
+
+    @Test
     public void testToArrayOnPopulatedValueCollectionWithArrayParameterOfRightDimension() {
         Object[] array = new Object[100];
         array = this.map.values().toArray(array);
@@ -1093,11 +1668,14 @@ public class TestPopulatedAbstractCollections {
 
     @Test
     public void testEqualsOnPopulatedValueCollection() {
+        HMap anotherMap = new MapAdapter(this.map);
         HCollection values = this.map.values();
-        HCollection anotherValues = new MapAdapter(this.map).values();
-        assertTrue("ValueCollection should be equal to another ValueCollection with the same entries", values.equals(anotherValues));
+        HCollection anotherValueCollection = anotherMap.values();
+        assertTrue("ValueCollection should be equal to another ValueCollection with the same entries", values.equals(anotherValueCollection));
+        anotherMap.remove("testKey1");
+        anotherMap.put("testKey0", "testValue0");
+        assertFalse("ValueCollection should not be equal to a different ValueCollection", values.equals(anotherMap.values()));
     }
-
     @Test
     public void testEqualsOnPopulatedValueCollectionWithDifferentValueCollection() {
         HMap anotherMap = new MapAdapter(this.map);
@@ -1168,6 +1746,24 @@ public class TestPopulatedAbstractCollections {
         }
         assertTrue("ValueCollection should be empty after removing all values", values.isEmpty());
         assertTrue("MapAdapter should be empty after removing all values", this.map.isEmpty());
+    }
+
+    @Test
+    public void testRemoveOnPopulatedValueCollectionWithRepeatedValues() {
+        this.map.put("tesKey100", "testValue50");
+        HCollection values = this.map.values();
+        Object valueToBeRemoved = "testValue50";
+        assertTrue("ValueCollection should contain the value to be removed", values.contains(valueToBeRemoved));
+        values.remove(valueToBeRemoved);
+        assertEquals("ValueCollection should have the original size after removing a value from ValueCollection",
+                     MAP_INITIAL_CAPACITY, values.size());
+        assertTrue("ValueCollection should still contain an instance of the removed value", values.contains(valueToBeRemoved));
+        assertTrue("MapAdapter should still contain an instance of the removed value", this.map.containsValue(valueToBeRemoved));
+        values.remove(valueToBeRemoved);
+        assertEquals("ValueCollection should have decreased size by 1 after removing the second instance of the value",
+                     MAP_INITIAL_CAPACITY - 1, values.size());
+        assertFalse("ValueCollection should not contain the removed value after removing both instances", values.contains(valueToBeRemoved));
+        assertFalse("MapAdapter should not contain the removed value after removing both instances", this.map.containsValue(valueToBeRemoved));
     }
 
     @Test(expected = NullPointerException.class)

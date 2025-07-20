@@ -35,17 +35,18 @@ import org.junit.After;
  *   <li>Ensure that the collections are backed by the {@link myAdapter.MapAdapter} and reflect changes in the map.</li>
  *   <li>Test exception handling for invalid input (e.g., nulls, wrong types).</li>
  * </ul>
- * The rationale is to provide comprehensive coverage of the populated state for all collection views, ensuring correctness, robustness, and compliance with the {@link myAdapter.HCollection} and {@link myAdapter.HSet} contracts.
+ * The rationale is to provide comprehensive coverage of the populated state for all collection views, ensuring correctness, robustness and compliance with the {@link myAdapter.HCollection} and {@link myAdapter.HSet} contracts.
  */
 public class TestPopulatedAbstractCollections {
     /**
      * Initial capacity for the MapAdapter used in tests.
      * This is set to 100 to ensure a sufficiently populated map for testing.
+     * <strong>Note:</strong> changing this value may invalidate existing tests.
      */
     private static final int MAP_INITIAL_CAPACITY = 100;
     /**
      * The MapAdapter instance used for testing.
-     * It is populated with 100 entries before each test.
+     * It is populated with MAP_INITIAL_CAPACITY entries before each test.
      */
     private HMap map;
 
@@ -57,7 +58,8 @@ public class TestPopulatedAbstractCollections {
     }
 
     /**
-     * Sets up the test environment by initializing the MapAdapter and populating it with 100 entries.
+     * Sets up the test environment by initializing the map and populating it with test entries.
+     * MAP_INITIAL_CAPACITY entries are added to the empty map and they are formed this way: "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * This method is called before each test to ensure a consistent starting state.
      */
     @Before
@@ -126,7 +128,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -156,7 +158,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter should be empty after clearing the EntrySet.
@@ -193,7 +195,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -218,7 +220,7 @@ public class TestPopulatedAbstractCollections {
         HMap anotherEmptyMap = new MapAdapter();
         assertTrue("EntrySet should contain all entries from an empty EntrySet", this.map.entrySet().containsAll(anotherEmptyMap.entrySet()));
         HMap anotherPopulatedMap = new MapAdapter();
-        anotherPopulatedMap.put("testKey100", "testValue100");
+        anotherPopulatedMap.put("testKeyMAP_INITIAL_CAPACITY", "testValueMAP_INITIAL_CAPACITY");
         assertFalse("EntrySet should not contain all entries from a completely different map", this.map.entrySet().containsAll(anotherPopulatedMap.entrySet()));
     }
 
@@ -236,7 +238,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -265,7 +267,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -295,7 +297,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -327,7 +329,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -359,7 +361,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -391,7 +393,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -425,7 +427,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -458,7 +460,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -516,7 +518,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -536,7 +538,30 @@ public class TestPopulatedAbstractCollections {
         assertEquals("MapAdapter size should remain unchanged after attempting to remove from an empty EntrySet", MAP_INITIAL_CAPACITY, this.map.size());
     }
 
-
+    /**
+     * Summary:
+     * Verifies that the removeAll method on a populated EntrySet throws a NullPointerException when passed null.
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the removeAll method correctly handles null input.
+     *   The rationale is to confirm that the EntrySet does not allow null arguments.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Call the removeAll method on the populated EntrySet with null.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>Calling removeAll with null should throw a NullPointerException.</li>
+     * </ul>
+     */
     @Test(expected = NullPointerException.class)
     public void testRemoveAllOnPopulatedEntrySetWithNull() {
         this.map.entrySet().removeAll(null);
@@ -558,7 +583,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -595,7 +620,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -634,7 +659,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -685,7 +710,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -722,7 +747,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -758,7 +783,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -789,7 +814,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -827,7 +852,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -862,7 +887,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -891,7 +916,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -934,7 +959,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -981,7 +1006,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -1030,7 +1055,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -1079,7 +1104,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -1124,7 +1149,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1164,7 +1189,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1204,7 +1229,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1245,7 +1270,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1275,7 +1300,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1305,7 +1330,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1348,7 +1373,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is cleared.
@@ -1394,7 +1419,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1427,7 +1452,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1458,7 +1483,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1487,7 +1512,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1516,7 +1541,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1547,7 +1572,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1582,7 +1607,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1617,7 +1642,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1652,7 +1677,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1681,7 +1706,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1711,7 +1736,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1743,7 +1768,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1777,7 +1802,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty after removing all entries from the EntrySet.
@@ -1824,7 +1849,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1853,7 +1878,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1883,7 +1908,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1915,7 +1940,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1947,7 +1972,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -1981,7 +2006,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2012,7 +2037,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2045,7 +2070,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is cleared.
@@ -2082,7 +2107,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2107,7 +2132,7 @@ public class TestPopulatedAbstractCollections {
         HMap anotherEmptyMap = new MapAdapter();
         assertTrue("KeySet should contain all keys from an empty KeySet", this.map.keySet().containsAll(anotherEmptyMap.keySet()));
         HMap anotherPopulatedMap = new MapAdapter();
-        anotherPopulatedMap.put("testKey100", "testValue100");
+        anotherPopulatedMap.put("testKeyMAP_INITIAL_CAPACITY", "testValueMAP_INITIAL_CAPACITY");
         assertFalse("KeySet should not contain all keys from a completely different map", this.map.keySet().containsAll(anotherPopulatedMap.keySet()));
     }
 
@@ -2125,7 +2150,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2155,7 +2180,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2188,7 +2213,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2223,7 +2248,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2259,7 +2284,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -2313,7 +2338,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2345,7 +2370,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2374,7 +2399,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2405,7 +2430,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2442,7 +2467,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is updated to retain only specified keys.
@@ -2489,7 +2514,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -2524,7 +2549,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2553,7 +2578,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2584,7 +2609,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -2620,7 +2645,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2652,7 +2677,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2693,7 +2718,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -2737,7 +2762,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -2782,7 +2807,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -2828,7 +2853,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -2873,7 +2898,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2886,7 +2911,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testToArrayOnPopulatedKeySetWithArrayParameterOfRightDimension() {
-        Object[] array = new Object[100];
+        Object[] array = new Object[MAP_INITIAL_CAPACITY];
         array = this.map.keySet().toArray(array);
         assertEquals("Array length should match the size of the KeySet", MAP_INITIAL_CAPACITY, array.length);
         HIterator iterator = this.map.keySet().iterator();
@@ -2915,7 +2940,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -2958,7 +2983,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3000,7 +3025,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3031,7 +3056,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3064,7 +3089,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3105,7 +3130,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is cleared.
@@ -3150,7 +3175,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3183,7 +3208,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3215,7 +3240,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3245,7 +3270,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3275,7 +3300,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3306,7 +3331,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3341,7 +3366,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3376,7 +3401,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3411,7 +3436,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3442,7 +3467,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -3486,7 +3511,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3516,7 +3541,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3549,7 +3574,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3579,7 +3604,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3611,7 +3636,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is cleared.
@@ -3630,7 +3655,6 @@ public class TestPopulatedAbstractCollections {
         assertTrue("MapAdapter should be empty after clearing ValueCollection", this.map.isEmpty());
     }
 
-    //this is the contains all method
     /**
      * Summary:
      * Verifies that the containsAll method on a populated ValueCollection behaves correctly.
@@ -3649,7 +3673,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3674,7 +3698,7 @@ public class TestPopulatedAbstractCollections {
         HMap anotherEmptyMap = new MapAdapter();
         assertTrue("ValueCollection should contain all values from an empty ValueCollection", this.map.values().containsAll(anotherEmptyMap.values()));
         HMap anotherPopulatedMap = new MapAdapter();
-        anotherPopulatedMap.put("testKey100", "testValue100");
+        anotherPopulatedMap.put("testKeyMAP_INITIAL_CAPACITY", "testValueMAP_INITIAL_CAPACITY");
         assertFalse("ValueCollection should not contain all values from a completely different map", this.map.values().containsAll(anotherPopulatedMap.values()));
     }
 
@@ -3694,7 +3718,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new entry with a repeated value.
@@ -3707,7 +3731,7 @@ public class TestPopulatedAbstractCollections {
     @Test
     public void testContainsAllOnPopulatedValueCollectionWithRepeatedValues() {
         HMap anotherMap = new MapAdapter(this.map);
-        anotherMap.put("testKey100", "testValue50");
+        anotherMap.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
         assertTrue("ValueCollection should contain all values of the other ValueCollection even if they are repeated",
                    this.map.values().containsAll(anotherMap.values()));
     }
@@ -3726,7 +3750,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3756,7 +3780,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3789,7 +3813,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3824,7 +3848,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3857,7 +3881,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -3912,7 +3936,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter does not contain the entries with value "testValue50".
@@ -3925,7 +3949,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testRemoveAllOnPopulatedValueCollectionWithRepeatedValues() {
-        this.map.put("testKey100", "testValue50");
+        this.map.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
         HMap anotherMap = new MapAdapter();
         anotherMap.put("testKey0", "testValue50");
         this.map.values().removeAll(anotherMap.values());
@@ -3949,7 +3973,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -3981,7 +4005,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4010,7 +4034,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4040,7 +4064,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4077,7 +4101,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter retains only specified values.
@@ -4126,7 +4150,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -4161,7 +4185,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4190,7 +4214,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4221,7 +4245,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -4260,7 +4284,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains only the two entries with the repeated value.
@@ -4273,7 +4297,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testRetainAllOnPopulatedValueCollectionWithRepeatedValues() {
-        this.map.put("testKey100", "testValue50");
+        this.map.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
         HMap anotherMap = new MapAdapter();
         anotherMap.put("testKey0", "testValue50");
         assertTrue("ValueCollection should retain all repeated values", this.map.values().retainAll(anotherMap.values()));
@@ -4294,7 +4318,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4324,7 +4348,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains an additional entry with a repeated value.
@@ -4336,7 +4360,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testSizeOnPopulatedValueCollectionWithRepeatedValues() {
-        this.map.put("testKey100", "testValue50");
+        this.map.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
         assertEquals("Size of ValueCollection should count repeated values", MAP_INITIAL_CAPACITY + 1, this.map.values().size());
     }
 
@@ -4355,7 +4379,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4396,7 +4420,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -4440,7 +4464,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -4485,7 +4509,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -4531,7 +4555,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains a new key-value pair.
@@ -4574,7 +4598,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4614,7 +4638,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4654,7 +4678,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4695,7 +4719,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4726,7 +4750,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4757,7 +4781,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4795,7 +4819,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains an additional entry with a repeated value.
@@ -4808,7 +4832,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testToStringOnPopulatedValueCollectionWithRepeatedValues() {
-        this.map.put("testKey100", "testValue50");
+        this.map.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
         String expected = "[";
         HIterator iterator = this.map.values().iterator();
         while (iterator.hasNext()) {
@@ -4836,7 +4860,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter is empty.
@@ -4881,7 +4905,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4916,7 +4940,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -4950,7 +4974,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains an additional entry with a repeated value.
@@ -4963,7 +4987,7 @@ public class TestPopulatedAbstractCollections {
     @Test
     public void testEqualsOnPopulatedValueCollectionWithAValueCollectionWithRepeatedValues() {
         HMap anotherMap = new MapAdapter(this.map);
-        anotherMap.put("testKey100", "testValue50");
+        anotherMap.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
         assertFalse("ValueCollection should not be equal to a ValueCollection with repeated values", this.map.values().equals(anotherMap.values()));
     }
     
@@ -4983,7 +5007,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -5014,7 +5038,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -5045,7 +5069,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -5144,7 +5168,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -5179,7 +5203,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -5212,7 +5236,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -5262,7 +5286,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter contains an additional entry with a repeated value.
@@ -5279,7 +5303,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testRemoveOnPopulatedValueCollectionWithRepeatedValues() {
-        this.map.put("tesKey100", "testValue50");
+        this.map.put("tesKeyMAP_INITIAL_CAPACITY", "testValue50");
         HCollection values = this.map.values();
         Object valueToBeRemoved = "testValue50";
         assertTrue("ValueCollection should contain the value to be removed", values.contains(valueToBeRemoved));
@@ -5309,7 +5333,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -5339,7 +5363,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      * <p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is populated with 100 entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.

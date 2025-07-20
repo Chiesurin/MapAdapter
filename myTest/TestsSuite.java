@@ -7,6 +7,10 @@ import org.junit.runners.Suite;
 
 import junit.framework.Test;
 
+/**
+ * This class is used to group all test classes of {@link myTest} for execution.
+ * It uses JUnit's Suite runner to run all specified test classes together.
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     TestEmptyMapAdapter.class,
@@ -17,11 +21,6 @@ import junit.framework.Test;
     TestPopulatedAbstractCollectionIterators.class,
     TestEmptyAbstractCollectionIterators.class
 })
-
-/**
- * This {@code TestsSuite} class is used to group all test classes of {@link myTest} for execution.
- * It uses JUnit's Suite runner to run all specified test classes together.
- */
 public class TestsSuite {
     
     /**

@@ -6,6 +6,9 @@ import myAdapter.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.util.Map;
+
 import org.junit.After;
 
 
@@ -38,11 +41,11 @@ import org.junit.After;
  * <ul>
  *   <li>Verify that all constructors create an empty map and handle invalid arguments appropriately.</li>
  *   <li>Check that all query methods ({@link myAdapter.MapAdapter#isEmpty()}, {@link myAdapter.MapAdapter#size()}, {@link myAdapter.MapAdapter#containsKey(Object)}, {@link myAdapter.MapAdapter#containsValue(Object)}, {@link myAdapter.MapAdapter#get(Object)}, etc.) return results consistent with an empty map.</li>
- *   <li>Ensure that mutator methods ({@link myAdapter.MapAdapter#put(Object, Object)}, {@link myAdapter.MapAdapter#putAll(Map)}, {@link myAdapter.MapAdapter#remove(Object)}, {@link myAdapter.MapAdapter#clear()}) behave correctly and throw exceptions for invalid input (e.g., null keys/values).</li>
+ *   <li>Ensure that mutator methods ({@link myAdapter.MapAdapter#put(Object, Object)}, {@link myAdapter.MapAdapter#putAll(HMap)}, {@link myAdapter.MapAdapter#remove(Object)}, {@link myAdapter.MapAdapter#clear()}) behave correctly and throw exceptions for invalid input (e.g., null keys/values).</li>
  *   <li>Validate the contract of {@link myAdapter.MapAdapter#equals(Object)} and {@link myAdapter.MapAdapter#hashCode()} for empty maps.</li>
  *   <li>Check that the string representation of an empty map is as expected.</li>
  * </ul>
- * The rationale is to provide comprehensive coverage of the empty state and to ensure robustness against edge cases and invalid input.
+ * The rationale is to provide comprehensive coverage of the empty state of the {@link myAdapter.MapAdapter}, ensuring correctness, robustness and compliance with the {@link myAdapter.HMap} contract.
  */
 public class TestEmptyMapAdapter {
 

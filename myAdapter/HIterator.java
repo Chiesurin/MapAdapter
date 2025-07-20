@@ -5,16 +5,11 @@ package myAdapter;
 /**
  * An iterator over a collection. {@code HIterator} takes the place of {@code Enumeration}
  * in the Java collections framework. Iterators differ from enumerations in two
- * ways: <ul>
- *	<li> Iterators allow the caller to remove elements from the
- *	     underlying collection during the iteration with well-defined
- * semantics.
+ * ways: 
+ * <ul>
+ *	<li> Iterators allow the caller to remove elements from the underlying collection during the iteration with well-defined semantics.
  *	<li> Method names have been improved.
- * </ul><p>
- *
- * This interface is a member of the
- * <a href="https://docs.oracle.com/javase/1.4.2/docs/guide/collections/index.html">
- * Java Collections Framework</a>.
+ * </ul>
  */
 public interface HIterator {
     

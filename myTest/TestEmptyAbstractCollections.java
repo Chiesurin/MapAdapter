@@ -33,7 +33,7 @@ import myExceptions.UnsupportedOperationException;
  *   <li>Ensure that the {@link myAdapter.HCollection} and {@link myAdapter.HSet} are backed by the {@link myAdapter.MapAdapter} and reflect changes in the map.</li>
  *   <li>Test exception handling for invalid input (e.g., nulls, wrong types).</li>
  * </ul>
- * The rationale is to provide comprehensive coverage of the empty state for all collection views, ensuring correctness, robustness, and compliance with the {@link myAdapter.HCollection} and {@link myAdapter.HSet} contracts.
+ * The rationale is to provide comprehensive coverage of the empty state for all collection views, ensuring correctness, robustness and compliance with the {@link myAdapter.HCollection} and {@link myAdapter.HSet} contracts.
  */
 public class TestEmptyAbstractCollections {
 
@@ -2864,7 +2864,6 @@ public class TestEmptyAbstractCollections {
     /*--------------------------------------------------------------*/
     /*--------------------- ValueCollection TESTS ------------------*/
     /*--------------------------------------------------------------*/
-    //continue with the ValueCollection tests
 
     /**
      * Summary:

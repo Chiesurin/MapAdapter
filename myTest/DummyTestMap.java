@@ -9,9 +9,9 @@ import java.util.Iterator;
 import myExceptions.UnsupportedOperationException;
 
 /**
- * Dummy implementation of {@code HMap} that can contain null keys and null values using HashMap.
+ * Dummy implementation of {@link myAdapter.HMap} that can contain null keys and null values using HashMap.
  * This is used for testing purposes only.
- * Not all HMap operations are supported, and will throw UnsupportedOperationException.
+ * Not all HMap operations are supported, and will throw {@link myExceptions.UnsupportedOperationException}.
  */
 public class DummyTestMap implements HMap {
 
@@ -22,11 +22,14 @@ public class DummyTestMap implements HMap {
     private HashMap<Object, Object> map;
 
     /**
-     * DummyEntry is a simple implementation of HMap.HEntry that allows for testing
-     * without the need for a full implementation of HMap.Entry.
-     * Not all HMap.HEntry operations are supported, and will throw UnsupportedOperationException.
+     * DummyEntry is a simple implementation of {@link myAdapter.HMap.HEntry} that allows for testing
+     * without the need of a full implementation.
+     * Not all {@link myAdapter.HMap.HEntry} operations are supported, and will throw {@link myExceptions.UnsupportedOperationException}.
      */
     protected class DummyEntry implements HMap.HEntry {
+        /**
+         * The underlying Map.Entry used for storing key-value pairs.
+         */
         Map.Entry<Object, Object> entry;
 
         /**
@@ -84,9 +87,9 @@ public class DummyTestMap implements HMap {
     }
 
     /**
-     * DummyEntrySet is a simple implementation of HSet that allows for testing
-     * without the need for a full implementation of HSet.
-     * Not all HSet operations are supported, and will throw UnsupportedOperationException.
+     * DummyEntrySet is a simple implementation of {@link myAdapter.HSet} that allows for testing
+     * without the need of a full implementation.
+     * Not all {@link myAdapter.HSet} operations are supported, and will throw {@link myExceptions.UnsupportedOperationException}.
      */
     protected class DummyEntrySet implements HSet {
 
@@ -210,9 +213,9 @@ public class DummyTestMap implements HMap {
     }
 
     /**
-     * DummyKeySet is a simple implementation of HSet that allows for testing
-     * without the need for a full implementation of HSet.
-     * Not all HSet operations are supported, and will throw UnsupportedOperationException.
+     * DummyKeySet is a simple implementation of {@link myAdapter.HSet} that allows for testing
+     * without the need of a full implementation.
+     * Not all {@link myAdapter.HSet} operations are supported, and will throw {@link myExceptions.UnsupportedOperationException}.
      */
     protected class DummyKeySet implements HSet {
 
@@ -329,9 +332,9 @@ public class DummyTestMap implements HMap {
     }
 
     /**
-     * DummyValueCollection is a simple implementation of HCollection that allows for testing
-     * without the need for a full implementation of HCollection.
-     * Not all HCollection operations are supported, and will throw UnsupportedOperationException.
+     * DummyValueCollection is a simple implementation of {@link myAdapter.HCollection} that allows for testing
+     * without the need of a full implementation.
+     * Not all {@link myAdapter.HCollection} operations are supported, and will throw {@link myExceptions.UnsupportedOperationException}.
      */
     protected class DummyValueCollection implements HCollection {
 
@@ -448,9 +451,9 @@ public class DummyTestMap implements HMap {
     }
 
     /**
-     * DummyEntrySetIterator is a simple implementation of HIterator that allows for
-     * iterating over the entry set of the map.
-     * Not all HIterator operations are supported, and will throw UnsupportedOperationException.
+     * DummyEntrySetIterator is a simple implementation of {@link myAdapter.HIterator} that allows for
+     * iterating over the {@link DummyEntrySet} of the {@link DummyTestMap}.
+     * Not all {@link myAdapter.HIterator} operations are supported, and will throw {@link myExceptions.UnsupportedOperationException}.
      */
     protected class DummyEntrySetIterator implements HIterator{
 
@@ -493,9 +496,9 @@ public class DummyTestMap implements HMap {
     }
 
     /**
-     * DummyKeySetIterator is a simple implementation of HIterator that allows for
-     * iterating over the key set of the map.
-     * Not all HIterator operations are supported, and will throw UnsupportedOperationException.
+     * DummyKeySetIterator is a simple implementation of {@link myAdapter.HIterator} that allows for
+     * iterating over the {@link DummyKeySet} of the {@link DummyTestMap}.
+     * Not all {@link myAdapter.HIterator} operations are supported, and will throw {@link myExceptions.UnsupportedOperationException}.
      */
     protected class DummyKeySetIterator implements HIterator {
         /**
@@ -535,9 +538,9 @@ public class DummyTestMap implements HMap {
     }
 
     /**
-     * DummyValueCollectionIterator is a simple implementation of HIterator that allows for
-     * iterating over the value collection of the map.
-     * Not all HIterator operations are supported, and will throw UnsupportedOperationException.
+     * DummyValueCollectionIterator is a simple implementation of {@link myAdapter.HIterator} that allows for
+     * iterating over the {@link DummyValueCollection} of the {@link DummyTestMap}.
+     * Not all {@link myAdapter.HIterator} operations are supported, and will throw {@link myExceptions.UnsupportedOperationException}.
      */
     protected class DummyValueCollectionIterator implements HIterator {
         /**

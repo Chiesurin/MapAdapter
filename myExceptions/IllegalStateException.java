@@ -8,7 +8,7 @@ package myExceptions;
  * Java application is not in an appropriate state for the requested
  * operation.
  * 
- * Being compliant with J2SE 1.4.2 the constructors
+ * Being compliant with the J2SE 1.4.2 constructors
  * using {@code cause} are not required
  */
 public class IllegalStateException extends RuntimeException {

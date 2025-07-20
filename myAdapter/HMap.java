@@ -36,9 +36,9 @@ package myAdapter;
  *
  * <p>The "destructive" methods contained in this interface, that is, the
  * methods that modify the map on which they operate, are specified to throw
- * {@code UnsupportedOperationException} if this map does not support the
+ * {@link myExceptions.UnsupportedOperationException} if this map does not support the
  * operation. If this is the case, these methods may, but are not required
- * to, throw an {@code UnsupportedOperationException} if the invocation would
+ * to, throw an {@link myExceptions.UnsupportedOperationException} if the invocation would
  * have no effect on the map. For example, invoking the {@link #putAll(HMap)}
  * method on an unmodifiable map may, but is not required to, throw the
  * exception if the map whose mappings are to be "superimposed" is empty.
@@ -56,10 +56,6 @@ package myAdapter;
  * throw an exception or it may succeed, at the option of the implementation.
  * Such exceptions are marked as "optional" in the specification for this
  * interface.
- *
- * <p>This interface is a member of the
- * <a href="https://docs.oracle.com/javase/1.4.2/docs/guide/collections/index.html">
- * Java Collections Framework</a>.
  */
 public interface HMap {
 

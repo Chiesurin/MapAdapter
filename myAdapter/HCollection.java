@@ -8,30 +8,30 @@ package myAdapter;
  * collections allow duplicate elements and others do not. Some are ordered
  * and others unordered. The SDK does not provide any <i>direct</i>
  * implementations of this interface: it provides implementations of more
- * specific subinterfaces like {@code HSet} and {@code HList} (if you define one).
+ * specific subinterfaces like {@link HSet} and {@code HList} (if you define one).
  * This interface is typically used to pass collections around and manipulate them where
  * maximum generality is desired.
  *
  * <p><i>Bags</i> or <i>multisets</i> (unordered collections that may contain
  * duplicate elements) should implement this interface directly.
  *
- * <p>All general-purpose {@code HCollection} implementation classes (which
- * typically implement {@code HCollection} indirectly through one of its
+ * <p>All general-purpose {@link HCollection} implementation classes (which
+ * typically implement {@link HCollection} indirectly through one of its
  * subinterfaces) should provide two "standard" constructors: a void (no
  * arguments) constructor, which creates an empty collection, and a
- * constructor with a single argument of type {@code HCollection}, which
+ * constructor with a single argument of type {@link HCollection}, which
  * creates a new collection with the same elements as its argument. In
  * effect, the latter constructor allows the user to copy any collection,
  * producing an equivalent collection of the desired implementation type.
  * There is no way to enforce this convention (as interfaces cannot contain
- * constructors) but all of the general-purpose {@code HCollection}
+ * constructors) but all of the general-purpose {@link HCollection}
  * implementations in the Java platform libraries comply.
  *
  * <p>The "destructive" methods contained in this interface, that is, the
  * methods that modify the collection on which they operate, are specified to
- * throw {@code UnsupportedOperationException} if this collection does not
+ * throw {@link myExceptions.UnsupportedOperationException} if this collection does not
  * support the operation. If this is the case, these methods may, but are not
- * required to, throw an {@code UnsupportedOperationException} if the
+ * required to, throw an {@link myExceptions.UnsupportedOperationException} if the
  * invocation would have no effect on the collection. For example, invoking
  * the {@link #addAll(HCollection)} method on an unmodifiable collection may,
  * but is not required to, throw the exception if the collection to be added
@@ -50,10 +50,6 @@ package myAdapter;
  * exception or it may succeed, at the option of the implementation.
  * Such exceptions are marked as "optional" in the specification for this
  * interface.
- *
- * <p>This interface is a member of the
- * <a href="https://docs.oracle.com/javase/1.4.2/docs/guide/collections/index.html">
- * Java Collections Framework</a>.
  */
 public interface HCollection {
 

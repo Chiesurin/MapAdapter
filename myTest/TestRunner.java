@@ -7,7 +7,8 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 /**
- * {@code TestRunner} class to run all tests in the {@code TestsSuite}.
+ * {@code TestRunner} class to run all tests in the {@link TestsSuite}, 
+ * regarding the {@link myAdapter.MapAdapter} and all its nested classes.
  * It prints the results of the tests including total runtime, number of tests run,
  * successful tests, failures, and ignored tests.
  */

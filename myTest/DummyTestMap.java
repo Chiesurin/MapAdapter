@@ -55,28 +55,28 @@ public class DummyTestMap implements HMap {
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntry
          */
         public Object setValue(Object value) {
             throw new UnsupportedOperationException("setValue not supported for DummyEntry");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntry
          */
         public boolean equals(Object o) {
             throw new UnsupportedOperationException("equals not supported for DummyEntry");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntry
          */
         public int hashCode() {
             throw new UnsupportedOperationException("hashCode not supported for DummyEntry");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntry
          */
         public String toString() {
             throw new UnsupportedOperationException("toString not supported for DummyEntry");
@@ -118,91 +118,91 @@ public class DummyTestMap implements HMap {
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public boolean add(Object o) {
             throw new UnsupportedOperationException("add not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public boolean addAll(HCollection c) {
             throw new UnsupportedOperationException("addAll not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public void clear() {
             throw new UnsupportedOperationException("clear not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public boolean containsAll(HCollection c) {
             throw new UnsupportedOperationException("containsAll not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public boolean equals(Object o) {
             throw new UnsupportedOperationException("equals not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public int hashCode() {
             throw new UnsupportedOperationException("hashCode not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public boolean isEmpty() {
             throw new UnsupportedOperationException("isEmpty not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public boolean remove(Object o) {
             throw new UnsupportedOperationException("remove not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public boolean removeAll(HCollection c) {
             throw new UnsupportedOperationException("removeAll not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public boolean retainAll(HCollection c) {
             throw new UnsupportedOperationException("retainAll not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public int size() {
             throw new UnsupportedOperationException("size not supported for DummyEntrySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public Object[] toArray() {
             throw new UnsupportedOperationException("toArray not supported for DummyEntrySet");
         }
         
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySet
          */
         public Object[] toArray(Object[] a) {
             throw new UnsupportedOperationException("toArray(Object[]) not supported for DummyEntrySet");
@@ -244,84 +244,84 @@ public class DummyTestMap implements HMap {
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public int size() {
             throw new UnsupportedOperationException("size not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public boolean isEmpty() {
             throw new UnsupportedOperationException("isEmpty not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public boolean add(Object o) {
             throw new UnsupportedOperationException("add not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public boolean addAll(HCollection c) {
             throw new UnsupportedOperationException("addAll not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public void clear() {
             throw new UnsupportedOperationException("clear not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public boolean remove(Object o) {
             throw new UnsupportedOperationException("remove not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public boolean removeAll(HCollection c) {
             throw new UnsupportedOperationException("removeAll not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public boolean retainAll(HCollection c) {
             throw new UnsupportedOperationException("retainAll not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public boolean containsAll(HCollection c) {
             throw new UnsupportedOperationException("containsAll not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public Object[] toArray() {
             throw new UnsupportedOperationException("toArray not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public Object[] toArray(Object[] a) {
             throw new UnsupportedOperationException("toArray(Object[]) not supported for DummyKeySet");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
          */
         public boolean equals(Object o) {
             throw new UnsupportedOperationException("equals not supported for DummyKeySet");
@@ -363,84 +363,84 @@ public class DummyTestMap implements HMap {
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public int size() {
             throw new UnsupportedOperationException("size not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public boolean isEmpty() {
             throw new UnsupportedOperationException("isEmpty not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public boolean add(Object o) {
             throw new UnsupportedOperationException("add not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public boolean addAll(HCollection c) {
             throw new UnsupportedOperationException("addAll not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public void clear() {
             throw new UnsupportedOperationException("clear not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public boolean remove(Object o) {
             throw new UnsupportedOperationException("remove not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public boolean removeAll(HCollection c) {
             throw new UnsupportedOperationException("removeAll not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public boolean retainAll(HCollection c) {
             throw new UnsupportedOperationException("retainAll not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public boolean containsAll(HCollection c) {
             throw new UnsupportedOperationException("containsAll not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public Object[] toArray() {
             throw new UnsupportedOperationException("toArray not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public Object[] toArray(Object[] a) {
             throw new UnsupportedOperationException("toArray(Object[]) not supported for DummyValueCollection");
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
          */
         public boolean equals(Object o) {
             throw new UnsupportedOperationException("equals not supported for DummyValueCollection");
@@ -485,7 +485,7 @@ public class DummyTestMap implements HMap {
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyEntrySetIterator
          */
         public void remove() {
             throw new UnsupportedOperationException("remove not supported for DummyEntrySetIterator");
@@ -527,7 +527,7 @@ public class DummyTestMap implements HMap {
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyKeySetIterator
          */
         public void remove() {
             throw new UnsupportedOperationException("remove not supported for DummyKeySetIterator");
@@ -569,7 +569,7 @@ public class DummyTestMap implements HMap {
         }
 
         /**
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollectionIterator
          */
         public void remove() {
             throw new UnsupportedOperationException("remove not supported for DummyValueCollectionIterator");
@@ -622,56 +622,56 @@ public class DummyTestMap implements HMap {
     }
 
     /**
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException operation not supported for DummyTestMap
      */
     public int size() {
         throw new UnsupportedOperationException("size not supported for DummyTestMap");
     }
 
     /**
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException operation not supported for DummyTestMap
      */
 	public boolean isEmpty() {
         throw new UnsupportedOperationException("isEmpty not supported for DummyTestMap"); 
     }
 
     /**
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException operation not supported for DummyTestMap
      */
 	public boolean containsKey(Object key) { 
         throw new UnsupportedOperationException("containsKey not supported for DummyTestMap"); 
     }
 
     /**
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException operation not supported for DummyTestMap
      */
 	public boolean containsValue(Object value) { 
         throw new UnsupportedOperationException("containsValue not supported for DummyTestMap"); 
     }
 
     /**
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException operation not supported for DummyTestMap
      */
 	public Object get(Object key) { 
         throw new UnsupportedOperationException("get not supported for DummyTestMap"); 
     }
 
     /**
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException operation not supported for DummyTestMap
      */
 	public Object remove(Object key) { 
         throw new UnsupportedOperationException("remove not supported for DummyTestMap"); 
     }
 
     /**
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException operation not supported for DummyTestMap
      */
 	public void clear() { 
         throw new UnsupportedOperationException("clear not supported for DummyTestMap"); 
     }
 
     /**
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException operation not supported for DummyTestMap
      */
 	public void putAll(HMap m) { 
         throw new UnsupportedOperationException("putAll not supported for DummyTestMap"); 

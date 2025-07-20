@@ -9,18 +9,18 @@ import myExceptions.IllegalStateException;
 import myExceptions.UnsupportedOperationException;
 
 /**
- * Adapter implementation of the {@code HMap} interface using the {@code Hashtable}
+ * Adapter implementation of the {@link HMap} interface using the {@code Hashtable}
  * class provided in CLDC 1.1 as the underlying data structure.
  * <p>
  * This class is part of a compatibility layer that adapts a subset of the Java 2 Collections
  * Framework (as defined in J2SE 1.4.2) for use in the constrained Java ME environment, 
  * specifically CLDC 1.1.
  * <p>
- * The adapter provides a full implementation of the {@code HMap} interface, replicating
+ * The adapter provides a full implementation of the {@link HMap} interface, replicating
  * the behavior and contract of the {@code Map} interface from J2SE 1.4.2. All optional operations
  * are supported, and view-based backing behavior is preserved where applicable.
  * <p>
- * <strong>Important:</strong> this implementation of {@code HMap} can contain itself as a key, 
+ * <strong>Important:</strong> this implementation of {@link HMap} can contain itself as a key, 
  * though it is highly reccomended against it. Generally it is not reccomended to use
  * a mutable object as a key. Even using this map as a value can cause errors.
  * Certain operations, such as {@code get(this.map)} or {@code hashCode()}, will
@@ -34,7 +34,7 @@ import myExceptions.UnsupportedOperationException;
  * including the ability to contain different types for keys and values.
  * <p>
  * This adapter is implemented in compliance with the Test Driven Development methodology.
- * Unit tests are provided separately in the {@code myTest} package.
+ * Unit tests are provided separately in the {@link myTest} package.
  *
  * @see HMap
  * @see java.util.Hashtable (CLDC 1.1)
@@ -45,8 +45,8 @@ public class MapAdapter implements HMap {
 	/*-------------------------------------- NESTED CLASSES -------------------------------------*/
 	/*-------------------------------------------------------------------------------------------*/
 	/**
-	 * A simple implementation of the {@code HMap.HEntry} interface representing
-	 * a key-value mapping stored in the {@code MapAdapter}.
+	 * A simple implementation of the {@link HMap.HEntry} interface representing
+	 * a key-value mapping stored in the {@link MapAdapter}.
 	 * <p>
 	 * <strong>Note:</strong> Since {@code Hashtable} in CLDC 1.1 does not allow
 	 * {@code null} keys or values, this {@code Entry} will never contain {@code null}
@@ -171,23 +171,23 @@ public class MapAdapter implements HMap {
 	/*-------------------------------------------------------------------------------------------*/
 
 	/**
-	 * An iterator over the entries contained in the {@code MapAdapter}'s entry set.
+	 * An iterator over the entries contained in the {@link MapAdapter}'s entry set.
 	 * <p>
-	 * This class implements the {@code HIterator} interface and provides sequential
-	 * access to each {@code HMap.HEntry} stored in the underlying {@code Hashtable}.
+	 * This class implements the {@link HIterator} interface and provides sequential
+	 * access to each {@link HMap.HEntry} stored in the underlying {@code Hashtable}.
 	 * <p>
 	 * The iterator is backed by the map, meaning that modifications to the map during
-	 * iteration (except through this iterator’s own {@code remove()} method) may result
+	 * iteration (except through this iterator’s own {@link #remove()} method) may result
 	 * in inconsistent behavior or runtime exceptions.
 	 * <p>
-	 * This implementation supports the optional {@code remove()} operation, which removes
-	 * from the map the last entry returned by the iterator. The {@code remove()} method
-	 * may be called only once per call to {@code next()}, and only after a call to
-	 * {@code next()}; otherwise, it will throw an {@code IllegalStateException}.
+	 * This implementation supports the optional {@link #remove()} operation, which removes
+	 * from the map the last entry returned by the iterator. The {@link #remove()} method
+	 * may be called only once per call to {@link #next()}, and only after a call to
+	 * {@link #next()}; otherwise, it will throw an {@link myExceptions.IllegalStateException}.
 	 * <p>
-	 * If an entry is removed during iteration and later its {@code setValue()} method is
+	 * If an entry is removed during iteration and later its {@link Entry#setValue(Object)} method is
 	 * called, the entry will be reinserted into the map with the new value. This behavior
-	 * is consistent with the semantics of {@code MapAdapter}, and allowed since the standard
+	 * is consistent with the semantics of {@link MapAdapter}, and allowed since the standard
 	 * J2SE 1.4.2 specification does not define behavior for such cases.
 	 *
 	 * @see HIterator
@@ -270,19 +270,19 @@ public class MapAdapter implements HMap {
 	}
 	
 	/**
-	 * An iterator over the keys of the {@code MapAdapter}'s key set.
+	 * An iterator over the keys of the {@link MapAdapter}'s key set.
 	 * <p>
-	 * This iterator extends {@code EntrySetIterator} and overrides only the {@code next()}
+	 * This iterator extends {@link EntrySetIterator} and overrides only the {@link #next()}
 	 * method, returning the current key instead of a key-value entry.
 	 * <p>
 	 * The iterator is backed by the underlying map, so modifications to the map
-	 * after the iterator is created (except through this iterator's own {@code remove()} method)
+	 * after the iterator is created (except through this iterator's own {@link #remove()} method)
 	 * may result in inconsistent behavior or runtime exceptions.
 	 * <p>
-	 * This implementation supports the optional {@code remove()} operation, which removes
-	 * from the map the last key returned by the iterator. The {@code remove()} method
-	 * can only be called once per call to {@code next()}, otherwise it will throw an
-	 * {@code IllegalStateException}.
+	 * This implementation supports the optional {@link HIterator#remove()} operation, which removes
+	 * from the map the last key returned by the iterator. The {@link HIterator#remove()} method
+	 * can only be called once per call to {@link #next()}, otherwise it will throw an
+	 * {@link myExceptions.IllegalStateException}.
 	 *
 	 * @see MapAdapter#keySet()
 	 * @see EntrySetIterator
@@ -313,18 +313,18 @@ public class MapAdapter implements HMap {
 	}
 
 	/**
-	 * An iterator over the values of the {@code MapAdapter}'s value collection.
+	 * An iterator over the values of the {@link MapAdapter}'s value collection.
 	 * <p>
-	 * This iterator extends {@code EntrySetIterator} and overrides only the {@code next()}
+	 * This iterator extends {@link EntrySetIterator} and overrides only the {@code next()}
 	 * method, returning the value corresponding to the current key in the underlying map.
 	 * <p>
 	 * The iterator is backed by the underlying {@code Hashtable}, so structural modifications
 	 * to the map after this iterator is created (other than through {@code remove()})
 	 * may result in inconsistent behavior or runtime exceptions.
 	 * <p>
-	 * This implementation supports the optional {@code remove()} operation, which removes
+	 * This implementation supports the optional {@link HIterator#remove()} operation, which removes
 	 * from the map the entry associated with the last returned value. This method may be
-	 * called only once per call to {@code next()}, and will throw an {@code IllegalStateException}
+	 * called only once per call to {@link #next()}, and will throw an {@link myExceptions.IllegalStateException}
 	 * otherwise.
 	 *
 	 * @see MapAdapter#values()
@@ -364,18 +364,18 @@ public class MapAdapter implements HMap {
 	/*-------------------------------------------------------------------------------------------*/
 
 	/**
-	 * Abstract base implementation of the {@code HCollection} interface used within {@code MapAdapter}.
+	 * Abstract base implementation of the {@link HCollection} interface used within {@link MapAdapter}.
 	 * <p>
 	 * This class provides skeletal implementations of common collection operations such as
-	 * {@code containsAll}, {@code isEmpty}, {@code size}, {@code toArray}, {@code equals}, {@code hashCode},
-	 * {@code removeAll}, and {@code retainAll}. It is intended to be extended by concrete collection views
-	 * such as {@code KeySet}, {@code EntrySet}, and {@code ValueCollection}.
+	 * {@link #containsAll}, {@link #isEmpty}, {@link #size}, {@link #toArray}, {@link #equals}, {@link #hashCode},
+	 * {@link #removeAll}, and {@link #retainAll}. It is intended to be extended by concrete collection views
+	 * such as {@link KeySet}, {@link EntrySet}, and {@link ValueCollection}.
 	 * <p>
 	 * As per CLDC 1.1 constraints, this class does not support reflection and does not provide support
-	 * for typed array creation beyond basic array copying in {@code toArray(Object[])}.
+	 * for typed array creation beyond basic array copying in {@link #toArray(Object[])}.
 	 * <p>
-	 * The {@code add} and {@code addAll} methods are not supported and always throw
-	 * {@code UnsupportedOperationException}, as the underlying map does not allow modification
+	 * The {@link #add(Object)} and {@link #addAll(HCollection)} methods are not supported and always throw
+	 * {@link myExceptions.UnsupportedOperationException}, as the underlying map does not allow modification
 	 * via these operations.
 	 *
 	 * @see HCollection
@@ -560,6 +560,7 @@ public class MapAdapter implements HMap {
 		 * @param a the array into which the elements are to be stored
 		 * @return an array containing all the elements of this collection
 		 * @throws NullPointerException if the specified array is {@code null}
+		 * @throws ArrayStoreException if the type of the specified array is not compatible with the elements in this collection
 		 */
 		public Object[] toArray(Object[] a) {
 			if(a == null)
@@ -600,20 +601,20 @@ public class MapAdapter implements HMap {
 	}
 
 	/**
-	 * A view of the entries contained in the {@code MapAdapter}.
+	 * A view of the entries contained in the {@link MapAdapter}.
 	 * <p>
-	 * This class implements the {@code HSet} interface and provides a backed view
+	 * This class implements the {@link HSet} interface and provides a backed view
 	 * over the key-value mappings of the underlying {@code Hashtable}.
 	 * Modifications to this set (such as {@code remove}) directly affect the backing map,
-	 * and vice versa. The collection is fully dynamic.
+	 * and vice-versa. The collection is fully dynamic.
 	 * <p>
 	 * The collection does not allow {@code null} elements. Attempting to check containment or
 	 * remove a {@code null} object will result in a {@code NullPointerException}.
 	 * Similarly, the {@code contains} and {@code remove} methods require the argument to be
 	 * of type {@code HEntry}, or a {@code ClassCastException} will be thrown.
 	 * <p>
-	 * This class supports the optional {@code remove()} operation on its iterator and implements
-	 * all methods required by {@code HSet} through its superclass {@code AbstractCollection}.
+	 * This class supports the optional {@link HIterator#remove()} operation on its iterator and implements
+	 * all methods required by {@link HSet} through its superclass {@link AbstractCollection}.
 	 *
 	 * @see HMap#entrySet()
 	 * @see HSet
@@ -722,21 +723,21 @@ public class MapAdapter implements HMap {
 	}
 
 	/**
-	 * A view of the keys contained in the {@code MapAdapter}.
+	 * A view of the keys contained in the {@link MapAdapter}.
 	 * <p>
-	 * This class implements the {@code HSet} interface and provides a backed view
+	 * This class implements the {@link HSet} interface and provides a backed view
 	 * over the keys of the underlying {@code Hashtable}. Any change made to this set
-	 * is reflected in the map and vice versa.
+	 * is reflected in the map and vice-versa.
 	 * <p>
 	 * This view does not allow {@code null} keys. Attempting to call
 	 * {@code contains(null)} or {@code remove(null)} will result in a
 	 * {@code NullPointerException}.
 	 * <p>
-	 * <strong>Important:</strong> this {@code HSet} implementation can contain itself.
+	 * <strong>Important:</strong> this {@link HSet} implementation can contain itself.
 	 * Undefined behaviors are expected if this happens.
-	 * This class supports the optional {@code remove()} operation on its iterator
-	 * and implements all required methods from {@code HSet} through its abstract
-	 * superclass {@code AbstractCollection}.
+	 * This class supports the optional {@link HIterator#remove()} operation on its iterator
+	 * and implements all required methods from {@link HSet} through its abstract
+	 * superclass {@link AbstractCollection}.
 	 *
 	 * @see MapAdapter#keySet()
 	 * @see AbstractCollection
@@ -821,20 +822,20 @@ public class MapAdapter implements HMap {
 	}
 
 	/**
-	 * A view of the values contained in the {@code MapAdapter}.
+	 * A view of the values contained in the {@link MapAdapter}.
 	 * <p>
-	 * This class implements the {@code HCollection} interface and provides a backed view
+	 * This class implements the {@link HCollection} interface and provides a backed view
 	 * over the values of the underlying {@code Hashtable}. Any change to this collection
-	 * is reflected in the map, and vice versa.
+	 * is reflected in the map, and vice-versa.
 	 * <p>
-	 * The collection does not allow {@code null} elements, and the {@code contains} and
-	 * {@code remove} methods operate on values, not on keys or entries.
+	 * The collection does not allow {@code null} elements, and the {@link #contains(Object)} and
+	 * {@link #remove(Object)} methods operate on values, not on keys or entries.
 	 * <p>
-	 * This class supports the optional {@code remove()} operation on its iterator,
+	 * This class supports the optional {@link #remove(Object)} operation on its iterator,
 	 * which removes the entry associated with the last returned value.
 	 * <p>
 	 * Because multiple keys can map to the same value, removing a value using
-	 * {@code remove(Object)} will only remove the first matching entry.
+	 * {@link remove(Object)} will only remove the first matching entry.
 	 *
 	 * @see MapAdapter#values()
 	 * @see AbstractCollection
@@ -1067,7 +1068,7 @@ public class MapAdapter implements HMap {
 	 * Returns a {@code HSet} view of the mappings contained in this map.
 	 * <p>
 	 * The set is backed by the map, so changes to the map are reflected in the set,
-	 * and vice versa.
+	 * and vice-versa.
 	 *
 	 * @return a set view of the map’s entries
 	 */
@@ -1224,7 +1225,7 @@ public class MapAdapter implements HMap {
 	 * Returns a {@code HCollection} view of the values contained in this map.
 	 * <p>
 	 * The collection is backed by the map, so changes to the map are reflected in the collection,
-	 * and vice versa.
+	 * and vice-versa.
 	 *
 	 * @return a collection view of the values in this map
 	 */

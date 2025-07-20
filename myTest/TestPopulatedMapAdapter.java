@@ -11,8 +11,18 @@ import org.junit.After;
 
 
 /**
- * This test suite verifies the correct behavior of the {@link MapAdapter} implementation when it is populated with a large number of entries.
- * It covers all methods and scenarios relevant to a non-empty map, including insertion, removal, update, query, equality, hash code, and collection views.
+ * This test suite verifies the correct behavior of the {@link myAdapter.MapAdapter} implementation when it is populated with a large number of entries.
+ * It covers all methods and scenarios relevant to a non-empty map,
+ * including the copy constructor {@link myAdapter.MapAdapter#MapAdapter(HMap)}
+ * and all public methods such as
+ * {@link myAdapter.MapAdapter#clear()}, {@link myAdapter.MapAdapter#containsKey(Object)},
+ * {@link myAdapter.MapAdapter#containsValue(Object)}, {@link myAdapter.MapAdapter#entrySet()},
+ * {@link myAdapter.MapAdapter#equals(Object)}, {@link myAdapter.MapAdapter#get(Object)},
+ * {@link myAdapter.MapAdapter#hashCode()}, {@link myAdapter.MapAdapter#isEmpty()},
+ * {@link myAdapter.MapAdapter#keySet()}, {@link myAdapter.MapAdapter#put(Object, Object)}, 
+ * {@link myAdapter.MapAdapter#putAll(HMap)}, {@link myAdapter.MapAdapter#remove(Object)}, 
+ * {@link myAdapter.MapAdapter#size()}, {@link myAdapter.MapAdapter#values()}, and 
+ * {@link myAdapter.MapAdapter#toString()}.
  * <p>
  * <b>Test Suite Categories:</b>
  * <ul>
@@ -30,10 +40,10 @@ import org.junit.After;
  * The design of this test suite is motivated by the need to ensure that a {@code MapAdapter} with many entries behaves as specified under all supported operations. The tests are organized to:
  * <ul>
  *   <li>Verify that constructors and copy constructors correctly initialize a populated map.</li>
- *   <li>Check that all query methods ({@code containsKey}, {@code containsValue}, {@code get}, etc.) return correct results for present and absent keys/values.</li>
- *   <li>Ensure that mutator methods ({@code put}, {@code putAll}, {@code remove}, {@code clear}) behave correctly, including updates and removals.</li>
- *   <li>Test the behavior of collection views ({@code entrySet}, {@code keySet}, {@code values}) in a populated state and with mixed key/value types.</li>
- *   <li>Validate the contract of {@code equals} and {@code hashCode} for populated maps, including edge cases with different key/value types.</li>
+ *   <li>Check that all query methods ({@link myAdapter.MapAdapter#containsKey(Object)}, {@link myAdapter.MapAdapter#containsValue(Object)}, {@link myAdapter.MapAdapter#get(Object)}, etc.) return correct results for present and absent keys/values.</li>
+ *   <li>Ensure that mutator methods ({@link myAdapter.MapAdapter#put(Object, Object)}, {@link myAdapter.MapAdapter#putAll(HMap)}, {@link myAdapter.MapAdapter#remove(Object)}, {@link myAdapter.MapAdapter#clear()}) behave correctly, including updates and removals.</li>
+ *   <li>Test the behavior of collection views ({@link myAdapter.MapAdapter#entrySet()}, {@link myAdapter.MapAdapter#keySet()}, {@link myAdapter.MapAdapter#values()}) in a populated state and with mixed key/value types.</li>
+ *   <li>Validate the contract of {@link myAdapter.MapAdapter#equals(Object)} and {@link myAdapter.MapAdapter#hashCode()} for populated maps, including edge cases with different key/value types.</li>
  *   <li>Check that the string representation of a populated map is as expected.</li>
  *   <li>Ensure correct exception handling for invalid input (e.g., null keys/values).</li>
  * </ul>
@@ -84,7 +94,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the MapAdapter copy constructor creates a non-null, non empty map.
-     *   Category: Constructor tests
      *<p>
      * Test Case Design:
      *   This test ensures that the copy constructor initializes the map to a valid, non empty state.
@@ -121,7 +130,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the clear method on a populated MapAdapter empties the map.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the clear method correctly empties the map, resetting its size to zero.
@@ -156,7 +164,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the containsKey method on a populated MapAdapter returns true for existing keys and false for non-existing keys.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the containsKey method correctly identifies keys that are present in the map and those that are not.
@@ -193,7 +200,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the containsKey method on a populated MapAdapter throws a NullPointerException when called with a null key.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the containsKey method correctly handles null keys by throwing a NullPointerException.
@@ -223,7 +229,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the containsValue method on a populated MapAdapter returns true for existing values and false for non-existing values.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the containsValue method correctly identifies values that are present in the map.
@@ -258,7 +263,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the containsValue method on a populated MapAdapter throws a NullPointerException when called with a null value.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the containsValue method correctly handles null values by throwing a NullPointerException.
@@ -288,7 +292,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the entrySet method on a populated MapAdapter returns a non-null, non-empty EntrySet.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the entrySet method correctly provides a view of the map's entries.
@@ -322,7 +325,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the entrySet method on a populated MapAdapter with different type keys returns a non-null EntrySet.
-     *   Category: Method tests
      *<p>
         * Test Case Design:
         *   This test ensures that the entrySet method correctly handles different type keys in the map.
@@ -357,7 +359,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *  Verifies that the entrySet method on a populated MapAdapter with different type values returns a non-null EntrySet.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *  This test ensures that the entrySet method correctly handles different type values in the map.
@@ -392,7 +393,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the equals method on a populated MapAdapter behaves correctly with various scenarios.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the equals method correctly identifies equality between maps with the same content and different content.
@@ -445,7 +445,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *  Verifies that the equals method on a populated MapAdapter does not equal a non-HMap object.
-     *  Category: Method tests
      *<p>
      * Test Case Design:
      *  This test ensures that the equals method correctly identifies that a map is not equal to a non-HMap object.
@@ -475,7 +474,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *  Verifies that the equals method on a populated MapAdapter does not equal to null.
-     *  Category: Method tests
      *<p>
      * Test Case Design:
      *  This test ensures that the equals method correctly identifies that a map is not equal to null.
@@ -505,7 +503,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *  Verifies that the equals method on a populated MapAdapter is reflexive.
-     *  Category: Method tests
      *<p>
      * Test Case Design:
      *  This test ensures that the equals method correctly identifies that a map is equal to itself.
@@ -535,7 +532,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *  Verifies that the equals method on a populated MapAdapter is symmetric.
-     *  Category: Method tests
      *<p>
      * Test Case Design:
      *  This test ensures that if one map is equal to another, then the second map is equal to the first.
@@ -566,7 +562,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *  Verifies that the equals method on a populated MapAdapter is not equal to its entrySet.
-     *  Category: Method tests
      *<p>
      * Test Case Design:
      *  This test ensures that the equals method correctly identifies that a map is not equal to its entry set.
@@ -598,7 +593,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *  Verifies that the equals method on a populated MapAdapter is transitive.
-     *  Category: Method tests
      *<p>
      * Test Case Design:
      *  This test ensures that if one map is equal to a second, and the second is equal to a third, then the first map is equal to the third.
@@ -632,7 +626,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *  Verifies that the equals method on a populated MapAdapter is not equal to a map with different type keys.
-     *  Category: Method tests
      * <p>
      * Test Case Design:
      *  This test ensures that the equals method correctly identifies that a MapAdapter is not equal to another MapAdapter with different type keys.
@@ -667,7 +660,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *  Verifies that the equals method on a populated MapAdapter is not equal to a map with different type values.
-     *  Category: Method tests
      * <p>
      * Test Case Design:
      *  This test ensures that the equals method correctly identifies that a MapAdapter is not equal to another MapAdapter with different type values.
@@ -702,7 +694,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the get method on a populated MapAdapter returns the correct value for existing keys and null for non-existing keys.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the get method correctly retrieves values associated with keys in the MapAdapter.
@@ -738,7 +729,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the get method on a populated MapAdapter throws a NullPointerException when called with a null key.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the get method correctly handles null keys by throwing a NullPointerException.
@@ -768,7 +758,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the hashCode method on a populated MapAdapter returns the correct hash code based on its entries.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the hashCode method correctly computes the hash code based on the keys and values in the MapAdapter.
@@ -810,7 +799,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the hashCode method on a populated MapAdapter with different type keys returns the correct hash code.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the hashCode method correctly computes the hash code based on keys and values in the MapAdapter, even when keys are of different types.
@@ -849,7 +837,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the hashCode method on a populated MapAdapter with different type values returns the correct hash code.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the hashCode method correctly computes the hash code based on keys and values in the MapAdapter, even when values are of different types.
@@ -888,7 +875,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the isEmpty method on a populated MapAdapter behaves correctly.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the isEmpty method correctly identifies whether the map is empty or not.
@@ -922,7 +908,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the keySet method on a populated MapAdapter returns a non-null and non-empty KeySet.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the keySet method correctly retrieves the KeySet of keys in the MapAdapter.
@@ -956,7 +941,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the keySet method on a populated MapAdapter with different type keys returns a non-null KeySet.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the keySet method correctly retrieves the KeySet of keys in the MapAdapter, even when keys are of different types.
@@ -989,7 +973,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on a populated MapAdapter behaves correctly.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the put method correctly updates existing keys and adds new keys to the MapAdapter.
@@ -1034,7 +1017,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on a populated MapAdapter allows different type keys.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the put method correctly handles different type keys in the MapAdapter.
@@ -1069,7 +1051,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on a populated MapAdapter allows different type values.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the put method correctly handles different type values in the MapAdapter.
@@ -1106,7 +1087,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on a populated MapAdapter throws a NullPointerException when called with null keys.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the put method correctly handles null keys by throwing a NullPointerException.
@@ -1136,7 +1116,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on a populated MapAdapter throws a NullPointerException when called with null values.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the put method correctly handles null values by throwing a NullPointerException.
@@ -1166,7 +1145,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on a populated MapAdapter throws a NullPointerException when called with null keys and values.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the put method correctly handles null keys and values by throwing a NullPointerException.
@@ -1196,7 +1174,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on a populated MapAdapter behaves correctly when using the MapAdapter itself as a key.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the put method correctly handles the MapAdapter itself as a key.
@@ -1230,7 +1207,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on a populated MapAdapter behaves correctly when using the MapAdapter itself as a value.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the put method correctly handles the MapAdapter itself as a value.
@@ -1264,7 +1240,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on a populated MapAdapter behaves correctly when using the MapAdapter itself as both a key and a value.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the put method correctly handles the MapAdapter itself as both a key and a value.
@@ -1300,7 +1275,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter behaves correctly.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles adding all entries from another map.
@@ -1351,7 +1325,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter with an empty map does not change the size or contents of the MapAdapter.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles an empty map without modifying the existing entries in the MapAdapter.
@@ -1391,7 +1364,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter with a map containing the same keys and values does not change the size or contents of the MapAdapter.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles a map with the same keys and values without modifying the existing entries in the MapAdapter.
@@ -1431,7 +1403,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter with a map containing the same keys but different values does not change the size but only the values of the MapAdapter.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles a map with the same keys but different values, correctly updating the existing entries in the MapAdapter.
@@ -1474,7 +1445,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter with a map with different keys but same values increases the size and retains all original keys and values.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles a map with different keys but same values, increasing the size of the MapAdapter.
@@ -1520,7 +1490,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter with another map with different type keys increases the size and retains all original keys and values.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles a map with different type keys, increasing the size of the MapAdapter.
@@ -1567,7 +1536,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter with another map with different type values increases the size and retains all original keys and values.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles a map with different type values, increasing the size of the MapAdapter.
@@ -1614,7 +1582,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter throws a NullPointerException when called with null.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles null input by throwing a NullPointerException.
@@ -1644,7 +1611,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter throws a NullPointerException when called with a map containing null keys.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles maps with null keys by throwing a NullPointerException.
@@ -1677,7 +1643,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter throws a NullPointerException when called with a map containing null values.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles maps with null values by throwing a NullPointerException.
@@ -1710,7 +1675,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on a populated MapAdapter throws a NullPointerException when called with a map containing both null keys and values.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the putAll method correctly handles maps with null keys and values by throwing a NullPointerException.
@@ -1743,7 +1707,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the remove method on a populated MapAdapter behaves correctly.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the remove method correctly handles removing entries from the MapAdapter.
@@ -1791,7 +1754,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the remove method on a populated MapAdapter with different type keys behaves correctly.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the remove method correctly handles removing entries with different type keys.
@@ -1834,7 +1796,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the remove method on a populated MapAdapter with different type values behaves correctly.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the remove method correctly handles removing entries with different type values.
@@ -1876,7 +1837,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the remove method on a populated MapAdapter throws a NullPointerException when called with null.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the remove method correctly handles null input by throwing a NullPointerException.
@@ -1906,7 +1866,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the size method on a populated MapAdapter returns the correct size.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the size method correctly returns the number of entries in the MapAdapter.
@@ -1936,7 +1895,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the keySet method on a populated MapAdapter returns a non-null and non-empty ValueCollection.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the values method correctly returns a set of values from the MapAdapter.
@@ -1970,7 +1928,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the values method on a populated MapAdapter with different type of values returns a non-null and non-empty ValueCollection.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the values method correctly returns a set of values from the MapAdapter with different type values.
@@ -2005,7 +1962,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the toString method on a populated MapAdapter returns a string representation of the map.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the toString method correctly returns a string representation of the MapAdapter.
@@ -2042,7 +1998,6 @@ public class TestPopulatedMapAdapter {
     /**
      * Summary:
      *   Verifies that the toString method on a populated MapAdapter with different type keys and values returns a string representation of the map.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the toString method correctly returns a string representation of the MapAdapter with different type keys and values.

@@ -10,7 +10,7 @@ import org.junit.After;
 
 
 /**
- * This test suite verifies the correct behavior of the {@link HMap.HEntry} implementation as returned by the {@link MapAdapter}.
+ * This test suite verifies the correct behavior of the {@link myAdapter.HMap.HEntry} implementation in the {@link MapAdapter}.
  * It covers all methods and scenarios relevant to map entries, including equality, hash code, value updates, and string representation.
  * <p>
  * <b>Test Suite Categories:</b>
@@ -24,22 +24,33 @@ import org.junit.After;
  *
  * <b>Test Case Design:</b>
  * <p>
- * The design of this test suite is motivated by the need to ensure that {@code HMap.HEntry} objects behave as specified under all supported operations. The tests are organized to:
+ * The design of this test suite is motivated by the need to ensure that {@link myAdapter.HMap.HEntry} objects behave as specified under all supported operations. The tests are organized to:
  * <ul>
  *   <li>Verify that entries are equal if and only if their keys and values are equal, and that the equals contract (reflexive, symmetric, transitive) is satisfied.</li>
- *   <li>Check that {@code getKey}, {@code getValue}, and {@code toString} return the correct results for entries.</li>
- *   <li>Ensure that {@code setValue} updates the value and reflects the change in the map, and throws exceptions for invalid input.</li>
+ *   <li>Check that {@link myAdapter.HMap.HEntry#getKey()}, {@link myAdapter.HMap.HEntry#getValue()}, and {@link myAdapter.HMap.HEntry#toString()} return the correct results for entries.</li>
+ *   <li>Ensure that {@link myAdapter.HMap.HEntry#setValue(Object)} updates the value and reflects the change in the map, and throws exceptions for invalid input.</li>
  *   <li>Test edge cases such as null keys/values, different types, and behavior after removal from the map.</li>
  * </ul>
- * The rationale is to provide comprehensive coverage of the entry contract, ensuring correctness, robustness, and compliance with the map entry specification.
+ * The rationale is to provide comprehensive coverage of the entry contract, ensuring correctness, robustness, and compliance with the {@link myAdapter.HMap.HEntry} specification.
  */
 public class TestEntry {
+    /**
+     * The entry to be tested, initialized in the setUp method.
+     * It represents a single entry in the map, allowing for testing of entry-specific methods and behaviors.
+     */
     private HMap.HEntry entry;
 
+    /**
+     * Default constructor for the test class.
+     */
     public TestEntry() {
         //intentionally left empty
     }
 
+    /**
+     * Sets up the test environment by initializing the entry with a key-value pair in a new MapAdapter.
+     * This method is called before each test to ensure a fresh state for testing entry behaviors.
+     */
     @Before
     public void setUp() {
         MapAdapter map = new MapAdapter();
@@ -47,11 +58,45 @@ public class TestEntry {
         this.entry = (HMap.HEntry) map.entrySet().iterator().next();
     }
 
+    /**
+     * Cleans up the test environment by setting the entry to null.
+     * This method is called after each test to ensure no side effects between tests.
+     */
     @After
     public void tearDown() {
         this.entry = null;
     }
 
+    /**
+     * Summary:
+     *   Verifies that the equals method on an Entry behaves correctly.
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the equals method behaves correctly on an Entry.
+     *   The rationale is to confirm that the method returns true when compared with another Entry with the same key and value.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Create a MapAdapter with an entry that has the same key and value of the entry being tested.</li>
+     *   <li>Check that the equals method returns true when comparing the entry with the entry from the MapAdapter.</li>
+     *   <li>Create another MapAdapter with an entry that has the same key but a different value, and check that equals returns false.</li>
+     *   <li>Create a third MapAdapter with an entry that has a different key but the same value, and check that equals returns false.</li>
+     *   <li>Check that equals returns false when comparing with null.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   The Entry has "testKey" as key and "testValue" as value.
+     * <p>
+     * Post-Condition:
+     *   The Entry remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>The Entry should be equal to another Entry with the same key and value.</li>
+     *   <li>The Entry should not be equal to another Entry with the same key but a different value.</li>
+     *   <li>The Entry should not be equal to another Entry with a different key but the same value.</li>
+     * </ul>
+     */
     @Test
     public void testEqualsOnEntry() {
         HMap anotherMap = new MapAdapter();
@@ -70,6 +115,30 @@ public class TestEntry {
                     entry.equals((HMap.HEntry) anotherMap.entrySet().iterator().next()));
     }
 
+    /**
+     * Summary:
+     *   Verifies that the equals method on an Entry behaves correctly with null.
+     * <p>
+     * Test Case Design:
+     *   This test ensures that the equals method behaves correctly when compared with null.
+     *   The rationale is to confirm that the method returns false when compared with null.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Check that the equals method returns false when comparing the entry with null.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   The Entry has "testKey" as key and "testValue" as value.
+     * <p>
+     * Post-Condition:
+     *   The Entry remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>The Entry should not be equal to null.</li>
+     * </ul>
+     */
     @Test
     public void testEqualsOnEntryWithNull() {
         assertFalse("An Entry should not be equal to null", entry.equals(null));

@@ -10,14 +10,14 @@ import myExceptions.UnsupportedOperationException;
 
 
 /**
- * This test suite verifies the correct behavior of the collection views (EntrySet, KeySet, ValueCollection) of an empty {@link MapAdapter}.
+ * This test suite verifies the correct behavior of the collection views ({@link myAdapter.MapAdapter.EntrySet}, {@link myAdapter.MapAdapter.KeySet}, {@link myAdapter.MapAdapter.ValueCollection}) of an empty {@link MapAdapter}.
  * It covers all methods and scenarios relevant to empty collections, including query, mutation, equality, hash code, and exception handling.
  * <p>
  * <b>Test Suite Categories:</b>
  * <ul>
- *   <li>Empty collection behavior (EntrySet, KeySet, ValueCollection)</li>
+ *   <li>Empty collection behavior ({@link myAdapter.MapAdapter.EntrySet}, {@link myAdapter.MapAdapter.KeySet}, {@link myAdapter.MapAdapter.ValueCollection})</li>
  *   <li>Mutation and query operations</li>
- *   <li>Exception handling (UnsupportedOperationException, NullPointerException, ClassCastException)</li>
+ *   <li>Exception handling ({@link myExceptions.UnsupportedOperationException}, {@code NullPointerException}, {@code myExceptions.ClassCastException})</li>
  *   <li>Equality and hash code</li>
  *   <li>Array conversion and string representation</li>
  *   <li>Backing behavior (collections reflect map changes)</li>
@@ -25,15 +25,15 @@ import myExceptions.UnsupportedOperationException;
  *
  * <b>Test Case Design:</b>
  * <p>
- * The design of this test suite is motivated by the need to ensure that all collection views of an empty {@code MapAdapter} behave as specified under all supported operations. The tests are organized to:
+ * The design of this test suite is motivated by the need to ensure that all {@link myAdapter.HCollection} and {@link myAdapter.HSet} views of an empty {@link MapAdapter} behave as specified under all supported operations. The tests are organized to:
  * <ul>
- *   <li>Verify that all query methods ({@code isEmpty}, {@code size}, {@code contains}, etc.) return results consistent with an empty collection.</li>
+ *   <li>Verify that all query methods ({@code isEmpty}, {@code size}, {@code contains}, etc.) return results consistent with an empty {@link myAdapter.HCollection} or {@link myAdapter.HSet}.</li>
  *   <li>Check that mutator methods ({@code add}, {@code addAll}, {@code clear}, {@code remove}, {@code removeAll}, {@code retainAll}) behave correctly and throw exceptions for invalid input or unsupported operations.</li>
- *   <li>Test the behavior of equality, hash code, array conversion, and string representation for empty collections.</li>
- *   <li>Ensure that the collections are backed by the map and reflect changes in the map.</li>
+ *   <li>Test the behavior of equality, hash code, array conversion, and string representation for empty {@link myAdapter.HCollection} and {@link myAdapter.HSet}.</li>
+ *   <li>Ensure that the {@link myAdapter.HCollection} and {@link myAdapter.HSet} are backed by the {@link myAdapter.MapAdapter} and reflect changes in the map.</li>
  *   <li>Test exception handling for invalid input (e.g., nulls, wrong types).</li>
  * </ul>
- * The rationale is to provide comprehensive coverage of the empty state for all collection views, ensuring correctness, robustness, and compliance with the collection contract.
+ * The rationale is to provide comprehensive coverage of the empty state for all collection views, ensuring correctness, robustness, and compliance with the {@link myAdapter.HCollection} and {@link myAdapter.HSet} contracts.
  */
 public class TestEmptyAbstractCollections {
 
@@ -75,7 +75,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the add method on an empty EntrySet throws an UnsupportedOperationException.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the add method is not supported on an empty EntrySet.
@@ -105,11 +104,10 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the addAll method on an empty EntrySet throws an UnsupportedOperationException.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the addAll method is not supported on an empty EntrySet.
-     *   The rationale is to confirm that the EntrySet does not allow addition of new elements..
+     *   The rationale is to confirm that the EntrySet does not allow addition of multiple new elements.
      *<p>
      * Test Description:
      * <ul>
@@ -135,7 +133,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the clear method on an empty EntrySet does not throw an exception and leaves the EntrySet empty.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that the clear method behaves correctly on an empty EntrySet.
@@ -171,7 +168,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the containsAll method on an empty EntrySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the containsAll method behaves as expected on an empty EntrySet.
@@ -211,7 +207,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *  Verifies that the containsAll method on an empty EntrySet with a non-EntrySet throws a ClassCastException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the containsAll method correctly identifies when a non-EntrySet is passed.
@@ -243,7 +238,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the containsAll method on an empty EntrySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the containsAll method correctly handles null input.
@@ -273,7 +267,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the containsAll method on an empty EntrySet with another EntrySet with null keys throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the containsAll method correctly handles EntrySets with null keys.
@@ -306,7 +299,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the containsAll method on an empty EntrySet with another EntrySet with null values throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the containsAll method correctly handles EntrySets with null values.
@@ -339,7 +331,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the hashCode method on an empty EntrySet returns 0.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the hashCode method behaves correctly on an empty EntrySet.
@@ -369,7 +360,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the isEmpty method on an empty EntrySet returns true.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the isEmpty method behaves correctly on an empty EntrySet.
@@ -399,7 +389,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty EntrySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures the correct behavior of the removeAll method on an empty EntrySet.
@@ -438,7 +427,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty EntrySet with an empty non-EntrySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures the correct behavior of the removeAll method on an empty EntrySet with a non-EntrySet.
@@ -476,7 +464,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty EntrySet with a non-EntrySet returns false.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures the correct behavior of the removeAll method on an empty EntrySet with a non-EntrySet.
@@ -516,7 +503,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty EntrySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method correctly handles null input.
@@ -546,7 +532,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty EntrySet with an EntrySet containing null keys does not modify the EntrySet.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method correctly handles an EntrySet with null keys.
@@ -586,7 +571,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty EntrySet with another EntrySet with null values does not modify the EntrySet.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method correctly handles an EntrySet with null values.
@@ -626,7 +610,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty EntrySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures the correct behavior of the retainAll method on an empty EntrySet.
@@ -666,7 +649,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty EntrySet with a non-EntrySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures the correct behavior of the retainAll method on an empty EntrySet with a non-EntrySet.
@@ -705,7 +687,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty EntrySet with another empty EntrySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures the correct behavior of the retainAll method on an empty EntrySet with another empty EntrySet.
@@ -743,7 +724,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty EntrySet with an EntrySet containing null keys does not modify the EntrySet.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method correctly handles an EntrySet with null keys.
@@ -783,7 +763,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty EntrySet with another EntrySet with null values does not modify the EntrySet.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method correctly handles an EntrySet with null values.
@@ -823,7 +802,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty EntrySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method correctly handles null input.
@@ -853,7 +831,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the size method on an empty EntrySet returns 0.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the size method behaves correctly on an empty EntrySet.
@@ -883,7 +860,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty EntrySet returns an empty array.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method behaves correctly on an empty EntrySet.
@@ -915,7 +891,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty EntrySet is free from the MapAdapter.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method does not reflect changes made to the MapAdapter after it has been called.
@@ -949,7 +924,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty EntrySet with a same size array returns an empty array.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method behaves correctly when provided with an array of the same size as the EntrySet.
@@ -985,7 +959,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty EntrySet with a greater size array returns an array of the original size.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method behaves correctly when provided with an array larger than the EntrySet.
@@ -1023,7 +996,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty EntrySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method correctly handles null input.
@@ -1053,7 +1025,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toString method on an empty EntrySet returns "[]".
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toString method behaves correctly on an empty EntrySet.
@@ -1083,7 +1054,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the entrySet on an empty MapAdapter is backed by the MapAdapter.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the entrySet method on an empty MapAdapter returns an empty EntrySet.
@@ -1134,7 +1104,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty EntrySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly on an empty EntrySet.
@@ -1166,7 +1135,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty EntrySet with a non-empty EntrySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly when comparing an empty EntrySet with a non-empty EntrySet.
@@ -1199,7 +1167,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty EntrySet with a non-HSet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly when comparing an empty EntrySet with a non-HSet.
@@ -1231,7 +1198,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty EntrySet with null behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly when comparing an empty EntrySet with null.
@@ -1261,7 +1227,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty EntrySet with itself behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly when comparing an empty EntrySet with itself.
@@ -1291,7 +1256,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty EntrySet is symmetric.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves symmetrically when comparing two empty EntrySets.
@@ -1323,7 +1287,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty EntrySet is transitive.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves transitively when comparing three empty EntrySets.
@@ -1357,7 +1320,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the contains method on an empty EntrySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the contains method behaves correctly on an empty EntrySet.
@@ -1391,7 +1353,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the contains method on an empty EntrySet with an Entry containing null key throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the contains method correctly when checking for an entry with a null key.
@@ -1423,7 +1384,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the contains method on an empty EntrySet with an Entry containing null value throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the contains method correctly when checking for an entry with a null value.
@@ -1455,7 +1415,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the contains method on an empty EntrySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the contains method correctly handles null input.
@@ -1485,7 +1444,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the contains method on an empty EntrySet with a non-HEntry object throws a ClassCastException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the contains method correctly handles non-HEntry objects.
@@ -1515,7 +1473,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the remove method on an empty EntrySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the remove method behaves correctly on an empty EntrySet.
@@ -1558,7 +1515,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the remove method on an empty EntrySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the remove method correctly handles null input.
@@ -1588,7 +1544,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the remove method on an empty EntrySet with an Entry containing null key throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the remove method correctly handles an entry with a null key.
@@ -1621,7 +1576,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the remove method on an empty EntrySet with an Entry containing null value throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the remove method correctly handles an entry with a null value.
@@ -1654,7 +1608,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the remove method on an empty EntrySet with a non-HEntry object throws a ClassCastException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the remove method correctly handles non-HEntry objects.
@@ -1684,7 +1637,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the iterator on an empty EntrySet is not null.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the iterator method on an empty EntrySet returns a valid iterator.
@@ -1719,7 +1671,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the add method on an empty KeySet throws an UnsupportedOperationException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the add method on an empty KeySet does not allow adding elements.
@@ -1749,11 +1700,10 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the addAll method on an empty KeySet throws an UnsupportedOperationException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the addAll method on an empty KeySet does not allow adding multiple elements.
-     *   The rationale is to confirm that the KeySet does not allow addition of new elements.
+     *   The rationale is to confirm that the KeySet does not allow addition of multiple new elements.
      * <p>
      * Test Description:
      * <ul>
@@ -1779,7 +1729,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the clear method on an empty KeySet does not throw an exception and leaves the KeySet empty.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the clear method on an empty KeySet behaves correctly.
@@ -1815,7 +1764,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the containsAll method on an empty KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the containsAll method behaves correctly on an empty KeySet.
@@ -1858,7 +1806,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the containsAll method on an empty KeySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the containsAll method correctly handles null input.
@@ -1888,7 +1835,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the containsAll method on an empty KeySet with another KeySet containing null keys throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the containsAll method correctly handles another KeySet with null keys.
@@ -1923,7 +1869,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the hashCode method on an empty KeySet returns 0.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the hashCode method behaves correctly on an empty KeySet.
@@ -1953,7 +1898,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the isEmpty method on an empty KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the isEmpty method behaves correctly on an empty KeySet.
@@ -1983,7 +1927,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method behaves correctly on an empty KeySet.
@@ -2021,7 +1964,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty KeySet with an empty non-KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method behaves correctly on an empty KeySet with an empty non-KeySet.
@@ -2058,7 +2000,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty KeySet with a non-empty KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method behaves correctly on an empty KeySet with a non-empty KeySet.
@@ -2097,7 +2038,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty KeySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method correctly handles null input.
@@ -2127,7 +2067,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty KeySet with a KeySet containing null keys behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method behaves correctly on an empty KeySet with a KeySet containing null keys.
@@ -2168,7 +2107,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method behaves correctly on an empty KeySet.
@@ -2207,7 +2145,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty KeySet with an empty KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method behaves correctly on an empty KeySet with another empty KeySet.
@@ -2245,7 +2182,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty KeySet with a non-KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method behaves correctly on an empty KeySet with a non-KeySet.
@@ -2271,7 +2207,6 @@ public class TestEmptyAbstractCollections {
      *   <li>The KeySet should still be empty after the retainAll operation.</li>
      *   <li>The size of the KeySet should still be 0 after the retainAll operation.</li>
      * </ul>
-     * <p>
      */
     @Test 
     public void testRetainAllOnEmptyKeySetWithANonKeySet() {
@@ -2284,7 +2219,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty KeySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method correctly handles null input.
@@ -2314,7 +2248,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies the size of an empty KeySet.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the size method behaves correctly on an empty KeySet.
@@ -2344,7 +2277,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty KeySet returns an empty array.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method behaves correctly on an empty KeySet.
@@ -2378,7 +2310,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty KeySet is free from the MapAdapter.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method does not reflect changes made to the MapAdapter after the call.
@@ -2412,7 +2343,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty KeySet with a same size array does not modify the array.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method does not modify the provided array when it has the same size as the KeySet.
@@ -2447,7 +2377,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty KeySet with a greater array does not modify the array.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method does not modify the provided array when it has a greater size than the KeySet.
@@ -2485,7 +2414,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty KeySet with a null array throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method throws a NullPointerException when the provided array is null.
@@ -2515,7 +2443,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toString method on an empty KeySet returns "[]".
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toString method behaves correctly on an empty KeySet.
@@ -2545,7 +2472,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the empty KeySet is backed by the MapAdapter.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the empty KeySet is backed by the MapAdapter.
@@ -2596,7 +2522,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly on an empty KeySet.
@@ -2629,7 +2554,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty KeySet with a non-empty KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly on an empty KeySet with a non-empty KeySet.
@@ -2663,7 +2587,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty KeySet with a non-HSet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly on an empty KeySet with a non-HSet.
@@ -2696,7 +2619,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty KeySet with null behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly on an empty KeySet with null.
@@ -2727,7 +2649,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty KeySet with itself behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly on an empty KeySet with itself.
@@ -2758,7 +2679,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty KeySet is symmetric.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method is symmetric when comparing two empty KeySets.
@@ -2790,7 +2710,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the contains method on an empty KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the contains method behaves correctly on an empty KeySet.
@@ -2821,7 +2740,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the contains method on an empty KeySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the contains method correctly handles null input.
@@ -2851,7 +2769,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the remove method on an empty KeySet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the remove method behaves correctly on an empty KeySet.
@@ -2888,7 +2805,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the remove method on an empty KeySet with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the remove method correctly handles null input.
@@ -2918,7 +2834,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the iterator on an empty KeySet is not null.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the iterator method behaves correctly on an empty KeySet.
@@ -2954,7 +2869,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the add method on an empty ValueCollection throws an UnsupportedOperationException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the add method behaves correctly on an empty ValueCollection.
@@ -2984,11 +2898,10 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the addAll method on an empty ValueCollection throws an UnsupportedOperationException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the addAll method behaves correctly on an empty ValueCollection.
-     *   The rationale is to confirm that the ValueCollection does not allow addition of new elements.
+     *   The rationale is to confirm that the ValueCollection does not allow addition of multiple new elements.
      * <p>
      * Test Description:
      * <ul>
@@ -3014,7 +2927,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the clear method on an empty ValueCollection does not throw an exception.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the clear method behaves correctly on an empty ValueCollection.
@@ -3051,7 +2963,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the contains method on an empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the contains method behaves correctly on an empty ValueCollection.
@@ -3093,7 +3004,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the containsAll method on an empty ValueCollection with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the containsAll method correctly handles null input.
@@ -3123,7 +3033,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the containsAll method on an empty ValueCollection with another ValueCollection containing null values throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the containsAll method correctly handles another ValueCollection with null values.
@@ -3157,7 +3066,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the hashCode method on an empty ValueCollection returns 0.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the hashCode method behaves correctly on an empty ValueCollection.
@@ -3187,7 +3095,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the isEmpty method on an empty ValueCollection returns true.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the isEmpty method behaves correctly on an empty ValueCollection.
@@ -3217,7 +3124,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method behaves correctly on an empty ValueCollection.
@@ -3255,7 +3161,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty ValueCollection with an empty non-ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method behaves correctly on an empty ValueCollection with an empty non-ValueCollection.
@@ -3292,7 +3197,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty ValueCollection with a non-empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method behaves correctly on an empty ValueCollection with a non-empty ValueCollection.
@@ -3332,7 +3236,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty ValueCollection with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method correctly handles null input.
@@ -3362,7 +3265,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the removeAll method on an empty ValueCollection with a ValueCollection containing null values behaves as expected.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the removeAll method correctly handles a ValueCollection with null values.
@@ -3399,7 +3301,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method behaves correctly on an empty ValueCollection.
@@ -3438,7 +3339,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty ValueCollection with an empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method behaves correctly on an empty ValueCollection with another empty ValueCollection.
@@ -3476,7 +3376,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty ValueCollection with a non-empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method behaves correctly on an empty ValueCollection with a non-empty ValueCollection.
@@ -3516,7 +3415,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the retainAll method on an empty ValueCollection with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the retainAll method correctly handles null input.
@@ -3546,7 +3444,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the size method on an empty ValueCollection returns 0.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the size method behaves correctly on an empty ValueCollection.
@@ -3576,7 +3473,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty ValueCollection returns an empty array.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method behaves correctly on an empty ValueCollection.
@@ -3609,7 +3505,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty ValueCollection is free from changes in the MapAdapter after the call.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method does not reflect changes made to the MapAdapter after the call.
@@ -3643,7 +3538,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty ValueCollection with a same size array returns an empty array.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method behaves correctly when provided with an array of the same size as the ValueCollection.
@@ -3678,7 +3572,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty ValueCollection with a greater size array returns an array of the original size.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method behaves correctly when provided with an array larger than the ValueCollection.
@@ -3716,7 +3609,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toArray method on an empty ValueCollection with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toArray method correctly handles null input.
@@ -3746,7 +3638,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the toString method on an empty ValueCollection returns "[]".
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the toString method behaves correctly on an empty ValueCollection.
@@ -3776,7 +3667,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the ValueCollection on an empty MapAdapter is backed by the MapAdapter.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the ValueCollection is correctly backed by the MapAdapter.
@@ -3823,7 +3713,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly on an empty ValueCollection.
@@ -3854,7 +3743,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty ValueCollection with a non-empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly on an empty ValueCollection with a non-empty ValueCollection.
@@ -3887,7 +3775,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty ValueCollection with an HSet behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly on an empty ValueCollection with an HSet.
@@ -3919,7 +3806,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty ValueCollection with null behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method correctly handles null input.
@@ -3949,7 +3835,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty ValueCollection with itself behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves correctly on an empty ValueCollection with itself.
@@ -3979,7 +3864,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the equals method on an empty ValueCollection is symmetric.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the equals method behaves symmetrically on an empty ValueCollection.
@@ -4011,7 +3895,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the contains method on an empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the contains method behaves correctly on an empty ValueCollection.
@@ -4041,7 +3924,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the contains method on an empty ValueCollection with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the contains method correctly handles null input.
@@ -4071,7 +3953,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the remove method on an empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the remove method behaves correctly on an empty ValueCollection.
@@ -4108,7 +3989,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the remove method on an empty ValueCollection with null throws a NullPointerException.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the remove method correctly handles null input.
@@ -4138,7 +4018,6 @@ public class TestEmptyAbstractCollections {
     /**
      * Summary:
      *   Verifies that the iterator on an empty ValueCollection behaves correctly.
-     * Category: Method tests
      * <p>
      * Test Case Design:
      *   This test ensures that the iterator behaves correctly on an empty ValueCollection.

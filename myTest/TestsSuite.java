@@ -17,13 +17,18 @@ import junit.framework.Test;
     TestPopulatedAbstractCollectionIterators.class,
     TestEmptyAbstractCollectionIterators.class
 })
+
 /**
- * {@code TestsSuite} class to group all test classes for execution.
+ * This {@code TestsSuite} class is used to group all test classes of {@link myTest} for execution.
  * It uses JUnit's Suite runner to run all specified test classes together.
  */
 public class TestsSuite {
     
+    /**
+     * Default constructor for {@code TestsSuite}.
+     * It is intentionally left empty as the class is used only for grouping tests.
+     */
     public TestsSuite() {
-        // intentionally left blank
+        //intentionally left blank
     }
 }

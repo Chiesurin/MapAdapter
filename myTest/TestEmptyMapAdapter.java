@@ -10,26 +10,36 @@ import org.junit.After;
 
 
 /**
- * This test suite verifies the correct behavior of the {@code MapAdapter} implementation when it is empty.
- * It covers all methods and constructors of {@code MapAdapter} that are relevant to the empty state, including default and parameterized constructors, copy constructor, and all public methods such as {@code clear}, {@code containsKey}, {@code containsValue}, {@code entrySet}, {@code equals}, {@code get}, {@code hashCode}, {@code isEmpty}, {@code keySet}, {@code put}, {@code putAll}, {@code remove}, {@code size}, {@code values}, and {@code toString}.
+ * This test suite verifies the correct behavior of the {@link myAdapter.MapAdapter} implementation when it is empty.
+ * It covers all methods and constructors of {@link myAdapter.MapAdapter}
+ * that are relevant to the empty state, including {@link myAdapter.MapAdapter#MapAdapter()}, {@link myAdapter.MapAdapter#MapAdapter(HMap)} and {@link myAdapter.MapAdapter#MapAdapter(int)} constructors,
+ * and all public methods such as
+ * {@link myAdapter.MapAdapter#clear()}, {@link myAdapter.MapAdapter#containsKey(Object)},
+ * {@link myAdapter.MapAdapter#containsValue(Object)}, {@link myAdapter.MapAdapter#entrySet()},
+ * {@link myAdapter.MapAdapter#equals(Object)}, {@link myAdapter.MapAdapter#get(Object)},
+ * {@link myAdapter.MapAdapter#hashCode()}, {@link myAdapter.MapAdapter#isEmpty()},
+ * {@link myAdapter.MapAdapter#keySet()}, {@link myAdapter.MapAdapter#put(Object, Object)}, 
+ * {@link myAdapter.MapAdapter#putAll(HMap)}, {@link myAdapter.MapAdapter#remove(Object)}, 
+ * {@link myAdapter.MapAdapter#size()}, {@link myAdapter.MapAdapter#values()}, and 
+ * {@link myAdapter.MapAdapter#toString()}.
  * <p>
  * <b>Test Suite Categories:</b>
  * <ul>
  *   <li>Constructor tests</li>
  *   <li>Empty state behavior</li>
- *   <li>Exception handling (NullPointerException, ClassCastException, IllegalArgumentException)</li>
+ *   <li>Exception handling ({@code NullPointerException}, {@code ClassCastException}, {@code IllegalArgumentException})</li>
  *   <li>Equality and hash code</li>
  *   <li>Collection views (entrySet, keySet, values)</li>
  * </ul>
  *
  * <b>Test Case Design:</b>
  * <p>
- * The design of this test suite is motivated by the need to ensure that a newly created {@code MapAdapter} behaves as specified when empty, and that all operations either return the correct result or throw the correct exception. The tests are organized to:
+ * The design of this test suite is motivated by the need to ensure that a newly created {@link myAdapter.MapAdapter} behaves as specified when empty, and that all operations either return the correct result or throw the correct exception. The tests are organized to:
  * <ul>
  *   <li>Verify that all constructors create an empty map and handle invalid arguments appropriately.</li>
- *   <li>Check that all query methods ({@code isEmpty}, {@code size}, {@code containsKey}, {@code containsValue}, {@code get}, etc.) return results consistent with an empty map.</li>
- *   <li>Ensure that mutator methods ({@code put}, {@code putAll}, {@code remove}, {@code clear}) behave correctly and throw exceptions for invalid input (e.g., null keys/values).</li>
- *   <li>Validate the contract of {@code equals} and {@code hashCode} for empty maps.</li>
+ *   <li>Check that all query methods ({@link myAdapter.MapAdapter#isEmpty()}, {@link myAdapter.MapAdapter#size()}, {@link myAdapter.MapAdapter#containsKey(Object)}, {@link myAdapter.MapAdapter#containsValue(Object)}, {@link myAdapter.MapAdapter#get(Object)}, etc.) return results consistent with an empty map.</li>
+ *   <li>Ensure that mutator methods ({@link myAdapter.MapAdapter#put(Object, Object)}, {@link myAdapter.MapAdapter#putAll(Map)}, {@link myAdapter.MapAdapter#remove(Object)}, {@link myAdapter.MapAdapter#clear()}) behave correctly and throw exceptions for invalid input (e.g., null keys/values).</li>
+ *   <li>Validate the contract of {@link myAdapter.MapAdapter#equals(Object)} and {@link myAdapter.MapAdapter#hashCode()} for empty maps.</li>
  *   <li>Check that the string representation of an empty map is as expected.</li>
  * </ul>
  * The rationale is to provide comprehensive coverage of the empty state and to ensure robustness against edge cases and invalid input.
@@ -67,7 +77,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the default constructor of MapAdapter creates a non-null, empty map.
-     *   Category: Constructor tests
      *<p>
      * Test Case Design:
      *   This test ensures that the default constructor initializes the map to a valid, empty state.
@@ -102,7 +111,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the MapAdapter constructor with zero initial capacity creates a non-null, empty map.
-     *   Category: Constructor tests
      *<p>
      * Test Case Design:
      *   This test ensures that the constructor initializes the map to a valid, empty state.
@@ -140,7 +148,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the MapAdapter constructor with non zero initial capacity creates a non-null, empty map.
-     *   Category: Constructor tests
      *<p>
      * Test Case Design:
      *   This test ensures that the constructor initializes the map to a valid, empty state.
@@ -180,7 +187,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the MapAdapter constructor with negative initial capacity throws an IllegalArgumentException.
-     *   Category: Constructor tests
      *<p>
      * Test Case Design:
      *   This test ensures that the constructor handles invalid arguments appropriately.
@@ -211,7 +217,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the MapAdapter copy constructor creates a non-null, empty map.
-     *   Category: Constructor tests
      *<p>
      * Test Case Design:
      *   This test ensures that the copy constructor initializes the map to a valid, empty state.
@@ -249,7 +254,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the MapAdapter copy constructor throws an IllegalArgumentException when passed a null HMap.
-     *   Category: Constructor tests
      *<p>
      * Test Case Design:
      *   This test ensures that the copy constructor handles null arguments appropriately.
@@ -280,7 +284,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the clear method on an empty MapAdapter does not change its state.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that calling clear on an empty map does not alter its state.
@@ -315,7 +318,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the containsKey method on an empty MapAdapter returns false for any key.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that containsKey behaves correctly when the map is empty.
@@ -345,7 +347,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the containsKey method on an empty MapAdapter throws a NullPointerException when passed a null key.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that containsKey handles null keys appropriately.
@@ -375,7 +376,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the containsValue method on an empty MapAdapter returns false for any value.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that containsValue behaves correctly when the map is empty.
@@ -405,7 +405,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the containsValue method on an empty MapAdapter throws a NullPointerException when passed a null value.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that containsValue handles null values appropriately.
@@ -435,7 +434,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the entrySet method on an empty MapAdapter returns a non-null, empty EntrySet.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that entrySet behaves correctly when the map is empty.
@@ -468,7 +466,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the equals method on an empty MapAdapter returns true when compared to another empty MapAdapter.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that equals behaves correctly for empty maps.
@@ -500,7 +497,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the equals method on an empty MapAdapter returns false when compared to a non-empty MapAdapter.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that equals behaves correctly for empty and non-empty maps.
@@ -533,7 +529,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the equals method on an empty MapAdapter returns false when compared to null.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that equals behaves correctly when compared to null.
@@ -563,7 +558,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the equals method on an empty MapAdapter returns true when compared to itself.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that equals behaves correctly when an empty map is compared to itself.
@@ -593,7 +587,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the equals method on an empty MapAdapter returns false when compared to its entry set.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that equals behaves correctly when an empty map is compared to its entry set.
@@ -623,7 +616,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the equals method on an empty MapAdapter is symmetric.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that equals is symmetric for empty maps.
@@ -655,7 +647,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the equals method on an empty MapAdapter is transitive.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that equals is transitive for empty maps.
@@ -689,7 +680,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the equals method on an empty MapAdapter returns false when compared to a non-HMap object.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that equals behaves correctly when an empty map is compared to a non-HMap object.
@@ -719,7 +709,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the get method on an empty MapAdapter returns null for any key.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that get behaves correctly when called on an empty map.
@@ -749,7 +738,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the get method on an empty MapAdapter throws a NullPointerException when passed a null key.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that get handles null keys appropriately.
@@ -779,7 +767,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the hashCode method on an empty MapAdapter returns 0.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that hashCode behaves correctly for empty maps.
@@ -809,7 +796,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the isEmpty method on an empty MapAdapter returns true.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that isEmpty behaves correctly for empty maps.
@@ -839,7 +825,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the keySet method on an empty MapAdapter returns an empty set.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that keySet behaves correctly for empty maps.
@@ -872,7 +857,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on an empty MapAdapter inserts a new entry.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that put behaves correctly when called on an empty map.
@@ -914,7 +898,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on an empty MapAdapter with this map as a key or value inserts a new entry.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that put behaves correctly when the key or value is the map itself.
@@ -950,7 +933,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on an empty MapAdapter with this map as a value inserts a new entry.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that put behaves correctly when the value is the map itself.
@@ -988,7 +970,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on an empty MapAdapter with this map as both a key and value inserts a new entry.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that put behaves correctly when both the key and value are the map itself.
@@ -1025,7 +1006,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on an empty MapAdapter throws a NullPointerException when passed a null key and a value.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that put handles null keys appropriately.
@@ -1055,7 +1035,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on an empty MapAdapter throws a NullPointerException when passed a key and a null value.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that put handles null values appropriately.
@@ -1085,7 +1064,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the put method on an empty MapAdapter throws a NullPointerException when passed a null key and a null value.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that put handles null keys and values appropriately.
@@ -1115,7 +1093,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on an empty MapAdapter with another empty MapAdapter does not change its state.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that putAll behaves correctly when called with another empty map.
@@ -1155,7 +1132,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on an empty MapAdapter with itself does not change its state.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that putAll behaves correctly when called with itself.
@@ -1190,7 +1166,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on an empty MapAdapter with another non-empty MapAdapter updates the state correctly.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that putAll behaves correctly when called with another non-empty MapAdapter.
@@ -1240,7 +1215,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on an empty MapAdapter with a null map throws a NullPointerException.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that putAll handles null maps appropriately.
@@ -1270,7 +1244,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on an empty MapAdapter with another map containing null keys throws a NullPointerException.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that putAll handles null keys appropriately when called with another map containing null keys.
@@ -1303,7 +1276,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on an empty MapAdapter with another map containing null values throws a NullPointerException.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that putAll handles null values appropriately when called with another map containing null values.
@@ -1336,7 +1308,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the putAll method on an empty MapAdapter with another map containing null keys and values throws a NullPointerException.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that putAll handles null keys and values appropriately when called with another map containing null keys and values.
@@ -1369,7 +1340,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the remove method on an empty MapAdapter returns null for any key.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that remove behaves correctly when called on an empty map.
@@ -1405,7 +1375,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the remove method on an empty MapAdapter throws a NullPointerException when passed a null key.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that remove handles null keys appropriately.
@@ -1435,7 +1404,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the size method on an empty MapAdapter returns 0.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that size behaves correctly for empty maps.
@@ -1465,7 +1433,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the values method on an empty MapAdapter returns a non-null, empty collection.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that values behaves correctly for empty maps.
@@ -1498,7 +1465,6 @@ public class TestEmptyMapAdapter {
     /**
      * Summary:
      *   Verifies that the toString method on an empty MapAdapter returns an empty string representation.
-     *   Category: Method tests
      *<p>
      * Test Case Design:
      *   This test ensures that toString behaves correctly for empty maps.

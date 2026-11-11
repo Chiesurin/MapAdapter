@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myTest;
 
@@ -6,7 +6,6 @@ import myAdapter.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.Map;
 import myExceptions.UnsupportedOperationException;
 import org.junit.After;
 
@@ -97,7 +96,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      *<p>
      * Pre-Condition:
-     *   MapAdapter is instantiated using the default constructor and is kept empty.
+     *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
      *<p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
@@ -220,7 +219,7 @@ public class TestPopulatedAbstractCollections {
         HMap anotherEmptyMap = new MapAdapter();
         assertTrue("EntrySet should contain all entries from an empty EntrySet", this.map.entrySet().containsAll(anotherEmptyMap.entrySet()));
         HMap anotherPopulatedMap = new MapAdapter();
-        anotherPopulatedMap.put("testKeyMAP_INITIAL_CAPACITY", "testValueMAP_INITIAL_CAPACITY");
+        anotherPopulatedMap.put("testKey" + MAP_INITIAL_CAPACITY, "testValue" + MAP_INITIAL_CAPACITY);
         assertFalse("EntrySet should not contain all entries from a completely different map", this.map.entrySet().containsAll(anotherPopulatedMap.entrySet()));
     }
 
@@ -1552,7 +1551,7 @@ public class TestPopulatedAbstractCollections {
      * </ul>
      */
     @Test
-    public void testEqualsOnPopulatedEntryWithItself() {
+    public void testEqualsOnPopulatedEntrySetWithItself() {
         assertTrue("A populated EntrySet should be equal to itself", this.map.entrySet().equals(this.map.entrySet()));
     }
 
@@ -2132,7 +2131,7 @@ public class TestPopulatedAbstractCollections {
         HMap anotherEmptyMap = new MapAdapter();
         assertTrue("KeySet should contain all keys from an empty KeySet", this.map.keySet().containsAll(anotherEmptyMap.keySet()));
         HMap anotherPopulatedMap = new MapAdapter();
-        anotherPopulatedMap.put("testKeyMAP_INITIAL_CAPACITY", "testValueMAP_INITIAL_CAPACITY");
+        anotherPopulatedMap.put("testKey" + MAP_INITIAL_CAPACITY, "testValue" + MAP_INITIAL_CAPACITY);
         assertFalse("KeySet should not contain all keys from a completely different map", this.map.keySet().containsAll(anotherPopulatedMap.keySet()));
     }
 
@@ -3387,6 +3386,52 @@ public class TestPopulatedAbstractCollections {
 
     /**
      * Summary:
+     * Verifies that equals on a KeySet returns false rather than propagating ClassCastException
+     * when key comparison throws ClassCastException.
+     * <p>
+     * Test Case Design:
+     *   Ensures compliance with {@link HSet#equals(Object)} when elements are mutually incomparable.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Create one map containing a custom key whose {@code equals} casts arguments and throws {@code ClassCastException}.</li>
+     *   <li>Create a second map of the same size containing a {@code String} key with matching hash code.</li>
+     *   <li>Verify {@code keySet.equals(otherKeySet)} returns {@code false} instead of throwing.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   Two single-entry maps exist with incompatible key types sharing the same hash code.
+     * <p>
+     * Post-Condition:
+     *   Both maps remain unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>{@code strictMap.keySet().equals(otherMap.keySet())} returns {@code false}.</li>
+     * </ul>
+     */
+    @Test
+    public void testEqualsOnPopulatedKeySetHandlesClassCastException() {
+        final String otherKey = "incompatibleKey";
+        Object strictKey = new Object() {
+            public int hashCode() {
+                return otherKey.hashCode();
+            }
+
+            public boolean equals(Object o) {
+                throw new ClassCastException("Incompatible key comparison");
+            }
+        };
+        HMap strictMap = new MapAdapter();
+        strictMap.put(strictKey, "v");
+        HMap otherMap = new MapAdapter();
+        otherMap.put(otherKey, "v");
+        assertFalse("KeySet.equals should return false when key comparison throws ClassCastException",
+                    strictMap.keySet().equals(otherMap.keySet()));
+    }
+
+    /**
+     * Summary:
      * Verifies that the contains method on a populated KeySet returns true for keys that are present in the KeySet, false otherwise.
      * <p>
      * Test Case Design:
@@ -3698,7 +3743,7 @@ public class TestPopulatedAbstractCollections {
         HMap anotherEmptyMap = new MapAdapter();
         assertTrue("ValueCollection should contain all values from an empty ValueCollection", this.map.values().containsAll(anotherEmptyMap.values()));
         HMap anotherPopulatedMap = new MapAdapter();
-        anotherPopulatedMap.put("testKeyMAP_INITIAL_CAPACITY", "testValueMAP_INITIAL_CAPACITY");
+        anotherPopulatedMap.put("testKey" + MAP_INITIAL_CAPACITY, "testValue" + MAP_INITIAL_CAPACITY);
         assertFalse("ValueCollection should not contain all values from a completely different map", this.map.values().containsAll(anotherPopulatedMap.values()));
     }
 
@@ -3731,7 +3776,7 @@ public class TestPopulatedAbstractCollections {
     @Test
     public void testContainsAllOnPopulatedValueCollectionWithRepeatedValues() {
         HMap anotherMap = new MapAdapter(this.map);
-        anotherMap.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
+        anotherMap.put("testKey" + MAP_INITIAL_CAPACITY, "testValue50");
         assertTrue("ValueCollection should contain all values of the other ValueCollection even if they are repeated",
                    this.map.values().containsAll(anotherMap.values()));
     }
@@ -3949,7 +3994,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testRemoveAllOnPopulatedValueCollectionWithRepeatedValues() {
-        this.map.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
+        this.map.put("testKey" + MAP_INITIAL_CAPACITY, "testValue50");
         HMap anotherMap = new MapAdapter();
         anotherMap.put("testKey0", "testValue50");
         this.map.values().removeAll(anotherMap.values());
@@ -4078,7 +4123,7 @@ public class TestPopulatedAbstractCollections {
     @Test
     public void testRemoveAllOnPopulatedValueCollectionWithAnotherValueCollectionContainingNullValues() {
         HMap anotherMap = new DummyTestMap();
-        anotherMap.put(null, "testValue");
+        anotherMap.put("testKey", null);
         assertFalse("ValueCollection should not change when removing from another ValueCollection with null values",
                     this.map.values().removeAll(anotherMap.values()));
         assertEquals("MapAdapter should remain unchanged after attempting to remove from another ValueCollection with null values", MAP_INITIAL_CAPACITY, this.map.size());
@@ -4264,7 +4309,7 @@ public class TestPopulatedAbstractCollections {
         assertTrue("ValueCollection should change when retaining from another ValueCollection with null values",
                    this.map.values().retainAll(anotherMap.values()));
         assertTrue("MapAdapter should be empty after retaining from another ValueCollection with null values", this.map.isEmpty());
-        assertTrue("KeySet should be empty after retaining from another KeySet with null keys", this.map.keySet().isEmpty());
+        assertTrue("ValueCollection should be empty after retaining from another ValueCollection with null values", this.map.values().isEmpty());
     }
 
     /**
@@ -4297,7 +4342,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testRetainAllOnPopulatedValueCollectionWithRepeatedValues() {
-        this.map.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
+        this.map.put("testKey" + MAP_INITIAL_CAPACITY, "testValue50");
         HMap anotherMap = new MapAdapter();
         anotherMap.put("testKey0", "testValue50");
         assertTrue("ValueCollection should retain all repeated values", this.map.values().retainAll(anotherMap.values()));
@@ -4360,7 +4405,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testSizeOnPopulatedValueCollectionWithRepeatedValues() {
-        this.map.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
+        this.map.put("testKey" + MAP_INITIAL_CAPACITY, "testValue50");
         assertEquals("Size of ValueCollection should count repeated values", MAP_INITIAL_CAPACITY + 1, this.map.values().size());
     }
 
@@ -4578,9 +4623,9 @@ public class TestPopulatedAbstractCollections {
 
         HMap anotherMap = new MapAdapter();
         anotherMap.put("anotherDifferentKey", "anotherDifferentValue");
-        array[50] = anotherMap.keySet().iterator().next();
+        array[50] = anotherMap.values().iterator().next();
 
-        assertFalse("MapAdapter should not contain the new key", this.map.keySet().contains(array[50]));
+        assertFalse("MapAdapter should not contain the new value", this.map.values().contains(array[50]));
     }
 
     /**
@@ -4832,7 +4877,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testToStringOnPopulatedValueCollectionWithRepeatedValues() {
-        this.map.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
+        this.map.put("testKey" + MAP_INITIAL_CAPACITY, "testValue50");
         String expected = "[";
         HIterator iterator = this.map.values().iterator();
         while (iterator.hasNext()) {
@@ -4881,9 +4926,9 @@ public class TestPopulatedAbstractCollections {
         assertEquals("ValueCollection should reflect the changes in the MapAdapter", this.map.size(), values.size());
         Object valueToBeRemoved = values.iterator().next();
         values.remove(valueToBeRemoved);
-        assertEquals("MapAdapter should have decreased size by 1 after removing a key from KeySet",
+        assertEquals("MapAdapter should have decreased size by 1 after removing a value from ValueCollection",
                      MAP_INITIAL_CAPACITY, this.map.size());
-        assertFalse("MapAdapter should not contain the removed key", this.map.containsKey(valueToBeRemoved));
+        assertFalse("MapAdapter should not contain the removed value", this.map.containsValue(valueToBeRemoved));
         values.clear();
         assertTrue("ValueCollection should be empty after clearing", values.isEmpty());
         assertTrue("MapAdapter should be empty after clearing ValueCollection", this.map.isEmpty());
@@ -4987,7 +5032,7 @@ public class TestPopulatedAbstractCollections {
     @Test
     public void testEqualsOnPopulatedValueCollectionWithAValueCollectionWithRepeatedValues() {
         HMap anotherMap = new MapAdapter(this.map);
-        anotherMap.put("testKeyMAP_INITIAL_CAPACITY", "testValue50");
+        anotherMap.put("testKey" + MAP_INITIAL_CAPACITY, "testValue50");
         assertFalse("ValueCollection should not be equal to a ValueCollection with repeated values", this.map.values().equals(anotherMap.values()));
     }
     
@@ -5020,6 +5065,85 @@ public class TestPopulatedAbstractCollections {
     @Test
     public void testEqualsOnPopulatedValueCollectionWithAnHSet() {
         assertFalse("ValueCollection should not be equal to an HSet object", this.map.values().equals(this.map.keySet()));
+    }
+
+    /**
+     * Summary:
+     * Verifies that equals on a populated ValueCollection returns false when compared with
+     * another ValueCollection of the same size containing different values.
+     * <p>
+     * Test Case Design:
+     *   Tests the frequency-sensitive equality comparison when sizes match but elements differ.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Create another MapAdapter with MAP_INITIAL_CAPACITY different values.</li>
+     *   <li>Verify {@code this.map.values().equals(anotherMap.values())} returns {@code false}.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   Two maps of size MAP_INITIAL_CAPACITY exist with distinct values.
+     * <p>
+     * Post-Condition:
+     *   The MapAdapter remains unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>{@code equals} returns {@code false}.</li>
+     * </ul>
+     */
+    @Test
+    public void testEqualsOnPopulatedValueCollectionWithSameSizeAndDifferentValues() {
+        HMap anotherMap = new MapAdapter();
+        for (int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            anotherMap.put("testKey" + i, "differentValue" + i);
+        }
+        assertFalse("ValueCollection should not be equal to another of the same size with different values",
+                    this.map.values().equals(anotherMap.values()));
+    }
+
+    /**
+     * Summary:
+     * Verifies that equals on a ValueCollection returns false rather than propagating ClassCastException
+     * when value comparison throws ClassCastException.
+     * <p>
+     * Test Case Design:
+     *   Ensures {@code ValueCollection.equals} respects the {@code Object.equals} contract when elements are incomparable.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Create one map containing a value whose {@code equals} throws {@code ClassCastException}.</li>
+     *   <li>Compare its values view with a same-sized map holding a {@code String} value.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   Two single-entry maps exist with incompatible value types.
+     * <p>
+     * Post-Condition:
+     *   Both maps remain unchanged.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>{@code strictMap.values().equals(otherMap.values())} returns {@code false}.</li>
+     * </ul>
+     */
+    @Test
+    public void testEqualsOnPopulatedValueCollectionHandlesClassCastException() {
+        Object strictValue = new Object() {
+            public int hashCode() {
+                return System.identityHashCode(this);
+            }
+
+            public boolean equals(Object o) {
+                throw new ClassCastException("Incompatible value comparison");
+            }
+        };
+        HMap strictMap = new MapAdapter();
+        strictMap.put("k", strictValue);
+        HMap otherMap = new MapAdapter();
+        otherMap.put("k", "incompatibleValue");
+        assertFalse("ValueCollection.equals should return false when value comparison throws ClassCastException",
+                    strictMap.values().equals(otherMap.values()));
     }
     
     /**
@@ -5102,7 +5226,7 @@ public class TestPopulatedAbstractCollections {
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
-     * </p>
+     * <p>
      * Expected Results:
      * <ul>
      *   <li>The equals method should return true when comparing the two ValueCollections in both directions.</li>
@@ -5136,7 +5260,7 @@ public class TestPopulatedAbstractCollections {
      * <p>
      * Post-Condition:
      *   The MapAdapter remains unchanged.
-     * </p>
+     * <p>
      * Expected Results:
      * <ul>
      *   <li>The equals method should return true when comparing the three ValueCollections.</li>
@@ -5158,7 +5282,7 @@ public class TestPopulatedAbstractCollections {
      * Test Case Design:
      *  This test ensures that the contains method correctly identifies whether a value is present in the ValueCollection or not.
      *  The rationale is to confirm that the contains method returns true for values present in the ValueCollection and false for values not present.
-     * </p>
+     * <p>
      * Test Description:
      * <ul>
      *   <li>Get a value from the populated MapAdapter.</li>
@@ -5303,7 +5427,7 @@ public class TestPopulatedAbstractCollections {
      */
     @Test
     public void testRemoveOnPopulatedValueCollectionWithRepeatedValues() {
-        this.map.put("tesKeyMAP_INITIAL_CAPACITY", "testValue50");
+        this.map.put("testKey" + MAP_INITIAL_CAPACITY, "testValue50");
         HCollection values = this.map.values();
         Object valueToBeRemoved = "testValue50";
         assertTrue("ValueCollection should contain the value to be removed", values.contains(valueToBeRemoved));

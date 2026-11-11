@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myTest;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import myExceptions.UnsupportedOperationException;
  * <ul>
  *   <li>Empty collection behavior ({@link myAdapter.MapAdapter.EntrySet}, {@link myAdapter.MapAdapter.KeySet}, {@link myAdapter.MapAdapter.ValueCollection})</li>
  *   <li>Mutation and query operations</li>
- *   <li>Exception handling ({@link myExceptions.UnsupportedOperationException}, {@code NullPointerException}, {@code myExceptions.ClassCastException})</li>
+ *   <li>Exception handling ({@link myExceptions.UnsupportedOperationException}, {@code NullPointerException}, {@code ClassCastException})</li>
  *   <li>Equality and hash code</li>
  *   <li>Array conversion and string representation</li>
  *   <li>Backing behavior (collections reflect map changes)</li>
@@ -715,7 +715,7 @@ public class TestEmptyAbstractCollections {
      * </ul>
      */
     @Test
-    public void testRetainAllOnEmptyEntryWithAnEmptyEntrySet() {
+    public void testRetainAllOnEmptyEntrySetWithAnEmptyEntrySet() {
         HMap anotherMap = new MapAdapter();
         assertFalse("RetainAll on an empty EntrySet with an empty EntrySet should return false", this.map.entrySet().retainAll(anotherMap.entrySet()));
         assertTrue("EntrySet should still be empty after retainAll with an empty EntrySet", this.map.entrySet().isEmpty());
@@ -3886,7 +3886,7 @@ public class TestEmptyAbstractCollections {
      * </ul>
      */
     @Test
-    public void testEqualsOnEmptyValueCollectiontIsSymmetric() {
+    public void testEqualsOnEmptyValueCollectionIsSymmetric() {
         HCollection anotherEmptyValueCollection = new MapAdapter().values();
         assertTrue("Equals should be symmetric", anotherEmptyValueCollection.equals(this.map.values()) && this.map.values().equals(anotherEmptyValueCollection));
     }

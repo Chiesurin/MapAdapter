@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myTest;
 
@@ -586,7 +586,7 @@ public class TestPopulatedMapAdapter {
     @Test
     public void testEqualsOnPopulatedMapAdapterWithEntrySet() {
         HSet entrySet = this.map.entrySet();
-        assertFalse("MapAdapter should not be equal to its entry set", this.map.equals(this.map.entrySet()));
+        assertFalse("MapAdapter should not be equal to its entry set", this.map.equals(entrySet));
     }
 
     /**
@@ -1266,7 +1266,7 @@ public class TestPopulatedMapAdapter {
     public void testPutOnPopulatedMapAdapterWithThisMapAsAKeyAndThisMapAsAValueInsertsANewEntry () {
         this.map.put(this.map, this.map);
         assertFalse("MapAdapter should not be empty after put with this map as a key and value", this.map.isEmpty());
-        assertEquals("MapAdapter after put with this map as a key and value should have size 1", MAP_INITIAL_CAPACITY + 1, this.map.size());
+        assertEquals("MapAdapter after put with this map as a key and value should have size " + (MAP_INITIAL_CAPACITY + 1), MAP_INITIAL_CAPACITY + 1, this.map.size());
         //cannot invoke this.map.get(this.map), it would cause a stack overflow
         //and cannot check if this.map.equals(this.map.get(this.map)) for the same reason
     }
@@ -1478,7 +1478,7 @@ public class TestPopulatedMapAdapter {
             anotherMap.put("differentKey" + i, "testValue" + i);
         }
         this.map.putAll(anotherMap);
-        assertEquals("Size of the map should remain the same after putting a map with different keys but same values", MAP_INITIAL_CAPACITY + anotherMap.size(), this.map.size());
+        assertEquals("Size of the map should increase by the size of the other map with different keys and same values", MAP_INITIAL_CAPACITY + anotherMap.size(), this.map.size());
         for(int i = 0; i < MAP_INITIAL_CAPACITY; i++){
             assertTrue("MapAdapter should contain the different keys", this.map.containsKey("differentKey" + i));
             assertTrue("MapAdapter should still contain all the original keys", this.map.containsKey("testKey" + i));
@@ -1705,6 +1705,41 @@ public class TestPopulatedMapAdapter {
 
     /**
      * Summary:
+     *   Verifies that calling putAll on a populated MapAdapter with itself leaves the map unchanged.
+     *<p>
+     * Test Case Design:
+     *   This test ensures that self-assignment via {@code putAll(this.map)} does not corrupt iteration
+     *   or alter existing mappings in a populated {@code MapAdapter}.
+     *   The rationale is to confirm safe self-operation of {@code putAll}.
+     *<p>
+     * Test Description:
+     * <ul>
+     *   <li>Call {@code this.map.putAll(this.map)} on the populated map.</li>
+     *   <li>Verify the size and all original key-value mappings remain intact.</li>
+     * </ul>
+     *<p>
+     * Pre-Condition:
+     *   MapAdapter is instantiated and populated with MAP_INITIAL_CAPACITY entries.
+     *<p>
+     * Post-Condition:
+     *   The MapAdapter instance remains unchanged.
+     *<p>
+     * Expected Results:
+     * <ul>
+     *   <li>The size remains MAP_INITIAL_CAPACITY and all entries are preserved.</li>
+     * </ul>
+     */
+    @Test
+    public void testPutAllWithThisMapAdapterOnPopulatedMap() {
+        this.map.putAll(this.map);
+        assertEquals("Size should remain unchanged after putAll with itself", MAP_INITIAL_CAPACITY, this.map.size());
+        for (int i = 0; i < MAP_INITIAL_CAPACITY; i++) {
+            assertEquals("Value should remain unchanged for testKey" + i, "testValue" + i, this.map.get("testKey" + i));
+        }
+    }
+
+    /**
+     * Summary:
      *   Verifies that the remove method on a populated MapAdapter behaves correctly.
      *<p>
      * Test Case Design:
@@ -1893,7 +1928,7 @@ public class TestPopulatedMapAdapter {
 
     /**
      * Summary:
-     *   Verifies that the keySet method on a populated MapAdapter returns a non-null and non-empty ValueCollection.
+     *   Verifies that the values method on a populated MapAdapter returns a non-null and non-empty ValueCollection.
      *<p>
      * Test Case Design:
      *   This test ensures that the values method correctly returns a set of values from the MapAdapter.

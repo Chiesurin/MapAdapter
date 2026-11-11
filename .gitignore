@@ -1,1 +1,11 @@
+# Generated documentation and build artifacts
 doc/
+bin/
+out/
+*.class
+
+# IDE and OS files
+.vscode/
+.idea/
+*.iml
+.DS_Store

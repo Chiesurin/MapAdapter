@@ -1,11 +1,9 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
-import junit.framework.Test;
 
 /**
  * This class is used to group all test classes of {@link myTest} for execution.

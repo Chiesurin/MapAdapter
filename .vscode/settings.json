@@ -1,9 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "JUnit/junit-*.jar",
-        "JUnit/hamcrest-*.jar"
-    ],
-    "java.project.sourcePaths": [
-        "."
-    ]
-}

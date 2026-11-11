@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myAdapter;
 
@@ -123,7 +123,7 @@ public interface HMap {
 		 *
 		 * @param value new value to be stored in this entry.
 		 * @return the old value corresponding to the entry.
-		 * @throws UnsupportedOperationException if the {@code put} operation is not
+		 * @throws myExceptions.UnsupportedOperationException if the {@code put} operation is not
 		 * supported by the backing map.
 		 * @throws ClassCastException if the class of the specified value prevents it
 		 * from being stored in this map.
@@ -138,7 +138,7 @@ public interface HMap {
     /**
 	 * Removes all mappings from this map (optional operation).
 	 *
-	 * @throws UnsupportedOperationException if clear is not supported by this
+	 * @throws myExceptions.UnsupportedOperationException if clear is not supported by this
 	 * map.
 	 */
     public void clear();
@@ -146,7 +146,7 @@ public interface HMap {
     /**
 	 * Returns {@code true} if this map contains a mapping for the specified
 	 * key. More formally, returns {@code true} if and only if
-	 * this map contains at a mapping for a key {@code k} such that
+	 * this map contains a mapping for a key {@code k} such that
 	 * {@code (key==null ? k==null : key.equals(k))}. (There can be
 	 * at most one such mapping.)
 	 *
@@ -228,7 +228,7 @@ public interface HMap {
 	 * @throws ClassCastException if the key is of an inappropriate type for
 	 * this map (optional).
 	 * @throws NullPointerException key is {@code null} and this map does not
-	 *		  not permit {@code null} keys (optional).
+	 *		  permit {@code null} keys (optional).
 	 * @see #containsKey(Object)
 	 */
     public Object get(Object key);
@@ -263,7 +263,7 @@ public interface HMap {
 	 * in progress, the results of the iteration are undefined. The set
 	 * supports element removal, which removes the corresponding mapping from
 	 * the map, via the {@code HIterator.remove}, {@code HSet.remove},
-	 * {@code removeAll} {@code retainAll}, and {@code clear} operations.
+	 * {@code removeAll}, {@code retainAll}, and {@code clear} operations.
 	 * It does not support the add or {@code addAll} operations.
 	 *
 	 * @return a set view of the keys contained in this map.
@@ -285,7 +285,7 @@ public interface HMap {
 	 *		   also indicate that the map previously associated {@code null}
 	 *		   with the specified key, if the implementation supports
 	 *		   {@code null} values.
-	 * @throws UnsupportedOperationException if the {@code put} operation is
+	 * @throws myExceptions.UnsupportedOperationException if the {@code put} operation is
 	 *			  not supported by this map.
 	 * @throws ClassCastException if the class of the specified key or value
 	 * prevents it from being stored in this map.
@@ -306,7 +306,7 @@ public interface HMap {
 	 * specified map is modified while the operation is in progress.
 	 *
 	 * @param t Mappings to be stored in this map.
-	 * @throws UnsupportedOperationException if the {@code putAll} method is
+	 * @throws myExceptions.UnsupportedOperationException if the {@code putAll} method is
 	 * not supported by this map.
 	 * @throws ClassCastException if the class of a key or value in the
 	 * specified map prevents it from being stored in this map.
@@ -339,7 +339,7 @@ public interface HMap {
 	 * this map (optional).
 	 * @throws NullPointerException if the key is {@code null} and this map
 	 * does not permit {@code null} keys (optional).
-	 * @throws UnsupportedOperationException if the {@code remove} method is
+	 * @throws myExceptions.UnsupportedOperationException if the {@code remove} method is
 	 * not supported by this map.
 	 */
     public Object remove(Object key);

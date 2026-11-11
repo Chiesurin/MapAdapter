@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myAdapter;
 
@@ -37,9 +37,9 @@ public interface HIterator {
      * the underlying collection is modified during the iteration in
      * any way other than by calling this method.
      *
-     * @throws UnsupportedOperationException if the {@code remove} operation
+     * @throws myExceptions.UnsupportedOperationException if the {@code remove} operation
      *		  is not supported by this HIterator.
-     * @throws IllegalStateException if the {@code next} method has not
+     * @throws myExceptions.IllegalStateException if the {@code next} method has not
      *		  yet been called, or the {@code remove} method has already
      *		  been called after the last call to the {@code next}
      *		  method.

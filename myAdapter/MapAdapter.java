@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myAdapter;
 
@@ -21,7 +21,7 @@ import myExceptions.UnsupportedOperationException;
  * are supported, and view-based backing behavior is preserved where applicable.
  * <p>
  * <strong>Important:</strong> this implementation of {@link HMap} can contain itself as a key, 
- * though it is highly reccomended against it. Generally it is not reccomended to use
+ * though it is highly recommended against it. Generally it is not recommended to use
  * a mutable object as a key. Even using this map as a value can cause errors.
  * Certain operations, such as {@code get(this.map)} or {@code hashCode()}, will
  * cause a {@code StackOverflowError} due to infinite recursive calls.
@@ -37,7 +37,7 @@ import myExceptions.UnsupportedOperationException;
  * Unit tests are provided separately in the {@link myTest} package.
  *
  * @see HMap
- * @see java.util.Hashtable (CLDC 1.1)
+ * @see java.util.Hashtable
  */
 public class MapAdapter implements HMap {
 
@@ -89,15 +89,20 @@ public class MapAdapter implements HMap {
 		 * @return {@code true} if the specified object is equal to this entry
 		 */
 		public boolean equals(Object o) {
-			if (!(o instanceof HEntry) || o == null) {
+			if (!(o instanceof HEntry)) {
 				return false;
 			}
 
 			HEntry e = (HEntry)o;
-			
-			return  this.getKey().equals(e.getKey())  
+			Object k2 = e.getKey();
+			Object v2 = e.getValue();
+			if (k2 == null || v2 == null) {
+				return false;
+			}
+
+			return this.getKey().equals(k2)
 					&&
-					this.getValue().equals(e.getValue());
+					this.getValue().equals(v2);
 		}
 
 		/**
@@ -162,7 +167,9 @@ public class MapAdapter implements HMap {
 		 * @return a string representation of this entry
 		 */
 		public String toString() {
-			return this.key.toString().concat("=").concat(value.toString());
+			String k = (this.key == MapAdapter.this ? "(this Map)" : this.key.toString());
+			String v = (this.value == MapAdapter.this ? "(this Map)" : this.value.toString());
+			return k.concat("=").concat(v);
 		}
 	}
 
@@ -591,7 +598,8 @@ public class MapAdapter implements HMap {
 			sb.append("[");
 			HIterator iterator = this.iterator();
 			while(iterator.hasNext()){
-				sb.append(iterator.next().toString());
+				Object next = iterator.next();
+				sb.append(next == this ? "(this Collection)" : String.valueOf(next));
 				if(iterator.hasNext())
 					sb.append(", ");
 			}
@@ -639,7 +647,7 @@ public class MapAdapter implements HMap {
 		 * @return {@code true} if the specified object is equal to this set
 		 */
 		public boolean equals(Object o) {
-			if (!(o instanceof HSet) || o == null) {
+			if (!(o instanceof HSet)) {
 				return false;
 			}
 
@@ -650,7 +658,9 @@ public class MapAdapter implements HMap {
 
 			try{
 				return s.size() == this.size() && this.containsAll(s);
-			} catch (ClassCastException | NullPointerException e) {
+			} catch (ClassCastException e) {
+				return false;
+			} catch (NullPointerException e) {
 				return false;
 			}
 		}
@@ -692,7 +702,7 @@ public class MapAdapter implements HMap {
 		 * @param o the object to be removed from the set, if present
 		 * @return {@code true} if the entry was present and removed
 		 * @throws NullPointerException if the argument is {@code null} or if the
-		 * 								the entry contains a {@code null} key or value
+		 * 								entry contains a {@code null} key or value
 		 * @throws ClassCastException if the argument is not of type {@code HEntry}
 		 */
 		public boolean remove(Object o) {
@@ -762,7 +772,7 @@ public class MapAdapter implements HMap {
 		 * @return {@code true} if the specified object is equal to this set
 		 */
 		public boolean equals(Object o) {
-			if (!(o instanceof HSet) || o == null) {
+			if (!(o instanceof HSet)) {
 				return false;
 			}
 
@@ -773,7 +783,9 @@ public class MapAdapter implements HMap {
 
 			try{
 				return s.size() == this.size() && this.containsAll(s);
-			}catch (NullPointerException e) {
+			} catch (ClassCastException e) {
+				return false;
+			} catch (NullPointerException e) {
 				return false;
 			}
 		}
@@ -831,11 +843,11 @@ public class MapAdapter implements HMap {
 	 * The collection does not allow {@code null} elements, and the {@link #contains(Object)} and
 	 * {@link #remove(Object)} methods operate on values, not on keys or entries.
 	 * <p>
-	 * This class supports the optional {@link #remove(Object)} operation on its iterator,
+	 * This class supports the optional {@link HIterator#remove()} operation on its iterator,
 	 * which removes the entry associated with the last returned value.
 	 * <p>
 	 * Because multiple keys can map to the same value, removing a value using
-	 * {@link remove(Object)} will only remove the first matching entry.
+	 * {@link #remove(Object)} will only remove the first matching entry.
 	 *
 	 * @see MapAdapter#values()
 	 * @see AbstractCollection
@@ -862,7 +874,7 @@ public class MapAdapter implements HMap {
 		 * @return {@code true} if the specified object is equal to this collection
 		 */
 		public boolean equals(Object o) {
-			if (o instanceof HSet || !(o instanceof HCollection) || o == null) {
+			if (o instanceof HSet || !(o instanceof HCollection)) {
 				return false;
 			}
 
@@ -870,19 +882,24 @@ public class MapAdapter implements HMap {
 				return true;
 
 			HCollection c = (HCollection)o;
-			HIterator iterator = c.iterator();
 			if(this.size() != c.size()){
 				return false;
-			}else{
+			}
+
+			try {
 				HCollection buffer = new MapAdapter(MapAdapter.this).values();
+				HIterator iterator = c.iterator();
 				while(iterator.hasNext()){
 					Object next = iterator.next();
-					if(next == null)
+					if(next == null || !buffer.remove(next))
 						return false;
-					buffer.remove(next);
 				}
 				return buffer.isEmpty();
-			}	
+			} catch (ClassCastException e) {
+				return false;
+			} catch (NullPointerException e) {
+				return false;
+			}
 		}
 
 		/**
@@ -1001,8 +1018,8 @@ public class MapAdapter implements HMap {
 	/**
 	 * Constructs a new {@code MapAdapter} containing the same mappings as the specified map.
 	 * <p>
-	 * The entries are copied by calling {@code putAll(HMap)}, and the initial capacity is set
-	 * to match the size of the provided map, to optimize internal allocation.
+	 * The initial capacity is set to match the size of the provided map to optimize
+	 * internal allocation, and all entries from {@code t} are copied into this map.
 	 * <p>
 	 * This constructor ensures that all entries are valid for use with the underlying
 	 * {@code Hashtable}, which does not allow {@code null} keys or values.
@@ -1012,7 +1029,28 @@ public class MapAdapter implements HMap {
 	 */
 	public MapAdapter(HMap t){
 		this(t.size());
-		this.putAll(t);
+		copyEntries(t);
+	}
+
+	/**
+	 * Copies all entries from {@code t} into the backing {@code Hashtable},
+	 * validating that neither keys nor values are {@code null}.
+	 *
+	 * @param t the source map whose entries are copied
+	 * @throws NullPointerException if any key or value in {@code t} is {@code null}
+	 */
+	private void copyEntries(HMap t) {
+		HSet set = t.entrySet();
+		HIterator iterator = set.iterator();
+		while (iterator.hasNext()) {
+			HEntry entry = (HEntry) iterator.next();
+			Object key = entry.getKey();
+			Object value = entry.getValue();
+			if (key == null || value == null) {
+				throw new NullPointerException("neither keys nor values can be null.");
+			}
+			this.hashTable.put(key, value);
+		}
 	}
 
 	/*-------------------------------------------------------------------------------------------*/
@@ -1086,7 +1124,7 @@ public class MapAdapter implements HMap {
 	 * @return {@code true} if the maps are equal
 	 */
 	public boolean equals(Object o) {
-		if (!(o instanceof HMap) ||  o == null)
+		if (!(o instanceof HMap))
 			return false;
 
 		if(o == this)
@@ -1188,6 +1226,9 @@ public class MapAdapter implements HMap {
 		if(t == null)
 			throw new NullPointerException("target map must not be null.");
 
+		if(t == this)
+			return;
+
 		HSet set = t.entrySet();
 		HIterator iterator = set.iterator();
 		while(iterator.hasNext()){
@@ -1239,7 +1280,21 @@ public class MapAdapter implements HMap {
 	 * @return a string representation of the map
 	 */
 	public String toString() {
-		return hashTable.toString();
+		StringBuffer sb = new StringBuffer();
+		sb.append("{");
+		HIterator iterator = this.entrySet().iterator();
+		while(iterator.hasNext()){
+			HEntry entry = (HEntry) iterator.next();
+			Object key = entry.getKey();
+			Object value = entry.getValue();
+			sb.append(key == this ? "(this Map)" : String.valueOf(key));
+			sb.append("=");
+			sb.append(value == this ? "(this Map)" : String.valueOf(value));
+			if(iterator.hasNext())
+				sb.append(", ");
+		}
+		sb.append("}");
+		return sb.toString();
 	}
 
 	/*-------------------------------------------------------------------------------------------*/

@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myTest;
 
@@ -320,8 +320,8 @@ public class TestPopulatedAbstractCollectionIterators {
         HIterator iterator = map.keySet().iterator();
         assertTrue("Iterator on a populated collection should have elements", iterator.hasNext());
         while (iterator.hasNext()) {
-            iterator.next();
-            assertTrue("KeySet should contain the key returned by next", map.keySet().contains(iterator.next()));
+            Object key = iterator.next();
+            assertTrue("KeySet should contain the key returned by next", map.keySet().contains(key));
         }
         assertFalse("Iterator on a populated collection should not have more elements after iterating through all", iterator.hasNext());
     }
@@ -594,6 +594,7 @@ public class TestPopulatedAbstractCollectionIterators {
      * <p>
      * Pre-Condition:
      *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
      * Post-Condition:
      *   The MapAdapter contains a new entry with a repeated value.
      * <p>
@@ -604,6 +605,7 @@ public class TestPopulatedAbstractCollectionIterators {
      *   <li>Check that after iterating through all elements, hasNext returns false.</li>
      * </ul>
      */
+    @Test
     public void testNextOnPopulatedValueCollectionIteratorWithRepeatedValues() {
         this.map.put("testKey100", "testValue0");
         HIterator iterator = map.values().iterator();
@@ -701,6 +703,7 @@ public class TestPopulatedAbstractCollectionIterators {
      * <p>
      * Pre-Condition:
      *   MapAdapter is instantiated using the default constructor and is populated with MAP_INITIAL_CAPACITY entries that are formed as "testKey" + i, "testValue" + i where 0 &lt;= i &lt; MAP_INITIAL_CAPACITY.
+     * <p>
      * Post-Condition:
      *   The MapAdapter contains a new entry with a repeated value.
      * <p>
@@ -748,7 +751,7 @@ public class TestPopulatedAbstractCollectionIterators {
      * </ul>
      */
     @Test(expected = IllegalStateException.class)
-    public void testRemoveOnPopulatedValueCollectionIteratornBeforeNext() {
+    public void testRemoveOnPopulatedValueCollectionIteratorBeforeNext() {
         HIterator iterator = map.values().iterator();
         iterator.remove();
     }

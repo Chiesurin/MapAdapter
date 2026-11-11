@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myTest;
 
@@ -241,6 +241,62 @@ public class TestEntry {
         anotherMap.put(null, null);
         assertFalse("An Entry should not be equal to another Entry with both key and value as null",
                     entry.equals((HMap.HEntry) anotherMap.entrySet().iterator().next()));
+    }
+
+    /**
+     * Summary:
+     *   Verifies that equals on an Entry safely returns false when compared to a foreign HEntry
+     *   whose key or value is null, even if the entry's own key/value equals(Object) throws NPE on null.
+     * <p>
+     * Test Case Design:
+     *   Uses a custom key whose {@code equals(Object)} throws {@code NullPointerException} on {@code null}
+     *   to verify that {@code Entry.equals} checks for null fields on the other entry before delegating.
+     * <p>
+     * Test Description:
+     * <ul>
+     *   <li>Insert a strict-non-null key into a MapAdapter and retrieve its HEntry.</li>
+     *   <li>Compare it with a DummyTestMap entry having a null key and with one having a null value.</li>
+     * </ul>
+     * <p>
+     * Pre-Condition:
+     *   A MapAdapter entry holds a key whose {@code equals(null)} throws {@code NullPointerException}.
+     * <p>
+     * Post-Condition:
+     *   Both comparisons return false without throwing NullPointerException.
+     * <p>
+     * Expected Results:
+     * <ul>
+     *   <li>{@code strictEntry.equals(nullKeyEntry)} returns false.</li>
+     *   <li>{@code strictEntry.equals(nullValueEntry)} returns false.</li>
+     * </ul>
+     */
+    @Test
+    public void testEqualsOnEntryWithNullKeyOrValueDoesNotCallEqualsWithNull() {
+        Object strictObj = new Object() {
+            public int hashCode() {
+                return System.identityHashCode(this);
+            }
+
+            public boolean equals(Object o) {
+                if (o == null) {
+                    throw new NullPointerException("equals(null) not allowed");
+                }
+                return this == o;
+            }
+        };
+        HMap strictMap = new MapAdapter();
+        strictMap.put(strictObj, strictObj);
+        HMap.HEntry strictEntry = (HMap.HEntry) strictMap.entrySet().iterator().next();
+
+        HMap nullKeyMap = new DummyTestMap();
+        nullKeyMap.put(null, strictObj);
+        assertFalse("Entry should return false for foreign entry with null key",
+                    strictEntry.equals(nullKeyMap.entrySet().iterator().next()));
+
+        HMap nullValMap = new DummyTestMap();
+        nullValMap.put(strictObj, null);
+        assertFalse("Entry should return false for foreign entry with null value",
+                    strictEntry.equals(nullValMap.entrySet().iterator().next()));
     }
 
     /**

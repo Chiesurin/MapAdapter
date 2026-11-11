@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myAdapter;
 
@@ -75,7 +75,7 @@ public interface HCollection {
      * @param o element whose presence in this collection is to be ensured.
      * @return {@code true} if this collection changed as a result of the
      * call
-     * @throws UnsupportedOperationException {@code add} is not supported by
+     * @throws myExceptions.UnsupportedOperationException {@code add} is not supported by
      * this collection.
      * @throws ClassCastException class of the specified element prevents it
      * from being added to this collection.
@@ -97,7 +97,7 @@ public interface HCollection {
      * @param c elements to be inserted into this collection.
      * @return {@code true} if this collection changed as a result of the
      * call
-     * @throws UnsupportedOperationException if this collection does not
+     * @throws myExceptions.UnsupportedOperationException if this collection does not
      * support the {@code addAll} method.
      * @throws ClassCastException if the class of an element of the specified
      * collection prevents it from being added to this collection.
@@ -116,7 +116,7 @@ public interface HCollection {
      * This collection will be empty after this method returns unless it
      * throws an exception.
      *
-     * @throws UnsupportedOperationException if the {@code clear} method is
+     * @throws myExceptions.UnsupportedOperationException if the {@code clear} method is
      * not supported by this collection.
      */
     public void clear();
@@ -196,7 +196,7 @@ public interface HCollection {
      * contract for the {@code Object.hashCode} method, programmers should
      * take note that any class that overrides the {@code Object.equals}
      * method must also override the {@code Object.hashCode} method in order
-     * to satisfy the general contract for the {@code Object.hashCode}method.
+     * to satisfy the general contract for the {@code Object.hashCode} method.
      * In particular, {@code c1.equals(c2)} implies that
      * {@code c1.hashCode()==c2.hashCode()}.
      *
@@ -239,7 +239,7 @@ public interface HCollection {
      * is incompatible with this collection (optional).
      * @throws NullPointerException if the specified element is null and this
      * collection does not support null elements (optional).
-     * @throws UnsupportedOperationException remove is not supported by this
+     * @throws myExceptions.UnsupportedOperationException remove is not supported by this
      * collection.
      */
     public boolean remove(Object o);
@@ -253,7 +253,7 @@ public interface HCollection {
      * @param c elements to be removed from this collection.
      * @return {@code true} if this collection changed as a result of the
      * call
-     * @throws UnsupportedOperationException if the {@code removeAll} method
+     * @throws myExceptions.UnsupportedOperationException if the {@code removeAll} method
      * is not supported by this collection.
      * @throws ClassCastException if the types of one or more elements
      * in this collection are incompatible with the specified
@@ -277,7 +277,7 @@ public interface HCollection {
      * @param c elements to be retained in this collection.
      * @return {@code true} if this collection changed as a result of the
      * call
-     * @throws UnsupportedOperationException if the {@code retainAll} method
+     * @throws myExceptions.UnsupportedOperationException if the {@code retainAll} method
      * is not supported by this Collection.
      * @throws ClassCastException if the types of one or more elements
      * in this collection are incompatible with the specified

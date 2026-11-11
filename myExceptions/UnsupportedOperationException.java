@@ -1,14 +1,16 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myExceptions;
 
 /**
- * Thrown to indicate that the requested operation is not supported, extends RuntimeException.
- *
- * Being compliant with the J2SE 1.4.2 constructors
- * using {@code cause} are not required
+ * Thrown to indicate that the requested operation is not supported.
+ * Extends {@code RuntimeException}.
+ * <p>
+ * Under CLDC 1.1 / J2SE 1.4.2 constraints, constructors accepting a
+ * {@code Throwable cause} parameter are not included.
  */
 public class UnsupportedOperationException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructs an UnsupportedOperationException with no detail message.

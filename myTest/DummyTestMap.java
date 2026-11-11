@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myTest;
 
@@ -329,6 +329,13 @@ public class DummyTestMap implements HMap {
         public boolean equals(Object o) {
             throw new UnsupportedOperationException("equals not supported for DummyKeySet");
         }
+
+        /**
+         * @throws UnsupportedOperationException operation not supported for DummyKeySet
+         */
+        public int hashCode() {
+            throw new UnsupportedOperationException("hashCode not supported for DummyKeySet");
+        }
     }
 
     /**
@@ -448,6 +455,13 @@ public class DummyTestMap implements HMap {
         public boolean equals(Object o) {
             throw new UnsupportedOperationException("equals not supported for DummyValueCollection");
         }
+
+        /**
+         * @throws UnsupportedOperationException operation not supported for DummyValueCollection
+         */
+        public int hashCode() {
+            throw new UnsupportedOperationException("hashCode not supported for DummyValueCollection");
+        }
     }
 
     /**
@@ -482,7 +496,7 @@ public class DummyTestMap implements HMap {
          * @return the next DummyEntry in the iteration
          */
         public Object next() {
-            HashMap.Entry next = (HashMap.Entry) this.iterator.next();
+            Map.Entry<Object, Object> next = this.iterator.next();
 
             return new DummyEntry(next.getKey(), next.getValue());
         }

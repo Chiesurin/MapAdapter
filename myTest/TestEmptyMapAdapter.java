@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myTest;
 
@@ -6,8 +6,6 @@ import myAdapter.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.util.Map;
 
 import org.junit.After;
 
@@ -214,7 +212,7 @@ public class TestEmptyMapAdapter {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testMapAdapterConstructorWithNegativeInitialCapacity() {
-        HMap mapWithNegativeInitialCapacity = new MapAdapter(-1);
+        new MapAdapter(-1);
     }
 
     /**
@@ -256,7 +254,7 @@ public class TestEmptyMapAdapter {
 
     /**
      * Summary:
-     *   Verifies that the MapAdapter copy constructor throws an IllegalArgumentException when passed a null HMap.
+     *   Verifies that the MapAdapter copy constructor throws a NullPointerException when passed a null HMap.
      *<p>
      * Test Case Design:
      *   This test ensures that the copy constructor handles null arguments appropriately.
@@ -275,13 +273,13 @@ public class TestEmptyMapAdapter {
      * <p>
      * Expected Results:
      * <ul>
-     *   <li>An NullPointerException is thrown.</li>
+     *   <li>A NullPointerException is thrown.</li>
      *   <li>The copy MapAdapter is not created.</li>
      * </ul>
      */
     @Test(expected = NullPointerException.class)
     public void testMapAdapterCopyConstructorWithNullHMap() {
-        HMap copy = new MapAdapter(null);
+        new MapAdapter(null);
     }
 
     /**

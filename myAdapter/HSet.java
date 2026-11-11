@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myAdapter;
 
@@ -56,13 +56,13 @@ public interface HSet extends HCollection {
      * elements; sets may refuse to add any particular element, including
      * {@code null}, and throwing an exception, as described in the
      * specification for {@code HCollection.add}. Individual set
-     * implementations should document clearly any restrictions on the the
+     * implementations should document clearly any restrictions on the
      * elements that they may contain.
      *
      * @param o element to be added to this set.
      * @return {@code true} if this set did not already contain the specified
      * element.
-     * @throws UnsupportedOperationException if the {@code add} method is not
+     * @throws myExceptions.UnsupportedOperationException if the {@code add} method is not
      * supported by this set.
      * @throws ClassCastException if the class of the specified element
      * prevents it from being added to this set.
@@ -83,7 +83,7 @@ public interface HSet extends HCollection {
      *
      * @param c collection whose elements are to be added to this set.
      * @return {@code true} if this set changed as a result of the call.
-     * @throws UnsupportedOperationException if the {@code addAll} method is
+     * @throws myExceptions.UnsupportedOperationException if the {@code addAll} method is
      * not supported by this set.
      * @throws ClassCastException if the class of some element of the
      * specified collection prevents it from being added to this
@@ -103,7 +103,7 @@ public interface HSet extends HCollection {
      * This set will be empty after this call returns (unless it throws an
      * exception).
      *
-     * @throws UnsupportedOperationException if the {@code clear} method
+     * @throws myExceptions.UnsupportedOperationException if the {@code clear} method
      * is not supported by this set.
      */
     public void clear();
@@ -155,7 +155,7 @@ public interface HSet extends HCollection {
      * @param o Object to be compared for equality with this set.
      * @return {@code true} if the specified Object is equal to this set.
      * @see Object#hashCode()
-     * @see HMap // Assuming HMap exists and is relevant
+     * @see HMap
      */
     public boolean equals(Object o);
 
@@ -206,7 +206,7 @@ public interface HSet extends HCollection {
      * is incompatible with this set (optional).
      * @throws NullPointerException if the specified element is null and this
      * set does not support null elements (optional).
-     * @throws UnsupportedOperationException if the {@code remove} method is
+     * @throws myExceptions.UnsupportedOperationException if the {@code remove} method is
      * not supported by this set.
      */
     public boolean remove(Object o);
@@ -221,7 +221,7 @@ public interface HSet extends HCollection {
      * @param c collection that defines which elements will be removed from
      * this set.
      * @return {@code true} if this set changed as a result of the call.
-     * @throws UnsupportedOperationException if the {@code removeAll}
+     * @throws myExceptions.UnsupportedOperationException if the {@code removeAll}
      * method is not supported by this Collection.
      * @throws ClassCastException if the types of one or more elements in this
      * set are incompatible with the specified collection
@@ -246,7 +246,7 @@ public interface HSet extends HCollection {
      * @param c collection that defines which elements this set will retain.
      * @return {@code true} if this collection changed as a result of the
      * call.
-     * @throws UnsupportedOperationException if the {@code retainAll} method
+     * @throws myExceptions.UnsupportedOperationException if the {@code retainAll} method
      * is not supported by this Collection.
      * @throws ClassCastException if the types of one or more elements in this
      * set are incompatible with the specified collection

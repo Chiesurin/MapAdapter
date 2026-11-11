@@ -1,4 +1,4 @@
-//Diego Chiesurin - 2111553
+// Diego Chiesurin
 
 package myExceptions;
 
@@ -7,11 +7,12 @@ package myExceptions;
  * inappropriate time. In other words, the Java environment or
  * Java application is not in an appropriate state for the requested
  * operation.
- * 
- * Being compliant with the J2SE 1.4.2 constructors
- * using {@code cause} are not required
+ * <p>
+ * Under CLDC 1.1 / J2SE 1.4.2 constraints, constructors accepting a
+ * {@code Throwable cause} parameter are not included.
  */
 public class IllegalStateException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructs an IllegalStateException with no detail message.
